@@ -1,0 +1,130 @@
+CREATE TABLE utilisateur(
+   idUtilisateur INT,
+   nom NVARCHAR(50),
+   prenom NVARCHAR(50),
+   email NVARCHAR(50),
+   password NVARCHAR(255),
+   validationProfil BOOL,
+   PRIMARY KEY(idUtilisateur)
+);
+
+CREATE TABLE role(
+   idRole INT,
+   libRole NVARCHAR(50),
+   PRIMARY KEY(idRole)
+);
+
+CREATE TABLE note(
+   idNote INT,
+   libNote INT,
+   PRIMARY KEY(idNote)
+);
+
+CREATE TABLE statutRecette(
+   idStatut INT,
+   libStatut NVARCHAR(50),
+   PRIMARY KEY(idStatut)
+);
+
+CREATE TABLE continent(
+   idContinent INT,
+   libContinent NVARCHAR(50),
+   PRIMARY KEY(idContinent)
+);
+
+CREATE TABLE pays(
+   idPays INT,
+   libPays NVARCHAR(50),
+   idContinent INT NOT NULL,
+   PRIMARY KEY(idPays),
+   FOREIGN KEY(idContinent) REFERENCES continent(idContinent)
+);
+
+CREATE TABLE ingredient(
+   idIngredient INT,
+   libIngredient NVARCHAR(50),
+   PRIMARY KEY(idIngredient)
+);
+
+CREATE TABLE uniteMesure(
+   idUniteMesure INT,
+   libUniteMesure NVARCHAR(50),
+   PRIMARY KEY(idUniteMesure)
+);
+
+CREATE TABLE recette(
+   idRecette INT,
+   dateRecette DATETIME,
+   titre NVARCHAR(100),
+   nbPersonnes INT,
+   histoire NVARCHAR(800),
+   image NVARCHAR(50),
+   idContinent INT NOT NULL,
+   idStatut INT NOT NULL,
+   idUtilisateur INT NOT NULL,
+   PRIMARY KEY(idRecette),
+   FOREIGN KEY(idContinent) REFERENCES continent(idContinent),
+   FOREIGN KEY(idStatut) REFERENCES statutRecette(idStatut),
+   FOREIGN KEY(idUtilisateur) REFERENCES utilisateur(idUtilisateur)
+);
+
+CREATE TABLE etape(
+   idEtape INT,
+   libEtape NVARCHAR(1000),
+   idRecette INT NOT NULL,
+   PRIMARY KEY(idEtape),
+   FOREIGN KEY(idRecette) REFERENCES recette(idRecette)
+);
+
+CREATE TABLE posseder(
+   idUtilisateur INT,
+   idRole INT,
+   PRIMARY KEY(idUtilisateur, idRole),
+   FOREIGN KEY(idUtilisateur) REFERENCES utilisateur(idUtilisateur),
+   FOREIGN KEY(idRole) REFERENCES role(idRole)
+);
+
+CREATE TABLE effectuer(
+   idUtilisateur INT,
+   idNote INT,
+   PRIMARY KEY(idUtilisateur, idNote),
+   FOREIGN KEY(idUtilisateur) REFERENCES utilisateur(idUtilisateur),
+   FOREIGN KEY(idNote) REFERENCES note(idNote)
+);
+
+CREATE TABLE concerner(
+   idNote INT,
+   idRecette INT,
+   PRIMARY KEY(idNote, idRecette),
+   FOREIGN KEY(idNote) REFERENCES note(idNote),
+   FOREIGN KEY(idRecette) REFERENCES recette(idRecette)
+);
+
+CREATE TABLE commenter(
+   idUtilisateur INT,
+   idRecette INT,
+   commentaire NVARCHAR(255),
+   dateCommentaire DATETIME,
+   PRIMARY KEY(idUtilisateur, idRecette),
+   FOREIGN KEY(idUtilisateur) REFERENCES utilisateur(idUtilisateur),
+   FOREIGN KEY(idRecette) REFERENCES recette(idRecette)
+);
+
+CREATE TABLE memoriser(
+   idUtilisateur INT,
+   idRecette INT,
+   PRIMARY KEY(idUtilisateur, idRecette),
+   FOREIGN KEY(idUtilisateur) REFERENCES utilisateur(idUtilisateur),
+   FOREIGN KEY(idRecette) REFERENCES recette(idRecette)
+);
+
+CREATE TABLE contenir(
+   idRecette INT,
+   idIngredient INT,
+   idUniteMesure INT,
+   quantite DECIMAL(5,2),
+   PRIMARY KEY(idRecette, idIngredient, idUniteMesure),
+   FOREIGN KEY(idRecette) REFERENCES recette(idRecette),
+   FOREIGN KEY(idIngredient) REFERENCES ingredient(idIngredient),
+   FOREIGN KEY(idUniteMesure) REFERENCES uniteMesure(idUniteMesure)
+);
