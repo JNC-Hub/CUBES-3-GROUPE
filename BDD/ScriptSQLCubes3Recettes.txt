@@ -30,17 +30,6 @@ CREATE TABLE role(
 
 
 #------------------------------------------------------------
-# Table: note
-#------------------------------------------------------------
-
-CREATE TABLE note(
-        idNote  Int  Auto_increment  NOT NULL ,
-        libNote Int NOT NULL
-	,CONSTRAINT note_PK PRIMARY KEY (idNote)
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
 # Table: statutRecette
 #------------------------------------------------------------
 
@@ -179,30 +168,17 @@ CREATE TABLE memoriser(
 
 
 #------------------------------------------------------------
-# Table: effectuer
+# Table: noter
 #------------------------------------------------------------
 
-CREATE TABLE effectuer(
-        idNote        Int NOT NULL ,
-        idUtilisateur Int NOT NULL
-	,CONSTRAINT effectuer_PK PRIMARY KEY (idNote,idUtilisateur)
+CREATE TABLE noter(
+        idRecette     Int NOT NULL ,
+        idUtilisateur Int NOT NULL ,
+        note          Int NOT NULL
+	,CONSTRAINT noter_PK PRIMARY KEY (idRecette,idUtilisateur)
 
-	,CONSTRAINT effectuer_note_FK FOREIGN KEY (idNote) REFERENCES note(idNote)
-	,CONSTRAINT effectuer_utilisateur0_FK FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: concerner
-#------------------------------------------------------------
-
-CREATE TABLE concerner(
-        idNote    Int NOT NULL ,
-        idRecette Int NOT NULL
-	,CONSTRAINT concerner_PK PRIMARY KEY (idNote,idRecette)
-
-	,CONSTRAINT concerner_note_FK FOREIGN KEY (idNote) REFERENCES note(idNote)
-	,CONSTRAINT concerner_recette0_FK FOREIGN KEY (idRecette) REFERENCES recette(idRecette)
+	,CONSTRAINT noter_recette_FK FOREIGN KEY (idRecette) REFERENCES recette(idRecette)
+	,CONSTRAINT noter_utilisateur0_FK FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
 )ENGINE=InnoDB;
 
 
