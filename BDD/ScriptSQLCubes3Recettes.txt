@@ -11,7 +11,7 @@ CREATE TABLE utilisateur(
         idUtilisateur    Int  Auto_increment  NOT NULL ,
         nom              Varchar (50) NOT NULL ,
         prenom           Varchar (50) NOT NULL ,
-        mail             Varchar (255) NOT NULL ,
+        mail             Varchar (50) NOT NULL ,
         password         Varchar (255) NOT NULL ,
         validationProfil Bool NOT NULL
 	,CONSTRAINT utilisateur_PK PRIMARY KEY (idUtilisateur)
@@ -24,7 +24,7 @@ CREATE TABLE utilisateur(
 
 CREATE TABLE role(
         idRole  Int  Auto_increment  NOT NULL ,
-        libRole Varchar (255) NOT NULL
+        libRole Varchar (50) NOT NULL
 	,CONSTRAINT role_PK PRIMARY KEY (idRole)
 )ENGINE=InnoDB;
 
