@@ -2,13 +2,13 @@
 
 use App\Db\DbConnection;
 
-require_once "../model/Connection.php";
+require_once "../Model/Connection.php";
 
 class statutRecette
 {
     #region//Propriétés
     public int $idContinent;
-    public string $libContinent;
+    public DateTime $libContinent;
     #endregion
 
     #region//Constructeur

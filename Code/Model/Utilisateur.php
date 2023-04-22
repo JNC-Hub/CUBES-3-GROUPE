@@ -2,7 +2,7 @@
 
 use App\Db\DbConnection;
 
-require_once "../model/Connection.php";
+require_once "../Model/Connection.php";
 
 class Utilisateur
 {
@@ -42,7 +42,7 @@ class Utilisateur
     public function getUtilisateur($id): Utilisateur
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.idUtilisateur, U.nom, U.prenom, U.mail, U.password, GROUP_CONCAT(R.libRole SEPARATOR ',') AS roles
+        $stmt = $db->prepare("SELECT U.idUtilisateur, U.nom, U.prenom, U.mail, U.password, GROUP_CONCAT(R.idRole SEPARATOR ',') AS idRoles
                                 FROM utilisateur U 
                                 LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
                                 LEFT JOIN role R ON R.idRole = P.idRole 
@@ -79,26 +79,32 @@ class Utilisateur
     public function updateUtilisateur($id)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("UPDATE utilisateur
-                                SET nom=:nom, prenom=:prenom, mail=:mail, password=:password
-                                WHERE idUtilisateur = :id");
+        if (!empty($this->password)) {
+            $stmt = $db->prepare("UPDATE utilisateur
+                                    SET nom=:nom, prenom=:prenom, mail=:mail, password=:password
+                                    WHERE idUtilisateur = :id");
+            $stmt->bindParam(":password", $this->password);
+        } else {
+            $stmt = $db->prepare("UPDATE utilisateur
+                                    SET nom=:nom, prenom=:prenom, mail=:mail
+                                    WHERE idUtilisateur = :id");
+        }
         $stmt->bindParam(":id", $id);
         $stmt->bindParam(":nom", $this->nom);
         $stmt->bindParam(":prenom", $this->prenom);
         $stmt->bindParam(":mail", $this->mail);
-        $stmt->bindParam(":password", $this->password);
         $stmt->execute();
         $db->close();
-
         $this->idUtilisateur = $id;
         return $this;
     }
 
+
     public function addUtilisateur()
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("INSERT INTO utilisateur (nom, prenom, mail, password) 
-                                VALUES (:nom, :prenom, :mail, :password)");
+        $stmt = $db->prepare("INSERT INTO utilisateur (nom, prenom, mail, password, validationProfil) 
+                                VALUES (:nom, :prenom, :mail, :password, 1)");
         $stmt->bindParam(":nom", $this->nom);
         $stmt->bindParam(":prenom", $this->prenom);
         $stmt->bindParam(":mail", $this->mail);
@@ -110,14 +116,24 @@ class Utilisateur
         return $this;
     }
 
+    public function addRoleUtilisateur()
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("INSERT INTO posseder (idRole, idUtilisateur) 
+                                VALUES (2, :idUtilisateur)");
+        $stmt->bindParam(":idUtilisateur", $this->idUtilisateur);
+        $stmt->execute();
+        $db->close();
+    }
+
     public function getUtilisateurLogin($mail)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.mail, U.password, P.idRole
+        $stmt = $db->prepare("SELECT U.mail, U.password, P.idRole, U.idUtilisateur
                                     FROM utilisateur U 
                                     LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
                                     LEFT JOIN role R ON R.idRole = P.idRole 
-                                    WHERE U.mail = :mail AND P.idRole = 1");
+                                    WHERE U.mail = :mail AND U.validationProfil = 1");
         $stmt->bindParam(":mail", $mail);
         $stmt->execute();
         $utilisateurLogin = $stmt->fetch(PDO::FETCH_ASSOC);

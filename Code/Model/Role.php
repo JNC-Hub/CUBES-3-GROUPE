@@ -2,7 +2,7 @@
 
 use App\Db\DbConnection;
 
-require_once "../model/Connection.php";
+require_once "../Model/Connection.php";
 
 class Role
 {
@@ -20,6 +20,16 @@ class Role
 
     #region//Méthodes
 
+    public function getRoles()
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT * FROM role");
+        $stmt->execute();
+        $roles = $stmt->fetchAll(PDO::FETCH_CLASS, 'Role');
+        $db->close();
+        return $roles;
+    }
+    
     public function getRoleByUtilisateur($idUtilisateur)
     {
         $db = DbConnection::getInstance();
