@@ -2,7 +2,7 @@
 
 use App\Db\DbConnection;
 
-require_once "../model/Connection.php";
+require_once "../Model/Connection.php";
 
 class Role
 {
@@ -14,11 +14,12 @@ class Role
     #region//Constructeur
     public function __construct(string $libRole = '')
     {
-        // $this->libRole = $libRole; //pas de valeur sinon récupérée par défaut dans modifier un utilisateur
+        $this->libRole = $libRole;
     }
     #endregion
 
     #region//Méthodes
+
     public function getRoles()
     {
         $db = DbConnection::getInstance();
@@ -28,18 +29,7 @@ class Role
         $db->close();
         return $roles;
     }
-
-    public function getRole($id)
-    {
-        $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT * FROM role WHERE idRole = :id");
-        $stmt->bindParam(":id", $id);
-        $stmt->execute();
-        $role = $stmt->fetchObject('Role');
-        $db->close();
-        return $role;
-    }
-
+    
     public function getRoleByUtilisateur($idUtilisateur)
     {
         $db = DbConnection::getInstance();
@@ -51,33 +41,11 @@ class Role
         return $roleByUtilisateur;
     }
 
-    public function ajouteRole()
+    public function addRole()
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("INSERT INTO role (libRole) VALUES (:libRole)");
         $stmt->bindParam(":libRole", $this->libRole);
-        $stmt->execute();
-        $db->close();
-    }
-
-    public function modifieRole($id)
-    {
-        $db = DbConnection::getInstance();
-        $stmt = $db->prepare("UPDATE role SET libRole=:libRole WHERE idRole = :id");
-        $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":libRole", $this->libRole);
-        $stmt->execute();
-        $db->close();
-        
-        $this->idRole = $id;
-        return $this;
-    }
-
-    public function deleteRole($id)
-    {
-        $db = DbConnection::getInstance();
-        $stmt = $db->prepare("DELETE FROM role WHERE idRole = :id;");
-        $stmt->bindParam(":id", $id);
         $stmt->execute();
         $db->close();
     }
