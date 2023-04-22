@@ -8,7 +8,7 @@ class statutRecette
 {
     #region//Propriétés
     public int $idContinent;
-    public DateTime $libContinent;
+    public string $libContinent;
     #endregion
 
     #region//Constructeur
