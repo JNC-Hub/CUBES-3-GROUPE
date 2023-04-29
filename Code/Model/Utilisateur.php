@@ -13,11 +13,10 @@ class Utilisateur
     public string $mail = "";
     public string $password;
     public string $roles = "";
+    public bool $validationProfil = true;
     #endregion
 
     #region//Constructeur
-    /*pas de valeurs initiées sinon récupérées par défaut dans les !empty($_POST['id']) du controller modifieUtilisateur et donc affichage par défaut du message
-    erreur Tous les champs sont obligatoires à appel page*/
     public function __construct()
     {
     }
@@ -27,22 +26,20 @@ class Utilisateur
     public function getUtilisateurs()
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.idUtilisateur, U.nom, U.prenom, U.mail, U.password, GROUP_CONCAT(R.libRole SEPARATOR ', ') AS roles 
-                    FROM utilisateur U
-                    LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur
-                    LEFT JOIN role R ON R.idRole = P.idRole
-                    GROUP BY U.idUtilisateur");
+        $stmt = $db->prepare("SELECT U.idUtilisateur, U.nom, U.prenom, U.mail, U.password, U.validationProfil, R.idRole 
+                                FROM utilisateur U
+                                LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur
+                                LEFT JOIN role R ON R.idRole = P.idRole");
         $stmt->execute();
         $utilisateurs = $stmt->fetchAll(PDO::FETCH_CLASS, 'Utilisateur');
         $db->close();
         return $utilisateurs;
     }
-
     
     public function getUtilisateur($id): Utilisateur
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.idUtilisateur, U.nom, U.prenom, U.mail, U.password, GROUP_CONCAT(R.idRole SEPARATOR ',') AS idRoles
+        $stmt = $db->prepare("SELECT U.idUtilisateur, U.nom, U.prenom, U.mail, U.password, U.validationProfil, R.idRole
                                 FROM utilisateur U 
                                 LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
                                 LEFT JOIN role R ON R.idRole = P.idRole 
@@ -79,26 +76,35 @@ class Utilisateur
     public function updateUtilisateur($id)
     {
         $db = DbConnection::getInstance();
-        if (!empty($this->password)) {
-            $stmt = $db->prepare("UPDATE utilisateur
-                                    SET nom=:nom, prenom=:prenom, mail=:mail, password=:password
-                                    WHERE idUtilisateur = :id");
-            $stmt->bindParam(":password", $this->password);
-        } else {
-            $stmt = $db->prepare("UPDATE utilisateur
-                                    SET nom=:nom, prenom=:prenom, mail=:mail
-                                    WHERE idUtilisateur = :id");
-        }
+        $stmt = $db->prepare("UPDATE utilisateur
+                                SET validationProfil=:validationProfil 
+                                WHERE idUtilisateur = :id");
         $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":nom", $this->nom);
-        $stmt->bindParam(":prenom", $this->prenom);
-        $stmt->bindParam(":mail", $this->mail);
+        $stmt->bindParam(":validationProfil", $this->validationProfil);
         $stmt->execute();
         $db->close();
+    
         $this->idUtilisateur = $id;
         return $this;
     }
 
+    public function unvalidateUtilisateur($id)
+    {
+        $db = DbConnection::getInstance();   
+        $stmt = $db->prepare("UPDATE utilisateur
+                                SET validationProfil = 0
+                                WHERE idUtilisateur = :id");
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":nom", $this->nom);
+        $stmt->bindParam(":prenom", $this->prenom);
+        $stmt->bindParam(":mail", $this->mail);
+        $stmt->bindParam(":password", $this->password);
+        $stmt->execute();
+        $db->close();
+    
+        $this->idUtilisateur = $id;
+        return $this;
+    }
 
     public function addUtilisateur()
     {

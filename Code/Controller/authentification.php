@@ -8,4 +8,6 @@ if (!isset($_SESSION['user'])) {
 } else {
     //Stocke l'idUtilisateur dans variable de session pour pouvoir l'utiliser dans les fonctionnalités avec connexion
     $_SESSION['user_id'] = $_SESSION['user']['idUtilisateur'];
+    //Stocke le rôle de l'utilisateur
+    $_SESSION['user_idRole'] = $_SESSION['user']['idRole'];
 }
