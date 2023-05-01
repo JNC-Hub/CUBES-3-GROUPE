@@ -4,7 +4,8 @@
  */
 use App\Db\DbConnection;
 
-require_once "../model/Connection.php";
+require_once "../Model/Connection.php";
+
 
 class Ingredient
 {   
@@ -19,28 +20,23 @@ class Ingredient
     }
 
 // les getters
-    public function getIdIngredient() :int
-    {
-        return $this->idIngredient;
+public function __get($pParam){
+    if(isset($this->$pParam)){
+        return $this->$pParam;
+    } else {
+        throw new Exception("Parametre inconnu : ".$pParam);
     }
-        public function getLibIngredient() :string
-    {
-        return $this->libIngredient;
-    }
+    
+}
     // les setters
-    public function setIdIngredient($idIngredient)
-    {   
-        $this->idIngredient = $idIngredient;
 
+public function __set($pParam, $pValue){
+    if(isset($this->$pParam)){
+        $this->$pParam = $pValue;
+    } else {
+        throw new Exception("Parametre inconnu : ".$pParam);
     }
-
-    public function setLibIngredient($libIngredient)
-    {
-        if($libIngredient != ""){
-            $this->libIngredient = $libIngredient;
-        }
-
-    }
+}
 
 }
 

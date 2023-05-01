@@ -4,7 +4,8 @@
  */
 use App\Db\DbConnection;
 
-require_once "../model/Connection.php";
+require_once "../Model/Connection.php";
+
 
 class Etape
 {   
@@ -28,19 +29,24 @@ class Etape
         return $this->libEtape;
     }
     // les setters
-    public function setIdEtape($idEtape)
-    {   
-        $this->idEtape = $idEtape;
-
-    }
-
-    public function setLibEtape($libEtape)
-    {
-        if($libEtape != ""){
-            $this->libEtape = $libEtape;
+    public function __get($pParam){
+        if(isset($this->$pParam)){
+            return $this->$pParam;
+        } else {
+            throw new Exception("Parametre inconnu : ".$pParam);
         }
-
+        
     }
+        // les setters
+    
+    public function __set($pParam, $pValue){
+        if(isset($this->$pParam)){
+            $this->$pParam = $pValue;
+        } else {
+            throw new Exception("Parametre inconnu : ".$pParam);
+        }
+    }
+    
 
 }
 

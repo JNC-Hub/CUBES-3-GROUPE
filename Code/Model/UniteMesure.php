@@ -4,7 +4,8 @@
  */
 use App\Db\DbConnection;
 
-require_once "../model/Connection.php";
+require_once "../Model/Connection.php";
+
 
 class UniteMesure
 {   
@@ -19,27 +20,22 @@ class UniteMesure
     }
 
 // les getters
-    public function getIdUniteMesure() :int
-    {
-        return $this->idUniteMesure;
-    }
-        public function getLibUniteMesure() :string
-    {
-        return $this->libUniteMesure;
-    }
-    // les setters
-    public function setIdUniteMesure($idUniteMesure)
-    {   
-        $this->idUniteMesure = $idUniteMesure;
-
-    }
-
-    public function setLibUniteMesure($libUniteMesure)
-    {
-        if($libUniteMesure != ""){
-            $this->libUniteMesure = $libUniteMesure;
+    public function __get($pParam){
+        if(isset($this->$pParam)){
+            return $this->$pParam;
+        } else {
+            throw new Exception("Parametre inconnu : ".$pParam);
         }
+        
+    }
+        // les setters
 
+    public function __set($pParam, $pValue){
+        if(isset($this->$pParam)){
+            $this->$pParam = $pValue;
+        } else {
+            throw new Exception("Parametre inconnu : ".$pParam);
+        }
     }
 
 }
