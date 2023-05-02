@@ -1,17 +1,17 @@
 <?php
 
-require_once '../Controller/authentification.php';
+require_once 'authentification.php';
 require_once '../Model/Utilisateur.php';
 
 //Je ne vérifie pas le rôle de l'utilisateur car ce sera fait au niveau du bouton header. A voir si nécessaire
-if (isset($_SESSION['user_id'])) {
-    $idUtilisateur = ($_SESSION['user_id']);
+if (isset($_SESSION['user'])) {
+    $idUtilisateur = $_SESSION['user']['idUtilisateur'];
     $utilisateur = new Utilisateur();
     $utilisateur = $utilisateur->getUtilisateur($idUtilisateur);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    
     $erreur = false;
     if (empty($_POST['nom'])) {
         $errorMessageUtilisateur = 'Le nom est obligatoire !';
@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errorMessageUtilisateur = 'Un utilisateur existe déjà avec cet email';
         $erreur = true;
     }
-    var_dump($mail);
 
     //Vérifie si le mot de passe est fort
     $password = !empty($_POST['password']) ? trim($_POST['password']) : $utilisateur->password;
@@ -62,4 +61,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
+
 require_once '../View/gestionProfil.php';

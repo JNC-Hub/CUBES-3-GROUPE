@@ -9,6 +9,8 @@ if (!empty($_POST['mail'])
 
         $utilisateur = new Utilisateur();
         $utilisateurLogin = $utilisateur->getUtilisateurLogin($mail);
+
+        //Récupère le mot de passe haché de l'utilisateur
         if ($utilisateurLogin) {
             $hashpassword = $utilisateurLogin['password'];
         }
@@ -18,9 +20,11 @@ if (!empty($_POST['mail'])
             session_start();
             $_SESSION['user'] = $utilisateurLogin;
             header('Location: ../Controller/gestionProfil.php');
+            exit();
         } else {
             $errorMessageLogUtilisateur = 'Identifiants invalides';
         }
     }
-    
-require_once '../View/login.php';
+
+header('Location: ../View/login.php');
+exit();

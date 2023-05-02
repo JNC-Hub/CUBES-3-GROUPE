@@ -1,13 +1,10 @@
 <?php
 
 //Vérifie que l'utilisateur est bien connecté
-session_start();
-if (!isset($_SESSION['user'])) {
-    header('Location: ../index.php');
-    exit();
+session_start(); // Démarre la session
+if (!isset($_SESSION['user'])) { // Vérifie si la variable de session 'user' est définie
+    header('Location: ../controller/login.php'); // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
 } else {
-    //Stocke l'idUtilisateur dans variable de session pour pouvoir l'utiliser dans les fonctionnalités avec connexion
-    $_SESSION['user_id'] = $_SESSION['user']['idUtilisateur'];
-    //Stocke le rôle de l'utilisateur
+    $_SESSION['user_idUtilisateur'] = $_SESSION['user']['idUtilisateur'];
     $_SESSION['user_idRole'] = $_SESSION['user']['idRole'];
 }
