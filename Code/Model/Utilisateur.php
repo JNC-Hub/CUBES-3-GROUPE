@@ -14,6 +14,7 @@ class Utilisateur
     public string $password;
     public string $roles = "";
     public bool $validationProfil = true;
+    public int $idRole = -1;
     #endregion
 
     #region//Constructeur
@@ -135,10 +136,10 @@ class Utilisateur
     public function getUtilisateurLogin($mail)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.mail, U.password, P.idRole, U.idUtilisateur
+        $stmt = $db->prepare("SELECT U.mail, U.password, P.idRole, U.idUtilisateur, U.validationProfil
                                     FROM utilisateur U 
-                                    LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
-                                    LEFT JOIN role R ON R.idRole = P.idRole 
+                                    INNER JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
+                                    INNER JOIN role R ON R.idRole = P.idRole 
                                     WHERE U.mail = :mail AND U.validationProfil = 1");
         $stmt->bindParam(":mail", $mail);
         $stmt->execute();
