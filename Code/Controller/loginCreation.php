@@ -2,7 +2,6 @@
 require_once '../Model/Utilisateur.php';
 require_once '../Model/Role.php';
 
-//Ajout resquest method pour afficher le message d'erreur uniquement sur bouton enregistrer
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (
         !empty($_POST['nom'])
@@ -11,11 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         && !empty($_POST['password'])
     ) { 
         $newUtilisateur = new Utilisateur();
+        $newUtilisateur->nom = trim($_POST['nom']);
+        $newUtilisateur->prenom = trim($_POST['prenom']);
+        $newUtilisateur->mail = trim($_POST['mail']);
+        $newUtilisateur->password = trim($_POST['password']); 
 
-    $newUtilisateur->nom = trim($_POST['nom']);
-    $newUtilisateur->prenom = trim($_POST['prenom']);
-    $newUtilisateur->mail = trim($_POST['mail']);
-    $newUtilisateur->password = trim($_POST['password']); 
         //Vérifie que le mot de passe n'existe pas déjà
         if ($newUtilisateur->isMailValid()) {
             // Vérifie si le mot de passe est fort
@@ -38,4 +37,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-header('Location: ../View/loginCreation.php');
+require_once '../View/loginCreation.php';

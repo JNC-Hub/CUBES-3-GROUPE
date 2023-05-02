@@ -15,9 +15,9 @@
         <?php require_once 'Header.html' ?>
     </header>
 
-    <a href="../Controller/logout.php">Se déconnecter</a>
+    <a href="../Controller/gestionProfil.php">Modifier ses informations personnelles</a>
 
-    <p>Bienvenue</p>
+    <a href="../Controller/logout.php">Se déconnecter</a>
 
 </body>
 
