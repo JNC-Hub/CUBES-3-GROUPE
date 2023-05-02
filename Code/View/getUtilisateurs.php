@@ -32,12 +32,11 @@
                     <td><?= $utilisateur->nom ?></td>
                     <td><?= $utilisateur->prenom ?></td>
                     <td><?= $utilisateur->mail ?></td>
-                    <td><?= $utilisateur->validationProfil == 1 ? 'Activ&eacute;' : 'D&eacute;sctiv&eacute;' ?></td>
+                    <td><?= $utilisateur->validationProfil == 1 ? 'Actif' : 'Inactif' ?></td>
 
                     <td>
-                        <form action="../Controller/updateUtilisateur.php" method="get">
+                        <form action="../Controller/updateUtilisateur.php" method="post">
                             <input type="hidden" name="idUtilisateur" value="<?= $utilisateur->idUtilisateur ?>">
-                            <input type="hidden" name="validationProfil" value="<?= $utilisateur->validationProfil ?>">
                             <button type="submit"><img src="../images/person-lock.svg"></button>
                         </form>
                     </td>

@@ -78,28 +78,9 @@ class Utilisateur
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("UPDATE utilisateur
-                                SET validationProfil=:validationProfil 
+                                SET validationProfil = NOT validationProfil
                                 WHERE idUtilisateur = :id");
         $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":validationProfil", $this->validationProfil);
-        $stmt->execute();
-        $db->close();
-    
-        $this->idUtilisateur = $id;
-        return $this;
-    }
-
-    public function unvalidateUtilisateur($id)
-    {
-        $db = DbConnection::getInstance();   
-        $stmt = $db->prepare("UPDATE utilisateur
-                                SET validationProfil = 0
-                                WHERE idUtilisateur = :id");
-        $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":nom", $this->nom);
-        $stmt->bindParam(":prenom", $this->prenom);
-        $stmt->bindParam(":mail", $this->mail);
-        $stmt->bindParam(":password", $this->password);
         $stmt->execute();
         $db->close();
     
