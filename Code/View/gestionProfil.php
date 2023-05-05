@@ -15,12 +15,12 @@
         <?php require_once 'Header.html' ?>
     </header>
 
-    <a href="../Controller/compteAdmin.php"><img src="../Images/back-arrow.png" alt="Go back"> </a>
+    <a href="../Controller/compteUtilisateur.php"><img src="../Images/back-arrow.png" alt="Go back"> </a>
     <h2>Modifier mes informations</h2>
 
     <div>
 
-        <form method="post">
+        <form action="../Controller/gestionProfil.php" method="post">
 
             <div class="formulaire">
                 <div class="form-content">
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="btnSubmit">
-                    <input type="hidden" name="id" value="<?= $utilisateur->idUtilisateur ?>">
+                    <input type="hidden" name="idUtilisateur" value="<?= $utilisateur->idUtilisateur ?>">
                     <input type="submit" id="submit" value="Modifier">
                 </div>
         </form>

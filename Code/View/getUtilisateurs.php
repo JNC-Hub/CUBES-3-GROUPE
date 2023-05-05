@@ -38,7 +38,7 @@
                     <td><?= $utilisateur->validationProfil == 1 ? 'Actif' : 'Inactif' ?></td>
 
                     <td>
-                        <form action="../Controller/updateProfilActivation.php" method="post">
+                        <form action="../Controller/updateActivationProfil.php" method="post">
                             <input type="hidden" name="idUtilisateur" value="<?= $utilisateur->idUtilisateur ?>">
                             <button type="submit"><img src="../images/person-lock.svg"></button>
                         </form>
