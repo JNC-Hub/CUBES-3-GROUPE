@@ -24,6 +24,9 @@
         ces recettes, afin de satisfaire votre palais sucré et votre curiosité.</p>
     <p>Rejoignez-nous pour un voyage gourmand inoubliable !</p>
 
+    <footer>
+        <?php require_once 'footer.html' ?>
+    </footer>
 </body>
 
 </html>

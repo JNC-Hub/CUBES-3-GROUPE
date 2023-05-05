@@ -21,6 +21,10 @@
 
     <h1>Liste des mes recettes publiées</h1>
 
+    <footer>
+        <?php require_once 'footer.html' ?>
+    </footer>
+
 </body>
 
 </html>
