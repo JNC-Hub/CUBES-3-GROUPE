@@ -1,0 +1,30 @@
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  max-width: 1000px;
+  /* Limite la largeur de la zone d'affichage des images à 960px */
+}
+
+.image-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.image-cell {
+  margin: 10px;
+}
+
+.image-cell img {
+  display: block;
+  width: 250px;
+  height: 250px;
+  height: auto;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  max-height: 250px;
+}
