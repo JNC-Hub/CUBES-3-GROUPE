@@ -14,6 +14,7 @@ class Utilisateur
     public string $password;
     public string $roles = "";
     public bool $validationProfil = true;
+    public int $idRole = -1;
     #endregion
 
     #region//Constructeur
@@ -35,7 +36,7 @@ class Utilisateur
         $db->close();
         return $utilisateurs;
     }
-    
+
     public function getUtilisateur($id): Utilisateur
     {
         $db = DbConnection::getInstance();
@@ -77,31 +78,12 @@ class Utilisateur
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("UPDATE utilisateur
-                                SET validationProfil=:validationProfil 
+                                SET validationProfil = NOT validationProfil
                                 WHERE idUtilisateur = :id");
         $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":validationProfil", $this->validationProfil);
         $stmt->execute();
         $db->close();
-    
-        $this->idUtilisateur = $id;
-        return $this;
-    }
 
-    public function unvalidateUtilisateur($id)
-    {
-        $db = DbConnection::getInstance();   
-        $stmt = $db->prepare("UPDATE utilisateur
-                                SET validationProfil = 0
-                                WHERE idUtilisateur = :id");
-        $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":nom", $this->nom);
-        $stmt->bindParam(":prenom", $this->prenom);
-        $stmt->bindParam(":mail", $this->mail);
-        $stmt->bindParam(":password", $this->password);
-        $stmt->execute();
-        $db->close();
-    
         $this->idUtilisateur = $id;
         return $this;
     }
@@ -135,10 +117,10 @@ class Utilisateur
     public function getUtilisateurLogin($mail)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.mail, U.password, P.idRole, U.idUtilisateur
+        $stmt = $db->prepare("SELECT U.mail, U.password, P.idRole, U.idUtilisateur, U.validationProfil
                                     FROM utilisateur U 
-                                    LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
-                                    LEFT JOIN role R ON R.idRole = P.idRole 
+                                    INNER JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
+                                    INNER JOIN role R ON R.idRole = P.idRole 
                                     WHERE U.mail = :mail AND U.validationProfil = 1");
         $stmt->bindParam(":mail", $mail);
         $stmt->execute();
@@ -147,13 +129,14 @@ class Utilisateur
         return $utilisateurLogin;
     }
 
-    function isPasswordStrong($password) {
+    function isPasswordStrong($password)
+    {
         $uppercase = preg_match('@[A-Z]@', $password);
         $lowercase = preg_match('@[a-z]@', $password);
         $number    = preg_match('@[0-9]@', $password);
         $specialChars = preg_match('@[^\w]@', $password);
-    
-        if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+
+        if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
             return false;
         } else {
             return true;

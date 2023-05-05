@@ -4,42 +4,50 @@
  */
 use App\Db\DbConnection;
 
-require_once "../model/Connection.php";
+require_once "../Model/Connection.php";
+
 
 class Pays
 {   
-    private $table = "Pays";
+   
     private int $idPays;
 
     private string $libPays;
     
+    private int $idContinent;
     public function __construct()
     {
         
     }
 
-// les getters
-    public function getIdPays() :int
-    {
-        return $this->idPays;
-    }
-        public function getLibPays() :string
-    {
-        return $this->libPays;
-    }
-    // les setters
-    public function setIdPays($idPays)
-    {   
-        $this->idPays= $idPays;
-
-    }
-
-    public function setLibPays($libPays)
-    {
-        if($libPays != ""){
-            $this->libPays = $libPays;
+    public function __get($pParam){
+        if(isset($this->$pParam)){
+            return $this->$pParam;
+        } else {
+            throw new Exception("Parametre inconnu : ".$pParam);
         }
-
+        
+    }
+        // les setters
+    
+    public function __set($pParam, $pValue){
+        if(isset($this->$pParam)){
+            $this->$pParam = $pValue;
+        } else {
+            throw new Exception("Parametre inconnu : ".$pParam);
+        }
+    }
+    public  function getListPays()
+    {
+     $db = DbConnection::getInstance();
+     $requete = "SELECT * FROM pays ";
+     $requetListpays =  $db->prepare($requete);
+     $requetListpays->execute();
+     $listPays = $requetListpays->fetchAll(PDO::FETCH_ASSOC);
+     $db->close();
+     return $listPays;
+    
+     
     }
 
 }
