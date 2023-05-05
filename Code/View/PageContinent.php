@@ -25,6 +25,9 @@
   </div>
 
   <div>
+    <?php
+    include_once "../Controller/impressionPdf.php";
+    ?>
 
   </div>
 
