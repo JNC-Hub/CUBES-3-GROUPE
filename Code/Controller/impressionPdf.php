@@ -1,27 +1,23 @@
 <?php
+require('fpdf/fpdf.php');
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Vérifier si le format demandé est PDF
+if (isset($_GET['format']) && $_GET['format'] == 'pdf') {
+    // Créer une instance de la classe FPDF
+    $pdf = new FPDF();
 
-require('fpdf.php');
+    // Ajouter une page
+    $pdf->AddPage();
 
-class PdfController {
-    public function generatePdf() {
-        // Créer une nouvelle instance de la classe FPDF
-        $pdf = new FPDF();
+    // Écrire du texte dans le PDF
+    $pdf->SetFont('Arial', 'B', 16);
+    $pdf->Cell(40, 10, 'Contenu du PDF');
 
-        // Ajouter une nouvelle page au document
-        $pdf->AddPage();
-
-        // Définir la police de caractères à utiliser
-        $pdf->SetFont('Arial','B',16);
-
-        // Ajouter du contenu
-        $pdf->Cell(40,10,'Hello World!');
-
-        // Envoyer le fichier PDF au navigateur pour téléchargement
-        $pdf->Output('D', 'RecetteImprimable.pdf');
-    }
+    // Envoyer le PDF au navigateur
+    $pdf->Output();
+} else {
+    // Afficher la page au format HTML
+    echo '<a href="page.php?format=pdf">Afficher au format PDF</a>';
 }
 ?>
 
