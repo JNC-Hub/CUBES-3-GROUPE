@@ -18,7 +18,6 @@
     <h1>Nouveau sur Les Voyageurs Gourmands ?</h1>
 
     <a href="../Controller/loginCreation.php">Créer un compte</a>
-    
 
     <h1>Déjà enregistré ?</h1>
 
@@ -46,6 +45,10 @@
     <?php if (isset($errorMessageLogUtilisateur)) : ?>
         <p style="color:red"><?= $errorMessageLogUtilisateur ?></p>
     <?php endif; ?>
+
+    <footer>
+        <?php require_once 'footer.html' ?>
+    </footer>
 
 </body>
 

@@ -33,7 +33,7 @@
                 </div>
 
                 <div>
-                    <label for="email">Mail</label>
+                    <label for=" email">Mail</label>
                     <input type="email" placeholder="mail@example.com" name="mail" id="email" value="">
                 </div>
 
@@ -55,6 +55,10 @@
     <?php if (isset($errorMessageUtilisateur)) : ?>
         <p style="color:red"><?= $errorMessageUtilisateur ?></p>
     <?php endif; ?>
+
+    <footer>
+        <?php require_once 'footer.html' ?>
+    </footer>
 
 </body>
 

@@ -58,6 +58,10 @@
 
     <script src="../js/scriptPassword.js"></script>
 
+    <footer>
+        <?php require_once 'footer.html' ?>
+    </footer>
+
 </body>
 
 </html>
