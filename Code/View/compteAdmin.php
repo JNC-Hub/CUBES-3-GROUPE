@@ -15,7 +15,9 @@
         <?php require_once 'Header.html' ?>
     </header>
 
-    <a href="../Controller/gestionProfil.php">Modifier ses informations personnelles</a>
+    <a href="../Controller/getUtilisateurs.php">Liste des utilisateurs</a>
+
+    <a href="../Controller/#.php">Liste des recettes</a>
 
     <a href="../Controller/logout.php">Se déconnecter</a>
 

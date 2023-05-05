@@ -15,6 +15,7 @@
         <?php require_once 'Header.html' ?>
     </header>
 
+    <a href="../Controller/compteAdmin.php"><img src="../Images/back-arrow.png" alt="Go back"> </a>
     <h2>Modifier mes informations</h2>
 
     <div>
@@ -39,7 +40,7 @@
 
                 <div class="form-content">
                     <label for="password">Mot de passe</label>
-                    <input type="password" name="password" id="password" value="">   
+                    <input type="password" name="password" id="password" value="">
                     <i class="fa fa-eye" onclick="fafaEye()"></i>
                     <span class="password-info">(Remplir uniquement si vous souhaitez modifier votre mot de passe)</span>
                 </div>
@@ -54,7 +55,7 @@
     <?php if (isset($errorMessageUtilisateur)) : ?>
         <p style="color:red;"><?= $errorMessageUtilisateur ?></p>
     <?php endif; ?>
-    
+
     <script src="../js/scriptPassword.js"></script>
 
 </body>

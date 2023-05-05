@@ -15,6 +15,8 @@
         <?php require_once 'Header.html' ?>
     </header>
 
+    <a href="../Controller/compteAdmin.php"><img src="../Images/back-arrow.png" alt="Go back"> </a>
+    <a href="../Controller/login.php"><img src="../Images/avatar.png" id="imageuser"></a>
     <h2>Liste des utilisateurs</h2>
 
     <table>
@@ -36,7 +38,7 @@
                     <td><?= $utilisateur->validationProfil == 1 ? 'Actif' : 'Inactif' ?></td>
 
                     <td>
-                        <form action="../Controller/updateUtilisateur.php" method="post">
+                        <form action="../Controller/updateProfilActivation.php" method="post">
                             <input type="hidden" name="idUtilisateur" value="<?= $utilisateur->idUtilisateur ?>">
                             <button type="submit"><img src="../images/person-lock.svg"></button>
                         </form>

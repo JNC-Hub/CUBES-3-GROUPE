@@ -1,6 +1,6 @@
 <?php
 
-// require_once '../Controller/auth.php';
+require_once 'authentification.php';
 require_once '../Model/Utilisateur.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

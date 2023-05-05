@@ -15,9 +15,14 @@
         <?php require_once 'Header.html' ?>
     </header>
 
-    <a href="../Controller/logout.php">Se déconnecter</a>
-
-    <p>Bienvenue</p>
+    <p>Bienvenue sur le site des Voyageurs Gourmands, votre guide de référence pour explorer le monde
+        des desserts et des pâtisseries !</p>
+    <p>Nous sommes passionnés par la découverte de nouvelles saveurs, recettes et cultures culinaires.</p>
+    <p>Notre mission est de partager avec vous les meilleurs desserts et pâtisseries du monde entier,
+        de l'Amérique du Sud à l'Asie, en passant par l'Europe et l'Afrique</p>
+    <p>Notre communauté de Voyageurs Gourmands partage ses recettes et les histoires ou anecdotes de
+        ces recettes, afin de satisfaire votre palais sucré et votre curiosité.</p>
+    <p>Rejoignez-nous pour un voyage gourmand inoubliable !</p>
 
 </body>
 

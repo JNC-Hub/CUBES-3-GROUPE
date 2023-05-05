@@ -6,7 +6,7 @@ session_start();
 //Selon le role utilisateur, redirige vers sa page de gestion
 if (isset($_SESSION['user'])) {
     if ($_SESSION['user_idRole'] == 1) {
-        header('Location: ../Controller/compteAdministateur.php');
+        header('Location: ../Controller/compteAdmin.php');
         exit();
     } elseif (($_SESSION['user_idRole'] == 2)) {
         header('Location: ../Controller/compteUtilisateur.php');
