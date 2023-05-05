@@ -8,8 +8,4 @@ $idRecette = 5;
 $imageRecette = new Recette();
 $imageRecette->image = $imageRecette->getImageById($idRecette);
 
-echo '<img src="http://projetcubes3/'. $imageRecette->image.'" width="300" height="200" />';
-
-
-
-
+echo '<img src="http://projetcubes3/' . $imageRecette->image . '" width="300" height="200" />';
