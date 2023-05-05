@@ -15,9 +15,11 @@
         <?php require_once 'Header.html' ?>
     </header>
 
-    <a href="../Controller/gestionProfil.php">Modifier ses informations personnelles</a>
+    <a href="../Controller/gestionProfil.php">Modifier mes informations personnelles</a>
 
-    <a href="../Controller/logout.php">Se déconnecter</a>
+    <a href="../Controller/logout.php">Me déconnecter</a>
+
+    <h1>Liste des mes recettes publiées</h1>
 
 </body>
 
