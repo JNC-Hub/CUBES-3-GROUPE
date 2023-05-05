@@ -1,0 +1,6 @@
+{
+  "packageAllowlist": [
+    // Python-2.0 licensed, which is fine but not on js-green-licenses default list
+    "argparse"
+  ]
+}
