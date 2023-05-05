@@ -17,9 +17,9 @@
 
     <a href="../Controller/getUtilisateurs.php">Liste des utilisateurs</a>
 
-    <a href="../Controller/#.php">Liste des recettes</a>
-
     <a href="../Controller/logout.php">Se déconnecter</a>
+
+    <h1>Liste des recettes</h1>
 
 </body>
 

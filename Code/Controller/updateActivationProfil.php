@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['idUtilisateur'])) {
         $idUtilisateur = $_POST['idUtilisateur'];
         $utilisateur = new Utilisateur();
-        $utilisateur->updateUtilisateur($idUtilisateur);
+        $utilisateur->updateActivationProfil($idUtilisateur);
         header('Location: ../Controller/getUtilisateurs.php');
         exit;
     }

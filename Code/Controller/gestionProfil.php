@@ -44,13 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erreur = true;
     }
 
-    //Si aucune erreur, met à jour l'utilisateur
+    //Si aucune erreur, met à jour l'utilisateur    
     if ($erreur == false) {
         $utilisateur = new Utilisateur();
-        $utilisateur->getUtilisateur($_POST['id']);
+        $utilisateur = $utilisateur->getUtilisateur($idUtilisateur);
         $utilisateur->nom = trim($_POST['nom']);
         $utilisateur->prenom = trim($_POST['prenom']);
-        $utilisateur->mail = trim($_POST['mail']); // mettre à jour la propriété mail
+        $utilisateur->mail = trim($_POST['mail']);
 
         if (!empty($_POST['password'])) {
             $password = trim($_POST['password']);

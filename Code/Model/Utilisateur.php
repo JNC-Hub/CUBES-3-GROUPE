@@ -74,13 +74,32 @@ class Utilisateur
         return true;
     }
 
-    public function updateUtilisateur($id)
+    public function updateActivationProfil($id)
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("UPDATE utilisateur
                                 SET validationProfil = NOT validationProfil
                                 WHERE idUtilisateur = :id");
         $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        $db->close();
+
+        $this->idUtilisateur = $id;
+        return $this;
+    }
+
+    public function updateUtilisateur($id)
+    {
+        $db = DbConnection::getInstance();
+
+        $stmt = $db->prepare("UPDATE utilisateur
+                                SET nom=:nom, prenom=:prenom, mail=:mail, password=:password
+                                WHERE idUtilisateur = :id");
+        $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":nom", $this->nom);
+        $stmt->bindParam(":prenom", $this->prenom);
+        $stmt->bindParam(":mail", $this->mail);
+        $stmt->bindParam(":password", $this->password);
         $stmt->execute();
         $db->close();
 
