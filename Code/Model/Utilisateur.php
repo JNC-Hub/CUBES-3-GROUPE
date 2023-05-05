@@ -36,7 +36,7 @@ class Utilisateur
         $db->close();
         return $utilisateurs;
     }
-    
+
     public function getUtilisateur($id): Utilisateur
     {
         $db = DbConnection::getInstance();
@@ -83,7 +83,7 @@ class Utilisateur
         $stmt->bindParam(":id", $id);
         $stmt->execute();
         $db->close();
-    
+
         $this->idUtilisateur = $id;
         return $this;
     }
@@ -129,13 +129,14 @@ class Utilisateur
         return $utilisateurLogin;
     }
 
-    function isPasswordStrong($password) {
+    function isPasswordStrong($password)
+    {
         $uppercase = preg_match('@[A-Z]@', $password);
         $lowercase = preg_match('@[a-z]@', $password);
         $number    = preg_match('@[0-9]@', $password);
         $specialChars = preg_match('@[^\w]@', $password);
-    
-        if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+
+        if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
             return false;
         } else {
             return true;
