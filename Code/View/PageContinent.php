@@ -24,6 +24,10 @@
 
   </div>
 
+  <div>
+
+  </div>
+
   <div class="image-container">
     <?php
     $files = glob('../Ressources/imagesRecettes/*.{jpg,jpeg,png,gif}', GLOB_BRACE); // Récupération des noms de fichiers d'images
