@@ -34,6 +34,7 @@ if (!isset($_SESSION['user'])) {
         if ($utilisateurLogin && isset($_POST['password']) && password_verify($password, $hashpassword)) {
             $_SESSION['user'] = $utilisateurLogin;
             $_SESSION['user_idRole'] = $utilisateurLogin['idRole'];
+            setcookie('user_id', $_SESSION['user']['idUtilisateur'], time() + 3600, '/');
             header('Location: ../index.php');
             exit();
         } else {
