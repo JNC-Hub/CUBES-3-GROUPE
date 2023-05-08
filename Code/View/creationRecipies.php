@@ -1,10 +1,15 @@
 <?php
 require_once('../Model/Continent.php');
 require_once('../Model/Pays.php');
+require_once('../Model/UniteMesure.php');
+require_once('../Model/Ingredient.php');
 $listContient = Continent::getListContinent();
-$pays= new Pays();
+$pays = new Pays();
 $listPays = $pays->getListPays();
-
+$listUnite = new UniteMesure();
+$listUnites = $listUnite->getListUniteMesure();
+$ingredients = new Ingredient();
+$listIngredients = $ingredients->getListIngredients();
 ?>
 <!doctype html>
 <html lang="en">
@@ -36,7 +41,7 @@ $listPays = $pays->getListPays();
             </div>
         </div>
 
-        <form action="Controller/creationRecipies.php" method="POST" autocomplete="off">
+        <form action="Controller/creationRecipies.php" method="POST" autocomplete="off" id="formCreation">
             <div class="titleRecette my-4">
                 <label for="titleRecette" class="form-label">Je choisis le titre de ma recette </label>
                 <input type="text" name="titleRecette" id="titleRecette" class="form-control"
@@ -48,10 +53,10 @@ $listPays = $pays->getListPays();
                     <select name="contient" id="select_contient" class="form-control" required>
                         <option></option>
                         <?php
-                            foreach ($listContient as $continent) {
+                        foreach ($listContient as $continent) {
                             echo '<option value="' . $continent['idContinent'] . '">' . $continent['libContinent'] . '</option>';
-                            }
-                         ?>
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
@@ -59,9 +64,9 @@ $listPays = $pays->getListPays();
                     <select name="pays" id="select_pays" class="form-control" disabled>
                         <option></option>
                         <?php
-                            foreach ($listPays as $pays) {
+                        foreach ($listPays as $pays) {
                             echo '<option value="' . $pays['idPays'] . '" data-label="' . $pays['idContinent'] . '">' . $pays['libPays'] . '</option>';
-                            }
+                        }
                         ?>
                     </select>
                 </div>
@@ -73,19 +78,93 @@ $listPays = $pays->getListPays();
                     placeholder="Votre histoire/anecdote"></textarea>
                 <span class="float-end label label-default" id="countLength"></span>
             </div>
-            <!-- <div class="image my-4">
+            <div class="image my-4">
                 <label for="image" class="form-label">Téléchargez une photo de votre recette</label>
                 <div class="frame">
-                    <div class="center">
-                        <div class="dropzone">
-                            <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
-                            <input type="file" class="upload-input" />
-                        </div>
-
+                    <div class="dropzone">
+                        <label for="file-input">
+                            <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon"
+                                id="image-preview" />
+                            <input type="file" class="upload-input" id="file-input"
+                                accept="image/png, image/gif, image/jpeg" style="display:none;" />
+                            <span id="file-name"></span>
+                        </label>
                     </div>
                 </div>
-            </div> -->
-            <button class="btn btn-success">Envoyer votre recette</button>
+            </div>
+            <div class="my-4">
+                <label class="form-label">Choisir les ingrédients </label>
+                <div class=" shadow p-3 mb-5 bg-white rounded">
+                    <div class="row">
+                        <div class="col-md-3 ">
+                            <div class="input-wrapper">
+                                <input class="form-control" id="quantite" min="0" name="quantite" type="number"
+                                    required />
+                                <span>Quantité</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-wrapper">
+
+                                <select class="form-control" id="unite" name="unite" required>
+                                    <option></option>
+                                    <?php
+                                    foreach ($listUnites as $unite) {
+                                        echo '<option value="' . $unite['idUniteMesure'] . '">' . $unite['libUniteMesure'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                                <span>Unité de mesure </span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <select class="form-control ingredients" name="ingredients" id='existIngredient' required>
+                                <option></option>
+                                <?php
+                                foreach ($listIngredients as $ingredient) {
+                                    echo '<option value="' . $ingredient['idIngredient'] . '">' . $ingredient['libIngredient'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <span>Si l'ingrédient n'existe pas dans la liste des ingrédients, cliquez sur <button
+                                type="button" class="btn  btn-rounded" id="ajoutNewIngredient">Nouvel
+                                ingrédient</button></span>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-danger btn-rounded d-grid gap-2 col-4 mx-auto"
+                            id="buttonAdIngredient">Ajouter ingrédient</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="table-responsive" style="margin-top:10px">
+                        <table class="table" id="dynamic_field_ingredient"></table>
+                    </div>
+                </div>
+                <div class="etape my-4">
+                    <label for="etape" class="form-label">Préparation de la recette </label>
+                    <div class=" shadow p-3 mb-5 bg-white rounded">
+                        <textarea class="form-control" id="etape" name="etape" rows="4" required
+                            placeholder="Ajouter une étape"></textarea>
+                        <div>
+                            <button type="button" class="btn btn-danger btn-rounded d-grid gap-2 col-4 mx-auto"
+                                id="buttonAdEtape">Ajouter une étape</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="repeatEtape">
+                    <div class="table-responsive" style="margin-top:10px">
+                        <table class="table table-borderless" id="dynamic_field_etape"></table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="submit" class="btn btn-success">Envoyer votre recette</button>
+            </div>
         </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

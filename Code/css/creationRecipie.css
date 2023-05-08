@@ -11,13 +11,11 @@ textarea {
     resize: none;
 }
 
-
 #countLength {
     background-color: #b1c5cf;
     margin-top: -26px;
     margin-right: 5px;
 }
-
 
 .dropzone {
     width: 150px;
@@ -25,6 +23,8 @@ textarea {
     border: 1px dashed #999;
     border-radius: 3px;
     text-align: center;
+    position: relative;
+    display: inline-block;
 }
 
 .upload-input {
@@ -38,4 +38,68 @@ textarea {
 
 .upload-icon {
     margin: 25px 2px 2px 2px;
+}
+
+#file-name {
+    position: absolute;
+    top: 30%;
+    left: calc(100% + 10px);
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+
+}
+
+.input-wrapper span {
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 16px;
+    pointer-events: auto;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: calc(100% - 40px);
+}
+
+.input-wrapper.focused span {
+    top: 0;
+    font-size: 12px;
+    color: #999;
+    padding: 0 5px;
+    background: #fff;
+}
+
+.select2 {
+    width: 100% !important;
+    /* height: 100% !important; */
+}
+
+#buttonAdEtape {
+    margin-top: 15px;
+}
+
+.table td,
+.table th {
+
+    word-break: break-word;
+    padding-left: 10px;
+}
+
+#ajoutNewIngredient {
+    background-color: #ef4d3e9e;
+    text-align: center;
+    color: beige;
+    cursor: pointer;
+    border-radius: 12px;
 }

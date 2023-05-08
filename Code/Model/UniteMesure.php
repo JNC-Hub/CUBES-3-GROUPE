@@ -9,7 +9,7 @@ require_once "../Model/Connection.php";
 
 class UniteMesure
 {   
-    private $table = "UniteMesure";
+    private $table = "uniteMesure";
     private int $idUniteMesure;
 
     private string $libUniteMesure;
@@ -36,6 +36,18 @@ class UniteMesure
         } else {
             throw new Exception("Parametre inconnu : ".$pParam);
         }
+    }
+    public  function getListUniteMesure()
+    {
+     $db = DbConnection::getInstance();
+     $requete = "SELECT * FROM ".$this->table;
+     $requetListUnite =  $db->prepare($requete);
+     $requetListUnite->execute();
+     $listUnite = $requetListUnite->fetchAll(PDO::FETCH_ASSOC);
+     $db->close();
+     return $listUnite;
+    
+     
     }
 
 }
