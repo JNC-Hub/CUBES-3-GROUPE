@@ -45,7 +45,7 @@ class Utilisateur
                                 LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
                                 LEFT JOIN role R ON R.idRole = P.idRole 
                                 WHERE U.idUtilisateur = :id");
-        $stmt->bindParam(":id", $id);
+        $stmt->bindValue(":id", $id);
         $stmt->execute();
         $utilisateur = $stmt->fetchObject('Utilisateur');
         $db->close();
@@ -56,7 +56,7 @@ class Utilisateur
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("SELECT * FROM utilisateur WHERE mail = :mail");
-        $stmt->bindParam(":mail", $mail);
+        $stmt->bindValue(":mail", $mail);
         $stmt->execute();
         $utilisateurByMail = $stmt->fetchAll(PDO::FETCH_CLASS, 'Utilisateur');
         $db->close();
@@ -80,7 +80,7 @@ class Utilisateur
         $stmt = $db->prepare("UPDATE utilisateur
                                 SET validationProfil = NOT validationProfil
                                 WHERE idUtilisateur = :id");
-        $stmt->bindParam(":id", $id);
+        $stmt->bindValue(":id", $id);
         $stmt->execute();
         $db->close();
 
@@ -95,11 +95,11 @@ class Utilisateur
         $stmt = $db->prepare("UPDATE utilisateur
                                 SET nom=:nom, prenom=:prenom, mail=:mail, password=:password
                                 WHERE idUtilisateur = :id");
-        $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":nom", $this->nom);
-        $stmt->bindParam(":prenom", $this->prenom);
-        $stmt->bindParam(":mail", $this->mail);
-        $stmt->bindParam(":password", $this->password);
+        $stmt->bindValue(":id", $id);
+        $stmt->bindValue(":nom", $this->nom);
+        $stmt->bindValue(":prenom", $this->prenom);
+        $stmt->bindValue(":mail", $this->mail);
+        $stmt->bindValue(":password", $this->password);
         $stmt->execute();
         $db->close();
 
@@ -112,10 +112,10 @@ class Utilisateur
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("INSERT INTO utilisateur (nom, prenom, mail, password, validationProfil) 
                                 VALUES (:nom, :prenom, :mail, :password, 1)");
-        $stmt->bindParam(":nom", $this->nom);
-        $stmt->bindParam(":prenom", $this->prenom);
-        $stmt->bindParam(":mail", $this->mail);
-        $stmt->bindParam(":password", $this->password);
+        $stmt->bindValue(":nom", $this->nom);
+        $stmt->bindValue(":prenom", $this->prenom);
+        $stmt->bindValue(":mail", $this->mail);
+        $stmt->bindValue(":password", $this->password);
         $stmt->execute();
         $db->close();
 
@@ -128,7 +128,7 @@ class Utilisateur
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("INSERT INTO posseder (idRole, idUtilisateur) 
                                 VALUES (2, :idUtilisateur)");
-        $stmt->bindParam(":idUtilisateur", $this->idUtilisateur);
+        $stmt->bindValue(":idUtilisateur", $this->idUtilisateur);
         $stmt->execute();
         $db->close();
     }
@@ -141,7 +141,7 @@ class Utilisateur
                                     INNER JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
                                     INNER JOIN role R ON R.idRole = P.idRole 
                                     WHERE U.mail = :mail AND U.validationProfil = 1");
-        $stmt->bindParam(":mail", $mail);
+        $stmt->bindValue(":mail", $mail);
         $stmt->execute();
         $utilisateurLogin = $stmt->fetch(PDO::FETCH_ASSOC);
         $db->close();
