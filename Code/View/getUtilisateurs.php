@@ -25,16 +25,16 @@
             <th>Pr&eacute;nom</th>
             <th>Mail</th>
             <th>Statut du compte</th>
-            <th>Activer/D&eacute;sactiver le profil</th>
+            <th>Modifier le statut du compte</th>
         </tr>
 
         <?php
         foreach ($utilisateurs as $utilisateur) :
             if ($utilisateur->idRole == 2) : ?>
                 <tr>
-                    <td><?= $utilisateur->nom ?></td>
-                    <td><?= $utilisateur->prenom ?></td>
-                    <td><?= $utilisateur->mail ?></td>
+                    <td><?= htmlspecialchars($utilisateur->nom) ?></td>
+                    <td><?= htmlspecialchars($utilisateur->prenom) ?></td>
+                    <td><?= htmlspecialchars($utilisateur->mail) ?></td>
                     <td><?= $utilisateur->validationProfil == 1 ? 'Actif' : 'Inactif' ?></td>
 
                     <td>

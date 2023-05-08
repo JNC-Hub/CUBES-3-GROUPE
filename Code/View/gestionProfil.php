@@ -25,24 +25,24 @@
             <div class="formulaire">
                 <div class="form-content">
                     <label for="nom">Nom</label>
-                    <input type="text" name="nom" id="nom" value="<?= $utilisateur->nom ?>">
+                    <input type="text" name="nom" id="nom" value="<?= htmlspecialchars($utilisateur->nom) ?>">
                 </div>
 
                 <div class="form-content">
                     <label for="prenom">Pr&eacute;nom</label>
-                    <input type="text" name="prenom" id="prenom" value="<?= $utilisateur->prenom ?>">
+                    <input type="text" name="prenom" id="prenom" value="<?= htmlspecialchars($utilisateur->prenom) ?>">
                 </div>
 
                 <div class="form-content">
                     <label for="email">Mail</label>
-                    <input type="email" name="mail" id="email" value="<?= $utilisateur->mail ?>">
+                    <input type="email" name="mail" id="email" value="<?= htmlspecialchars($utilisateur->mail) ?>">
                 </div>
 
                 <div class="form-content">
                     <label for="password">Mot de passe</label>
                     <input type="password" name="password" id="password" value="">
                     <i class="fa fa-eye" onclick="fafaEye()"></i>
-                    <span class="password-info">(Remplir uniquement si vous souhaitez modifier votre mot de passe)</span>
+                    <span class="password-info">(A remplir uniquement si vous souhaitez changer votre mot de passe)</span>
                 </div>
 
                 <div class="btnSubmit">

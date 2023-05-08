@@ -24,23 +24,23 @@
             <div>
                 <div>
                     <label for="nom">Nom</label>
-                    <input type="text" name="nom" id="nom" value="">
+                    <input type="text" name="nom" id="nom" value="<?= htmlspecialchars($newUtilisateur->nom) ?>">
                 </div>
 
                 <div>
                     <label for="prenom">Pr&eacute;nom</label>
-                    <input type="text" name="prenom" id="prenom" value=""">
+                    <input type="text" name="prenom" id="prenom" value="<?= htmlspecialchars($newUtilisateur->prenom) ?>">
                 </div>
 
                 <div>
                     <label for=" email">Mail</label>
-                    <input type="email" placeholder="mail@example.com" name="mail" id="email" value="">
+                    <input type="email" placeholder="mail@example.com" name="mail" id="email" value="<?= htmlspecialchars($newUtilisateur->mail) ?>">
                 </div>
 
                 <div>
                     <label for="password">Mot de passe</label>
                     <!-- Obligation de rentrer un mot de passe fort -->
-                    <input type="password" name="password" id="password" value="">
+                    <input type="password" name="password" id="password" value="<?= htmlspecialchars($newUtilisateur->password) ?>">
                     <i class="fa fa-eye" onclick="fafaEye()"></i>
                 </div>
 
