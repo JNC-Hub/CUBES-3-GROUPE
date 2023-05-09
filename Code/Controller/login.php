@@ -12,12 +12,13 @@ if (isset($_SESSION['user'])) {
         exit();
     }
 } else {
+    session_unset();
+    session_destroy();
     //Formulaire de connexion si pas de session utilisateur
     if (
         !empty($_POST['mail'])
         && !empty($_POST['password'])
     ) {
-        session_destroy();
         $mail = trim($_POST['mail']);
         $password = trim($_POST['password']);
 
@@ -33,7 +34,8 @@ if (isset($_SESSION['user'])) {
             session_start();
             $_SESSION['user'] = $utilisateurLogin;
             $_SESSION['user_idRole'] = $utilisateurLogin['idRole'];
-            setcookie('user_id', $_SESSION['user']['idUtilisateur'], time() + 3600, '/');
+            //Création cookie pour déconnexion automatique au bout 30mn d'inactivité
+            setcookie('last_activity', session_id(), time() + 1800, '/', '', false, true);
             header('Location: ../index.php');
             exit();
         } else {

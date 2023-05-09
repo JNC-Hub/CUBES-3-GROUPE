@@ -26,10 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 //Récupère les données login pour connexion active
                 $utilisateurLogin = $utilisateur->getUtilisateurLogin($newUtilisateur->mail);
-                var_dump($utilisateurLogin);
                 session_start();
                 $_SESSION['user'] = $utilisateurLogin;
                 $_SESSION['user_idRole'] = $utilisateurLogin['idRole'];
+                //Création cookie pour déconnexion automatique au bout 30mn d'inactivité
+                setcookie('last_activity', session_id(), time() + 1800, '/', '', false, true);
                 header('Location: ../index.php');
                 exit;
             } else {
