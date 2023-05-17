@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //Vérifie que le mail n'existe pas déjà
-    $mail = !empty($_POST['mail']) ? trim($_POST['mail']) : '';
+    $mail = !empty($_POST['mail']) ? htmlspecialchars(trim($_POST['mail'])) : '';
     $utilisateur->mail = $mail;
     if (!$utilisateur->isMailValid()) {
         $errorMessageUtilisateur = 'Un utilisateur existe déjà avec cet email';
@@ -36,11 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     //Vérifie si le mot de passe est fort
-    $password = !empty($_POST['password']) ? trim($_POST['password']) : $utilisateur->password;
+    $password = !empty($_POST['password']) ? htmlspecialchars(trim($_POST['password'])) : $utilisateur->password;
     $utilisateur->password = $password;
     if (!$utilisateur->isPasswordStrong($password)) {
-        $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
-                    un caractère spécial';
+        $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et un 
+        caractère spécial parmi # ? ! @ € $ % * - + /';
         $erreur = true;
     }
 
@@ -48,12 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($erreur == false) {
         $utilisateur = new Utilisateur();
         $utilisateur = $utilisateur->getUtilisateur($idUtilisateur);
-        $utilisateur->nom = trim($_POST['nom']);
-        $utilisateur->prenom = trim($_POST['prenom']);
-        $utilisateur->mail = trim($_POST['mail']);
+        $utilisateur->nom = htmlspecialchars(trim($_POST['nom']));
+        $utilisateur->prenom = htmlspecialchars(trim($_POST['prenom']));
+        $utilisateur->mail = htmlspecialchars(trim($_POST['mail']));
 
         if (!empty($_POST['password'])) {
-            $password = trim($_POST['password']);
+            $password = htmlspecialchars(trim($_POST['password']));
             // Hache le mot de passe
             $utilisateur->password = password_hash($password, PASSWORD_DEFAULT);
         }

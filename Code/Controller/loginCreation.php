@@ -3,10 +3,10 @@ require_once '../Model/Utilisateur.php';
 require_once '../Model/Role.php';
 
 $newUtilisateur = new Utilisateur();
-$newUtilisateur->nom = trim($_POST['nom'] ?? "");
-$newUtilisateur->prenom = trim($_POST['prenom'] ?? "");
-$newUtilisateur->mail = trim($_POST['mail'] ?? "");
-$newUtilisateur->password = trim($_POST['password'] ?? "");
+$newUtilisateur->nom = htmlspecialchars(trim($_POST['nom'] ?? ""));
+$newUtilisateur->prenom = htmlspecialchars(trim($_POST['prenom'] ?? ""));
+$newUtilisateur->mail = htmlspecialchars(trim($_POST['mail'] ?? ""));
+$newUtilisateur->password = htmlspecialchars(trim($_POST['password'] ?? ""));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (
@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: ../index.php');
                 exit;
             } else {
-                $errorMessageUtilisateur = 'Le mot de passe doit contenir au moins 8 caractères, dont une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial';
+                $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
+                un caractère spécial parmi # ? ! @ € $ % * - + /';
             }
         } else {
             $errorMessageUtilisateur = "Un utilisateur existe déjà avec cet e-mail !";
