@@ -39,10 +39,10 @@
 
                 <div>
                     <label for="password">Mot de passe</label>
-                    <span class=infoPassword>(8 caract&egrave;res minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et
-                        un caractère spécial parmi # ? ! @ € $ % * - + /)</span>
-                    <input type="password" name="password" id="password" value="">
-                    <i class="fa fa-eye" onclick="fafaEye()"></i>
+                    <span class=infoPassword>8 caract&egrave;res minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et
+                        un caractère spécial différent de & < " ></span>
+                    <input type=" password" name="password" id="password" value="">
+                            <i class="fa fa-eye" onclick="fafaEye()"></i>
                 </div>
 
                 <div class="btnSubmit">
