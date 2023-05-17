@@ -39,8 +39,9 @@
 
                 <div>
                     <label for="password">Mot de passe</label>
-                    <!-- Obligation de rentrer un mot de passe fort -->
-                    <input type="password" name="password" id="password" value="<?= htmlspecialchars($newUtilisateur->password) ?>">
+                    <span class=infoPassword>(8 caract&egrave;res minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et
+                        un caractère spécial parmi # ? ! @ € $ % * - + /)</span>
+                    <input type="password" name="password" id="password" value="">
                     <i class="fa fa-eye" onclick="fafaEye()"></i>
                 </div>
 

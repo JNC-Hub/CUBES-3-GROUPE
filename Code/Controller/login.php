@@ -19,8 +19,8 @@ if (isset($_SESSION['user'])) {
         !empty($_POST['mail'])
         && !empty($_POST['password'])
     ) {
-        $mail = trim($_POST['mail']);
-        $password = trim($_POST['password']);
+        $mail = htmlspecialchars(trim($_POST['mail']));
+        $password = htmlspecialchars(trim($_POST['password']));
 
         $utilisateur = new Utilisateur();
         $utilisateurLogin = $utilisateur->getUtilisateurLogin($mail);

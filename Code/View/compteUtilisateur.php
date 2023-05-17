@@ -17,6 +17,8 @@
 
     <a href="../Controller/gestionProfil.php">Mes informations personnelles</a>
 
+    <a href="#.php">Publier une recette</a>
+
     <a href="../Controller/logout.php">Se déconnecter</a>
 
     <h1>Liste de mes recettes publiées</h1>

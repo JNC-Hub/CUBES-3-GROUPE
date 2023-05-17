@@ -153,9 +153,9 @@ class Utilisateur
         $uppercase = preg_match('@[A-Z]@', $password);
         $lowercase = preg_match('@[a-z]@', $password);
         $number    = preg_match('@[0-9]@', $password);
-        $specialChars = preg_match('@[^\w]@', $password);
+        $specialChars = preg_match('@[#?!\@€$%*-+/]@', $password);
 
-        if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+        if (htmlspecialchars($password) != $password || !$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
             return false;
         } else {
             return true;
