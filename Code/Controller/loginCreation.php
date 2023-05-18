@@ -34,8 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header('Location: ../index.php');
                 exit;
             } else {
+                // $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
+                //             un caractère spécial différent de & < " ou >';
                 $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
-                un caractère spécial différent de & < " >';
+                    un caractère spécial parmi # ? ! @ € $ % * - + /';
             }
         } else {
             $errorMessageUtilisateur = "Un utilisateur existe déjà avec cet e-mail !";

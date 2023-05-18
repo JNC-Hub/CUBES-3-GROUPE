@@ -39,8 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = !empty($_POST['password']) ? htmlspecialchars(trim($_POST['password'])) : $utilisateur->password;
     $utilisateur->password = $password;
     if (!$utilisateur->isPasswordStrong($password)) {
-        $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et un 
-        caractère spécial différent de & < " >';
+        // $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
+        //             un caractère spécial différent de & < " ou >';
+        $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
+                    un caractère spécial parmi # ? ! @ € $ % * - + /';
         $erreur = true;
     }
 

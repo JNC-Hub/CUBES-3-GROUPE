@@ -1,0 +1,35 @@
+.linkUtilisateur {
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 90%;
+    margin: auto;
+    padding-top: 5%;
+}
+
+.tableTitle {
+    padding: 3%;
+    font-size: 25px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+/***********************************************************************
+                            MEDIA QUERY téléphone
+************************************************************************/
+@media screen and (max-width:735px) {
+
+    .linkUtilisateur {
+        min-width: 100%;
+        min-height: 300px;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10% 10%;
+    }
+
+    .tableTitle {
+        font-size: 18px;
+        margin-bottom: 5%;
+    }
+
+}

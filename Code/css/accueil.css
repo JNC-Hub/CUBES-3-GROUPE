@@ -1,0 +1,18 @@
+.presentation {
+    padding: 3% 2% 3% 2%;
+    width: 50%;
+    font-size: 15px;
+}
+
+/***********************************************************************
+                            MEDIA QUERY téléphone
+************************************************************************/
+@media screen and (max-width:768px) {
+
+    .presentation {
+        min-width: 100%;
+        padding: 5% 2% 5% 2%;
+        font-size: 13px;
+    }
+
+}
