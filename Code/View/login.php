@@ -25,6 +25,10 @@
 
     <h1 class="h1Login">Déjà enregistré ?</h1>
 
+    <?php if (isset($errorMessageLogUtilisateur)) : ?>
+        <p style="color:red; text-align:center"><?= $errorMessageLogUtilisateur ?></p>
+    <?php endif; ?>
+
     <div class="loginFormBox">
 
         <form action="../Controller/login.php" method="post">
@@ -48,10 +52,6 @@
     </div>
 
     <script src="../Js/scriptPassword.js"></script>
-
-    <?php if (isset($errorMessageLogUtilisateur)) : ?>
-        <p style="color:red"><?= $errorMessageLogUtilisateur ?></p>
-    <?php endif; ?>
 
     <footer>
         <?php require_once 'footer.html' ?>

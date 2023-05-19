@@ -19,6 +19,10 @@
 
     <h1 class="h1Login">Créer un compte</h2>
 
+        <?php if (isset($errorMessageUtilisateur)) : ?>
+            <p style="color:red; text-align: center;"><?= $errorMessageUtilisateur ?></p>
+        <?php endif; ?>
+
         <div class="loginFormBox">
 
             <form action="../Controller/loginCreation.php" method="post">
@@ -62,10 +66,6 @@
         </div>
 
         <script src="../Js/scriptPassword.js"></script>
-
-        <?php if (isset($errorMessageUtilisateur)) : ?>
-            <p style="color:red"><?= $errorMessageUtilisateur ?></p>
-        <?php endif; ?>
 
         <footer>
             <?php require_once 'footer.html' ?>

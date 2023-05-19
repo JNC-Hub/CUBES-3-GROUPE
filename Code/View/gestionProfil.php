@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="form-content">
-                    <label for="password">Mot de passe (si modification uniquement)</label>
+                    <label for="password">Mot de passe (uniquement en cas de changement)</label>
                     <input type="password" name="password" id="password" value="">
                     <i class="fa fa-eye" onclick="fafaEye()"></i>
                 </div>
