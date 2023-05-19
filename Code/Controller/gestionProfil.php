@@ -46,10 +46,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erreur = true;
     }
 
-    $passwordConfirm = htmlspecialchars(trim($_POST['passwordConfirm']));
-    if ($utilisateur->password != $passwordConfirm) {
-        $errorMessageUtilisateur = 'Les deux mots de passe sont différents';
-        $erreur = true;
+    //Vérifie que les deux mots de passe sont identiques
+    if (!empty($_POST['password'])) {
+        $passwordConfirm = htmlspecialchars(trim($_POST['passwordConfirm']));
+        if ($utilisateur->password != $passwordConfirm) {
+            $errorMessageUtilisateur = 'Les deux mots de passe sont différents';
+            $erreur = true;
+        }
+    }
+
+    //Vérifie qu'il y un mot de passe saisi si mot de passe de confirmation
+    if (!empty($_POST['passwordConfirm'])) {
+        if (empty($_POST['password'])) {
+            $errorMessageUtilisateur = 'Vous devez saisir votre mot de passe deux fois';
+            $erreur = true;
+        }
     }
 
     //Si aucune erreur, met à jour l'utilisateur    
