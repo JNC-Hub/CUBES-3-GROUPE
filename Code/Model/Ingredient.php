@@ -6,7 +6,7 @@
 
 use App\Db\DbConnection;
 
-require_once "../Model/Connection.php";
+require_once "Connection.php";
 
 class Ingredient
 {
@@ -32,7 +32,7 @@ class Ingredient
 
     public function __set($pParam, $pValue)
     {
-        if (isset($this->$pParam)) {
+        if (isset($pParam)) {
             $this->$pParam = $pValue;
         } else {
             throw new Exception("Parametre inconnu : " . $pParam);
@@ -47,5 +47,33 @@ class Ingredient
         $listIngredients = $requetListIngredient->fetchAll(PDO::FETCH_ASSOC);
         $db->close();
         return $listIngredients;
+    }
+    public  function isExistIngredient($libIngredient)
+    {
+        $libIngredient = htmlspecialchars(strip_tags($libIngredient));
+        $listIngredient = $this->getListIngredients();
+        foreach ($listIngredient as $ingredient) {
+            if ($libIngredient === $ingredient['libIngredient']) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public function insertIngredient($libIngredient)
+    {
+        $db = DbConnection::getInstance();
+        if (!$this->isExistIngredient($libIngredient)) {
+            $libIngredient = htmlspecialchars(strip_tags($this->libIngredient));
+
+            $query = "INSERT INTO etape (libIngredient) VALUES (:libIngredient)";
+
+            $stmt = $db->prepare($query);
+
+            $stmt->bindParam(":libIngredient", $libIngredient);
+
+            $stmt->execute();
+
+            $db->close();
+        }
     }
 }

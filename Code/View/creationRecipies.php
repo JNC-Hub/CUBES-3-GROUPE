@@ -19,8 +19,7 @@ $listIngredients = $ingredients->getListIngredients();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/creationRecipie.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -41,11 +40,10 @@ $listIngredients = $ingredients->getListIngredients();
             </div>
         </div>
 
-        <form action="Controller/creationRecipies.php" method="POST" autocomplete="off" id="formCreation">
+        <form action="" method="POST" autocomplete="off" id="formCreation">
             <div class="titleRecette my-4">
                 <label for="titleRecette" class="form-label">Je choisis le titre de ma recette </label>
-                <input type="text" name="titleRecette" id="titleRecette" class="form-control"
-                    placeholder="Saisissez un titre" required>
+                <input type="text" name="titleRecette" id="titleRecette" class="form-control" placeholder="Saisissez un titre" required>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
@@ -74,8 +72,7 @@ $listIngredients = $ingredients->getListIngredients();
             <div class="histoire my-4">
                 <label for="histoire" class="form-label">Partagez avec nous une petite histoire/anecdote de votre
                     recette </label>
-                <textarea class="form-control" id="histoire" rows="4" required maxlength="300"
-                    placeholder="Votre histoire/anecdote"></textarea>
+                <textarea class="form-control" id="histoire" rows="4" required maxlength="300" placeholder="Votre histoire/anecdote"></textarea>
                 <span class="float-end label label-default" id="countLength"></span>
             </div>
             <div class="image my-4">
@@ -83,14 +80,19 @@ $listIngredients = $ingredients->getListIngredients();
                 <div class="frame">
                     <div class="dropzone">
                         <label for="file-input">
-                            <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon"
-                                id="image-preview" />
-                            <input type="file" class="upload-input" id="file-input"
-                                accept="image/png, image/gif, image/jpeg" style="display:none;" />
+                            <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" id="image-preview" />
+                            <input type="file" class="upload-input" id="file-input" accept="image/png, image/gif, image/jpeg" style="display:none;" />
                             <span id="file-name"></span>
                         </label>
                     </div>
                 </div>
+            </div>
+            <div class="nombrePersonne my-4">
+
+                <label for="nombrePersonne" class="form-label">
+                    Pour combien de personnes cette recette est-elle adaptée ?</label>
+                <input type="number" name="nombrePersonne" min="0" id="nombrePersonne" class="col-auto" placeholder="Nombre Personne" required>
+
             </div>
             <div class="my-4">
                 <label class="form-label">Choisir les ingrédients </label>
@@ -98,15 +100,14 @@ $listIngredients = $ingredients->getListIngredients();
                     <div class="row">
                         <div class="col-md-3 ">
                             <div class="input-wrapper">
-                                <input class="form-control" id="quantite" min="0" name="quantite" type="number"
-                                    required />
+                                <input class="form-control" id="quantite" min="0" name="quantite" type="number" />
                                 <span>Quantité</span>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="input-wrapper">
 
-                                <select class="form-control" id="unite" name="unite" required>
+                                <select class="form-control" id="unite" name="unite">
                                     <option></option>
                                     <?php
                                     foreach ($listUnites as $unite) {
@@ -119,7 +120,7 @@ $listIngredients = $ingredients->getListIngredients();
                         </div>
                         <div class="col-md-6">
 
-                            <select class="form-control ingredients" name="ingredients" id='existIngredient' required>
+                            <select class="form-control ingredients" name="ingredients" id='existIngredient'>
                                 <option></option>
                                 <?php
                                 foreach ($listIngredients as $ingredient) {
@@ -130,13 +131,11 @@ $listIngredients = $ingredients->getListIngredients();
                         </div>
                     </div>
                     <div class="my-4">
-                        <span>Si l'ingrédient n'existe pas dans la liste des ingrédients, cliquez sur <button
-                                type="button" class="btn  btn-rounded" id="ajoutNewIngredient">Nouvel
+                        <span>Si l'ingrédient n'existe pas dans la liste des ingrédients, cliquez sur <button type="button" class="btn  btn-rounded" id="ajoutNewIngredient">Nouvel
                                 ingrédient</button></span>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-danger btn-rounded d-grid gap-2 col-4 mx-auto"
-                            id="buttonAdIngredient">Ajouter ingrédient</button>
+                        <button type="button" class="btn btn-rounded d-grid gap-2 col-4 mx-auto" id="buttonAdIngredient">Ajouter ingrédient</button>
                     </div>
                 </div>
                 <div>
@@ -147,23 +146,21 @@ $listIngredients = $ingredients->getListIngredients();
                 <div class="etape my-4">
                     <label for="etape" class="form-label">Préparation de la recette </label>
                     <div class=" shadow p-3 mb-5 bg-white rounded">
-                        <textarea class="form-control" id="etape" name="etape" rows="4" required
-                            placeholder="Ajouter une étape"></textarea>
+                        <textarea class="form-control" id="etape" name="etape" rows="4" placeholder="Ajouter une étape"></textarea>
                         <div>
-                            <button type="button" class="btn btn-danger btn-rounded d-grid gap-2 col-4 mx-auto"
-                                id="buttonAdEtape">Ajouter une étape</button>
+                            <button type="button" class="btn btn-rounded d-grid gap-2 col-4 mx-auto" id="buttonAdEtape">Ajouter une étape</button>
                         </div>
                     </div>
                 </div>
                 <div class="repeatEtape">
                     <div class="table-responsive" style="margin-top:10px">
-                        <table class="table table-borderless" id="dynamic_field_etape"></table>
+                        <table class="table  table-striped" id="dynamic_field_etape"></table>
                     </div>
                 </div>
 
             </div>
             <div class="d-grid gap-2 col-6 mx-auto">
-                <button type="submit" class="btn btn-success">Envoyer votre recette</button>
+                <button type="submit" class="btn btn-success" id="submit">Envoyer votre recette</button>
             </div>
         </form>
     </div>

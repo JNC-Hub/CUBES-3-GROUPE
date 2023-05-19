@@ -48,28 +48,28 @@ $(document).ready(function () {
         $('#countLength').html(text_length + ' / ' + text_max);
     });
     // pour afficher le filename à coté du champ input file
-    let fileInput = document.getElementById("file-input");
-    const fileName = document.getElementById("file-name");
+    let fileInput = $('#file-input');
+    const fileName = $("#file-name");
 
-    fileInput.addEventListener("change", () => {
-        fileName.textContent = fileInput.files[0].name;
+    fileInput.on("change", function () {
+        fileName.text(this.files[0].name);
         let uploadedImage = $('#uploaded-image');
-        uploadIcon.removeClass("upload-icon");
-        uploadedImage.attr('src', URL.createObjectURL(event.target.files[0]));
+        uploadedImage.removeClass("upload-icon");
+        uploadedImage.attr('src', URL.createObjectURL(this.files[0]));
         uploadedImage.show();
     });
 
     // limiter le file à 1mega
-    fileInput.onchange = function () {
+    fileInput.on("change", function () {
         if (this.files[0].size > 1048576) {
             alert("La photo est trop grande!");
             this.value = "";
             fileName.textContent = "";
             return false
-        };
-    };
+        }
+    });
 
-    $('#file-input').change(function () {
+    fileInput.change(function () {
         const file = $(this)[0].files[0];
         const uploadIcon = document.getElementById("image-preview");
 
@@ -134,15 +134,16 @@ $(document).ready(function () {
 
     const transformerSelectEnInput = () => {
         // Récupérer le champ select existant
-        var select = $("#existIngredient");
+        let select = $("#existIngredient");
         select.select2("destroy");
 
         // Créer un nouvel élément input
-        var input = $("<input>").attr({
+        let input = $("<input>").attr({
             type: "text",
             name: "ingredients",
             placeholder: "Nouvel ingrédient",
-            class: 'form-control ingredients'
+            class: 'form-control ingredients',
+            id: 'existIngredient'
 
         });
 
@@ -152,14 +153,62 @@ $(document).ready(function () {
         ingredients.on('keyup', toggleButtonIngredient).trigger('keyup');
 
     }
+    let isSelect = true;
     $("#ajoutNewIngredient").click(function () {
-        transformerSelectEnInput();
+        if (isSelect) {
+            transformerSelectEnInput();
+            isSelect = false;
+        } else {
+
+            // Récupérer le champ select existant
+            let input = $("#existIngredient");
+
+            // Créer un nouvel élément input
+            var selectField = $("<select>").attr({
+                name: "ingredients",
+                class: "form-control ingredients",
+                id: "existIngredient"
+
+            });
+            $.ajax({
+                type: 'GET',
+                url: '../Controller/apigetListIngeredients.php',
+                dataType: 'json',
+                success: function (data) {
+                    data.forEach(function (ingredient) {
+                        // Ajouter une option vide
+                        let emptyOption = $("<option>").attr("value", "").text("");
+                        selectField.append(emptyOption);
+                        let option = $("<option>").attr("value", ingredient.idIngredient).text(ingredient.libIngredient);
+                        selectField.append(option);
+
+                    }
+                    )
+                },
+                async: false
+            });
+
+            // Remplacer le champ input par le champ select
+            input.replaceWith(selectField);
+            selectField.select2({
+                placeholder: "Ingrédient",
+                minimumInputLength: 2,
+                allowClear: true,
+            });
+            // Réinitialiser le plugin select2 si nécessaire
+            isSelect = true;
+            ingredients = $('.ingredients');
+            ingredients.on('change', toggleButtonIngredient).trigger('change');
+
+        }
+
     });
 
     let quantite = $('#quantite');
     let unite = $('#unite');
     let ingredients = $('.ingredients');
     let buttonAddIngredient = $('#buttonAdIngredient');
+    // trigger('keyup')  mettre à jour l'état initial du bouton  après le chargement de la page (cela simule l'événement "keyup",sans avoir besoin d'une action utilisateur réelle)
 
     quantite.on('keyup', toggleButtonIngredient).trigger('keyup');
     unite.on('change', toggleButtonIngredient).trigger('change');
@@ -169,7 +218,7 @@ $(document).ready(function () {
     // ingredients.on('keyup', toggleButtonIngredient).trigger('keyup');
 
     function toggleButtonIngredient() {
-        if (quantite.val().length === 0 || unite.val().length === 0 || ingredients.val().length === 0) {
+        if (quantite.val().length === 0 || unite.val().length === 0 || ingredients.val().length === 0 || ingredients.val() === 0) {
             buttonAddIngredient.prop('disabled', true);
         } else {
             buttonAddIngredient.prop('disabled', false);
@@ -181,18 +230,20 @@ $(document).ready(function () {
 
         let valQuantite = quantite.val();
         let selectedUnite = $('#unite option:selected').text();
-        let selectedIngredient = $('.ingredients option:selected').text();
+        let selectedIngredient = $('.ingredients').is('input') ? $('.ingredients').val() : $('.ingredients option:selected').text();
 
         // creation une nouvelle ligne dans la table
-        let newRow = '<tr  cope="' + rowCount + '"><td>' + valQuantite + '</td><td>' + selectedUnite + '</td><td>' + selectedIngredient + '</td><td><button type="button" class="btn btn-danger btn_remove_ingredient" style ="margin-right: 10px;" id="' + rowCount + '">X</button></td></tr>';
+        let newRow = '<tr  id="rowIngredient' + rowCount + '"><td>' + valQuantite + '</td><td>' + selectedUnite + '</td><td>' + selectedIngredient + '</td><td><button type="button" class="btn btn-danger btn_remove_ingredient" id="' + rowCount + '">X</button></td></tr>';
 
         // ajouter la ligne dans la table
         $('#dynamic_field_ingredient').append(newRow);
+
         quantite.val('');
         unite.val('');
         ingredients.val('').trigger('change');
 
         rowCount++;
+        ingredients.on('keyup', toggleButtonIngredient).trigger('keyup');
 
     });
     $(document).on('click', '.btn_remove_ingredient', function () {
@@ -214,17 +265,85 @@ $(document).ready(function () {
     buttonAddEtape.click(function () {
         let i = 0; // copteur pour les ligne
         // creation une nouvelle ligne dans la table
-        let addRow = '<tr id="rowEtape' + i + '"><td style="overflow:hidden; word-wrap:normal;">' + etape.val() + '</td><td><button type="button" class="btn btn-danger btn_remove_etape" style="margin-right: 10px;" id="' + i + '">X</button></td></tr>';
+        let addRow = '<tr id="rowEtape' + i + '"><td style="overflow:hidden; word-wrap:normal;">' + etape.val() + '</td><td><button type="button" class="btn btn-danger btn_remove_etape"  id="' + i + '">X</button></td></tr>';
 
         // ajouter la ligne dans la table
         $('#dynamic_field_etape').append(addRow);
         etape.val('');
         i++;
-
+        etape.on('keyup', toggleButtonEtape).trigger('keyup');
     });
     $(document).on('click', '.btn_remove_etape', function () {
         var button_id_etape = $(this).attr("id");
         $('#rowEtape' + button_id_etape + '').remove();
     });
 
+    $('#submit').click(function (event) {
+        let tableValueIngredient = [];
+        let etapeTab = [];
+        let titleRecetteValue = $('#titleRecette').val();
+        let continet = $('#select_contient').val();
+        let nombrePersonne = $('#nombrePersonne').val();
+        let pays = $('#select_pays').val();
+        let histoire = $('#histoire').val();
+        // $('#file-input') renvoie un objet jQuery, [0] pour obtenir le premier élément input puis acceder à la propriété files  du premier fichier sélectionné
+        let image = $('#file-input')[0].files[0];
+        var formData = new FormData();
+        formData.append("img_book", image);
+        if ($('#dynamic_field_ingredient tr').length >= 1) {
+            $('#dynamic_field_ingredient tr').each(function () {
+                let quantiteValue = $(this).find('td:eq(0)').text();
+                let uniteValue = $(this).find('td:eq(1)').text();
+                let ingredientValue = $(this).find('td:eq(2)').text();
+
+                // Ajoutez les valeurs récupérées au tableau
+
+                tableValueIngredient.push({
+                    quantite: quantiteValue,
+                    unite: uniteValue,
+                    ingredient: ingredientValue
+                });
+            });
+        } else {
+            alert("Veuillez renseigner les ingrédients de votre recette ")
+            return false;
+        }
+        if ($('#dynamic_field_etape tr').length >= 1) {
+            $('#dynamic_field_etape tr').each(function () {
+                let etapeValue = $(this).find('td:eq(0)').text();
+
+                etapeTab.push({
+                    etape: etapeValue
+                });
+            });
+        } else {
+            alert("Veuillez renseigner les étapes de votre recette ")
+            return false;
+
+        }
+        formData.append("title", titleRecetteValue);
+        formData.append("contient", continet);
+        formData.append("pays", pays);
+        formData.append("histoire", histoire);
+        formData.append("nombrePersonne", nombrePersonne);
+        formData.append("ingredients", JSON.stringify(tableValueIngredient));
+        formData.append("etapes", JSON.stringify(etapeTab));
+
+        $.ajax({
+            url: '../Controller/creationRecipies.php',
+            method: 'POST',
+            // dataType: 'json',
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (msg) {
+
+                alert("Form Submitted: " + msg);
+                console.log("test");
+            },
+            error: function (xhr, status, error) {
+
+            }
+        });
+    });
 });

@@ -82,7 +82,19 @@ textarea {
 
 .select2 {
     width: 100% !important;
-    /* height: 100% !important; */
+
+}
+
+.select2-selection__rendered {
+    line-height: 2.5em !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 2.5em !important;
+}
+
+.select2-selection__arrow {
+    height: 2.5em !important;
 }
 
 #buttonAdEtape {
@@ -94,12 +106,27 @@ textarea {
 
     word-break: break-word;
     padding-left: 10px;
+    background-color: #fff;
+}
+
+.btn_remove_etape,
+.btn_remove_ingredient {
+    color: #dc3545 !important;
 }
 
 #ajoutNewIngredient {
-    background-color: #ef4d3e9e;
+    background-color: #1e849b9e;
     text-align: center;
     color: beige;
     cursor: pointer;
     border-radius: 12px;
+}
+
+#buttonAdEtape,
+#buttonAdIngredient {
+    background-color: #ef4d3e9e;
+    text-align: center;
+    color: beige;
+    cursor: pointer;
+    border-radius: 14px;
 }
