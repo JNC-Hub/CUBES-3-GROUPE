@@ -14,6 +14,7 @@ class Utilisateur
     public string $password;
     public string $roles = "";
     public bool $validationProfil = true;
+    public int $idRole = -1;
     #endregion
 
     #region//Constructeur
@@ -35,7 +36,7 @@ class Utilisateur
         $db->close();
         return $utilisateurs;
     }
-    
+
     public function getUtilisateur($id): Utilisateur
     {
         $db = DbConnection::getInstance();
@@ -44,7 +45,7 @@ class Utilisateur
                                 LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
                                 LEFT JOIN role R ON R.idRole = P.idRole 
                                 WHERE U.idUtilisateur = :id");
-        $stmt->bindParam(":id", $id);
+        $stmt->bindValue(":id", $id);
         $stmt->execute();
         $utilisateur = $stmt->fetchObject('Utilisateur');
         $db->close();
@@ -55,7 +56,7 @@ class Utilisateur
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("SELECT * FROM utilisateur WHERE mail = :mail");
-        $stmt->bindParam(":mail", $mail);
+        $stmt->bindValue(":mail", $mail);
         $stmt->execute();
         $utilisateurByMail = $stmt->fetchAll(PDO::FETCH_CLASS, 'Utilisateur');
         $db->close();
@@ -73,35 +74,35 @@ class Utilisateur
         return true;
     }
 
-    public function updateUtilisateur($id)
+    public function updateActivationProfil($id)
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("UPDATE utilisateur
-                                SET validationProfil=:validationProfil 
+                                SET validationProfil = NOT validationProfil
                                 WHERE idUtilisateur = :id");
-        $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":validationProfil", $this->validationProfil);
+        $stmt->bindValue(":id", $id);
         $stmt->execute();
         $db->close();
-    
+
         $this->idUtilisateur = $id;
         return $this;
     }
 
-    public function unvalidateUtilisateur($id)
+    public function updateUtilisateur($id)
     {
-        $db = DbConnection::getInstance();   
+        $db = DbConnection::getInstance();
+
         $stmt = $db->prepare("UPDATE utilisateur
-                                SET validationProfil = 0
+                                SET nom=:nom, prenom=:prenom, mail=:mail, password=:password
                                 WHERE idUtilisateur = :id");
-        $stmt->bindParam(":id", $id);
-        $stmt->bindParam(":nom", $this->nom);
-        $stmt->bindParam(":prenom", $this->prenom);
-        $stmt->bindParam(":mail", $this->mail);
-        $stmt->bindParam(":password", $this->password);
+        $stmt->bindValue(":id", $id);
+        $stmt->bindValue(":nom", $this->nom);
+        $stmt->bindValue(":prenom", $this->prenom);
+        $stmt->bindValue(":mail", $this->mail);
+        $stmt->bindValue(":password", $this->password);
         $stmt->execute();
         $db->close();
-    
+
         $this->idUtilisateur = $id;
         return $this;
     }
@@ -111,10 +112,10 @@ class Utilisateur
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("INSERT INTO utilisateur (nom, prenom, mail, password, validationProfil) 
                                 VALUES (:nom, :prenom, :mail, :password, 1)");
-        $stmt->bindParam(":nom", $this->nom);
-        $stmt->bindParam(":prenom", $this->prenom);
-        $stmt->bindParam(":mail", $this->mail);
-        $stmt->bindParam(":password", $this->password);
+        $stmt->bindValue(":nom", $this->nom);
+        $stmt->bindValue(":prenom", $this->prenom);
+        $stmt->bindValue(":mail", $this->mail);
+        $stmt->bindValue(":password", $this->password);
         $stmt->execute();
         $db->close();
 
@@ -127,7 +128,7 @@ class Utilisateur
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("INSERT INTO posseder (idRole, idUtilisateur) 
                                 VALUES (2, :idUtilisateur)");
-        $stmt->bindParam(":idUtilisateur", $this->idUtilisateur);
+        $stmt->bindValue(":idUtilisateur", $this->idUtilisateur);
         $stmt->execute();
         $db->close();
     }
@@ -135,25 +136,27 @@ class Utilisateur
     public function getUtilisateurLogin($mail)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.mail, U.password, P.idRole, U.idUtilisateur
+        $stmt = $db->prepare("SELECT U.mail, U.password, P.idRole, U.idUtilisateur, U.validationProfil
                                     FROM utilisateur U 
-                                    LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
-                                    LEFT JOIN role R ON R.idRole = P.idRole 
+                                    INNER JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
+                                    INNER JOIN role R ON R.idRole = P.idRole 
                                     WHERE U.mail = :mail AND U.validationProfil = 1");
-        $stmt->bindParam(":mail", $mail);
+        $stmt->bindValue(":mail", $mail);
         $stmt->execute();
         $utilisateurLogin = $stmt->fetch(PDO::FETCH_ASSOC);
         $db->close();
         return $utilisateurLogin;
     }
 
-    function isPasswordStrong($password) {
+    function isPasswordStrong($password)
+    {
         $uppercase = preg_match('@[A-Z]@', $password);
         $lowercase = preg_match('@[a-z]@', $password);
         $number    = preg_match('@[0-9]@', $password);
-        $specialChars = preg_match('@[^\w]@', $password);
-    
-        if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+        // $specialChars = preg_match('@[^\w]@', $password);
+        $specialChars = preg_match('@[#?!\@€$%*-+/]@', $password);
+
+        if (htmlspecialchars($password) != $password || !$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
             return false;
         } else {
             return true;

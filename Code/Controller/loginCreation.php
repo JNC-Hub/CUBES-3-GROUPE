@@ -1,42 +1,79 @@
 <?php
-require_once '../Controller/authentification.php';
 require_once '../Model/Utilisateur.php';
 require_once '../Model/Role.php';
 
 $newUtilisateur = new Utilisateur();
+$newUtilisateur->nom = htmlspecialchars(trim($_POST['nom'] ?? ""));
+$newUtilisateur->prenom = htmlspecialchars(trim($_POST['prenom'] ?? ""));
+$newUtilisateur->mail = htmlspecialchars(trim($_POST['mail'] ?? ""));
+$newUtilisateur->password = htmlspecialchars(trim($_POST['password'] ?? ""));
 
-$newUtilisateur->nom = trim($_POST['nom'] ?? ""); // coalescence nulle (val_undefined ?? val_non_undefined) pour éviter erreur si aucune valeur n'est entrée dans le champ
-$newUtilisateur->prenom = trim($_POST['prenom'] ?? "");
-$newUtilisateur->mail = trim($_POST['mail'] ?? "");
-$newUtilisateur->password = trim($_POST['password'] ?? "");
-
-//Ajout resquest method pour afficher le message d'erreur uniquement sur bouton enregistrer
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (
         !empty($_POST['nom'])
-        && !empty($_POST['prenom'])
-        && !empty($_POST['mail'])
-        && !empty($_POST['password'])
-    ) { 
-        //Vérifie que le mot de passe n'existe pas déjà
-        if ($newUtilisateur->isMailValid()) {
-            // Vérifie si le mot de passe est fort
-            if ($newUtilisateur->isPasswordStrong($newUtilisateur->password)) {
-                // Hacher le mot de passe
-                $newUtilisateur->password = password_hash($newUtilisateur->password, PASSWORD_DEFAULT);
-                $utilisateur = $newUtilisateur->addUtilisateur();
-                $utilisateur->addRoleUtilisateur($_POST['roles']);
-                header('Location: ../View/index.php');
-                exit;
-            } else {
-                $errorMessageUtilisateur = 'Le mot de passe doit contenir au moins 8 caractères, dont une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial';
-            }
-        } else {
-            $errorMessageUtilisateur = "Un utilisateur existe déjà avec cet e-mail !";
+        || !empty($_POST['prenom'])
+        || !empty($_POST['mail'])
+        || !empty($_POST['password'])
+    ) {
+
+        $erreur = false;
+        if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['mail'])) {
+            $errorMessageUtilisateur = 'Tous les champs sont obligatoires !';
+            $erreur = true;
         }
-    }
-    else {
-        $errorMessageUtilisateur = 'Tous les champs sont obligatoires !';
+
+        //Vérifie si le mail existe déjà
+        $mail = !empty($_POST['mail']) ? htmlspecialchars(trim($_POST['mail'])) : htmlspecialchars($newUtilisateur->mail);
+        $newUtilisateur->mail = $mail;
+        if (!$newUtilisateur->isMailValid()) {
+            $errorMessageUtilisateur = 'Un utilisateur existe déjà avec cet email';
+            $erreur = true;
+        }
+
+        //Vérifie si le mot de passe est fort
+        $password = !empty($_POST['password']) ? htmlspecialchars(trim($_POST['password'])) : htmlspecialchars($newUtilisateur->password);
+        $newUtilisateur->password = $password;
+        if (!$newUtilisateur->isPasswordStrong($password)) {
+            // $errorUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
+            //             un caractère spécial différent de & < " ou >';
+            $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
+                        un caractère spécial parmi # ? ! @ € $ % * - + /';
+            $erreur = true;
+        }
+
+        //Vérifie que les deux mots de passe sont identiques
+        if (!empty($_POST['password'])) {
+            $passwordConfirm = htmlspecialchars(trim($_POST['passwordConfirm']));
+            if ($newUtilisateur->password != $passwordConfirm) {
+                $errorMessageUtilisateur = 'Les deux mots de passe sont différents';
+                $erreur = true;
+            }
+        }
+
+        //Vérifie mot de passe saisi si mot de passe de confirmation saisi
+        if (!empty($_POST['passwordConfirm'])) {
+            if (empty($_POST['password'])) {
+                $errorMessageUtilisateur = 'Vous devez saisir le mot de passe deux fois';
+                $erreur = true;
+            }
+        }
+
+        if ($erreur == false) {
+            // Hacher le mot de passe
+            $newUtilisateur->password = password_hash($newUtilisateur->password, PASSWORD_DEFAULT);
+            $utilisateur = $newUtilisateur->addUtilisateur();
+            $utilisateur->addRoleUtilisateur();
+
+            //Récupère les données login pour connexion active
+            $utilisateurLogin = $utilisateur->getUtilisateurLogin($newUtilisateur->mail);
+            session_start();
+            $_SESSION['user'] = $utilisateurLogin;
+            $_SESSION['user_idRole'] = $utilisateurLogin['idRole'];
+            //Création cookie pour déconnexion automatique au bout 30mn d'inactivité
+            setcookie('last_activity', session_id(), time() + 1800, '/', '', false, true);
+            header('Location: ../index.php');
+            exit;
+        }
     }
 }
 

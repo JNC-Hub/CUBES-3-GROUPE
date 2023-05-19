@@ -1,13 +1,11 @@
 <?php
 
-//Vérifie que l'utilisateur est bien connecté
 session_start();
-if (!isset($_SESSION['user'])) {
-    header('Location: ../index.php');
+
+//Redirection vers page de login si pas de session utilisateur ou pas de cookie last_activity expiré
+if (!isset($_SESSION['user']) || !isset($_COOKIE['last_activity'])) {
+    session_unset();
+    session_destroy();
+    header('Location: ../controller/login.php');
     exit();
-} else {
-    //Stocke l'idUtilisateur dans variable de session pour pouvoir l'utiliser dans les fonctionnalités avec connexion
-    $_SESSION['user_id'] = $_SESSION['user']['idUtilisateur'];
-    //Stocke le rôle de l'utilisateur
-    $_SESSION['user_idRole'] = $_SESSION['user']['idRole'];
 }

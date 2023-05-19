@@ -1,0 +1,25 @@
+footer{
+    position:relative;
+    
+}
+#twitter{
+    width: 20px;
+}
+#instagram{
+    width: 20px;
+    margin: 2%;
+    
+}
+#facebook{
+    width: 20px;
+}
+
+#Email{
+    margin: 2%;
+}
+
+#mobile{
+    margin: 2%;
+    left: 10%;
+    padding-left: 5%;
+}

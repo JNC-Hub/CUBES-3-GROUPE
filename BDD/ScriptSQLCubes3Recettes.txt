@@ -24,7 +24,7 @@ CREATE TABLE utilisateur(
 
 CREATE TABLE role(
         idRole  Int  Auto_increment  NOT NULL ,
-        libRole Varchar (50) NOT NULL
+        libRole Varchar (255) NOT NULL
 	,CONSTRAINT role_PK PRIMARY KEY (idRole)
 )ENGINE=InnoDB;
 
@@ -45,9 +45,23 @@ CREATE TABLE statutRecette(
 #------------------------------------------------------------
 
 CREATE TABLE continent(
-        idContinent  Int  Auto_increment  NOT NULL ,
-        libContinent Varchar (50) NOT NULL
+        idContinent Int  Auto_increment  NOT NULL ,
+        libPays     Varchar (50) NOT NULL
 	,CONSTRAINT continent_PK PRIMARY KEY (idContinent)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: pays
+#------------------------------------------------------------
+
+CREATE TABLE pays(
+        idPays      Int  Auto_increment  NOT NULL ,
+        libPays     Varchar (50) NOT NULL ,
+        idContinent Int NOT NULL
+	,CONSTRAINT pays_PK PRIMARY KEY (idPays)
+
+	,CONSTRAINT pays_continent_FK FOREIGN KEY (idContinent) REFERENCES continent(idContinent)
 )ENGINE=InnoDB;
 
 
@@ -64,26 +78,12 @@ CREATE TABLE recette(
         image         Varchar (100) NOT NULL ,
         idUtilisateur Int NOT NULL ,
         idStatut      Int NOT NULL ,
-        idContinent   Int NOT NULL
+        idPays        Int NOT NULL
 	,CONSTRAINT recette_PK PRIMARY KEY (idRecette)
 
 	,CONSTRAINT recette_utilisateur_FK FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
 	,CONSTRAINT recette_statutRecette0_FK FOREIGN KEY (idStatut) REFERENCES statutRecette(idStatut)
-	,CONSTRAINT recette_continent1_FK FOREIGN KEY (idContinent) REFERENCES continent(idContinent)
-)ENGINE=InnoDB;
-
-
-#------------------------------------------------------------
-# Table: pays
-#------------------------------------------------------------
-
-CREATE TABLE pays(
-        idPays      Int  Auto_increment  NOT NULL ,
-        libPays     Varchar (50) NOT NULL ,
-        idContinent Int NOT NULL
-	,CONSTRAINT pays_PK PRIMARY KEY (idPays)
-
-	,CONSTRAINT pays_continent_FK FOREIGN KEY (idContinent) REFERENCES continent(idContinent)
+	,CONSTRAINT recette_pays1_FK FOREIGN KEY (idPays) REFERENCES pays(idPays)
 )ENGINE=InnoDB;
 
 

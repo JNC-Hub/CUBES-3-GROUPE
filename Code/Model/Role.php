@@ -29,12 +29,12 @@ class Role
         $db->close();
         return $roles;
     }
-    
+
     public function getRoleByUtilisateur($idUtilisateur)
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("SELECT * FROM posseder P INNER JOIN role R on R.idRole = P.idRole WHERE idUtilisateur = :idUtilisateur");
-        $stmt->bindParam(":idUtilisateur", $idUtilisateur);
+        $stmt->bindValue(":idUtilisateur", $idUtilisateur);
         $stmt->execute();
         $roleByUtilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
         $db->close();
@@ -45,7 +45,7 @@ class Role
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("INSERT INTO role (libRole) VALUES (:libRole)");
-        $stmt->bindParam(":libRole", $this->libRole);
+        $stmt->bindValue(":libRole", $this->libRole);
         $stmt->execute();
         $db->close();
     }

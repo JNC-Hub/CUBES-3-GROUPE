@@ -1,15 +1,16 @@
 <?php
 
-require_once '../Controller/authentification.php';
+require_once 'authentification.php';
 require_once '../Model/Utilisateur.php';
 
-//Je ne vérifie pas le rôle de l'utilisateur car ce sera fait au niveau du bouton header. A voir si nécessaire
-if (isset($_SESSION['user_id'])) {
-    $idUtilisateur = ($_SESSION['user_id']);
+//Affiche les données de l'utiisateur connecté
+if (isset($_SESSION['user'])) {
+    $idUtilisateur = $_SESSION['user']['idUtilisateur'];
     $utilisateur = new Utilisateur();
     $utilisateur = $utilisateur->getUtilisateur($idUtilisateur);
 }
 
+//Mettre à jour les données de l'utilisateur connecté
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $erreur = false;
@@ -26,34 +27,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erreur = true;
     }
 
-    //Vérifie si le mail existe déjà
-    $mail = !empty($_POST['mail']) ? trim($_POST['mail']) : '';
+    //Vérifie que le mail n'existe pas déjà
+    $mail = !empty($_POST['mail']) ? htmlspecialchars(trim($_POST['mail'])) : '';
     $utilisateur->mail = $mail;
     if (!$utilisateur->isMailValid()) {
         $errorMessageUtilisateur = 'Un utilisateur existe déjà avec cet email';
         $erreur = true;
     }
-    var_dump($mail);
 
     //Vérifie si le mot de passe est fort
-    $password = !empty($_POST['password']) ? trim($_POST['password']) : $utilisateur->password;
+    $password = !empty($_POST['password']) ? htmlspecialchars(trim($_POST['password'])) : $utilisateur->password;
     $utilisateur->password = $password;
     if (!$utilisateur->isPasswordStrong($password)) {
-        $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
-                    un caractère spécial';
+        // $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
+        //             un caractère spécial différent de & < " ou >';
+        $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
+                    un caractère spécial parmi # ? ! @ € $ % * - + /';
         $erreur = true;
     }
 
-    //Si aucune erreur, met à jour l'utilisateur
+    //Vérifie que les deux mots de passe sont identiques
+    if (!empty($_POST['password'])) {
+        $passwordConfirm = htmlspecialchars(trim($_POST['passwordConfirm']));
+        if ($utilisateur->password != $passwordConfirm) {
+            $errorMessageUtilisateur = 'Les deux mots de passe sont différents';
+            $erreur = true;
+        }
+    }
+
+    //Vérifie qu'il y un mot de passe saisi si mot de passe de confirmation
+    if (!empty($_POST['passwordConfirm'])) {
+        if (empty($_POST['password'])) {
+            $errorMessageUtilisateur = 'Vous devez saisir votre mot de passe deux fois';
+            $erreur = true;
+        }
+    }
+
+    //Si aucune erreur, met à jour l'utilisateur    
     if ($erreur == false) {
         $utilisateur = new Utilisateur();
-        $utilisateur->getUtilisateur($_POST['id']);
-        $utilisateur->nom = trim($_POST['nom']);
-        $utilisateur->prenom = trim($_POST['prenom']);
-        $utilisateur->mail = trim($_POST['mail']); // mettre à jour la propriété mail
+        $utilisateur = $utilisateur->getUtilisateur($idUtilisateur);
+        $utilisateur->nom = htmlspecialchars(trim($_POST['nom']));
+        $utilisateur->prenom = htmlspecialchars(trim($_POST['prenom']));
+        $utilisateur->mail = htmlspecialchars(trim($_POST['mail']));
 
         if (!empty($_POST['password'])) {
-            $password = trim($_POST['password']);
+            $password = htmlspecialchars(trim($_POST['password']));
             // Hache le mot de passe
             $utilisateur->password = password_hash($password, PASSWORD_DEFAULT);
         }
@@ -62,4 +81,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
+
 require_once '../View/gestionProfil.php';
