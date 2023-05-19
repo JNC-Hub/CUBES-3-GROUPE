@@ -7,3 +7,12 @@ function fafaEye() {
     passwordInput.type = "password";
   }
 }
+
+function fafaEyeConfirm() {
+  var passwordInput = document.getElementById("passwordConfirm");
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+  } else {
+    passwordInput.type = "password";
+  }
+}

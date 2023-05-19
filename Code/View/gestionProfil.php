@@ -23,6 +23,10 @@
 
     <h1 class="titleGestionProfil">Modifier mes informations</h1>
 
+    <?php if (isset($errorMessageUtilisateur)) : ?>
+        <p style="color:red; text-align:center"><?= $errorMessageUtilisateur ?></p>
+    <?php endif; ?>
+
     <div>
 
         <form action="../Controller/gestionProfil.php" method="post">
@@ -44,27 +48,30 @@
                 </div>
 
                 <div class="form-content">
-                    <label for="password">Mot de passe *</label>
+                    <label for="password">Mot de passe (si modification uniquement)</label>
                     <input type="password" name="password" id="password" value="">
                     <i class="fa fa-eye" onclick="fafaEye()"></i>
                 </div>
-                <!-- <span class=infoPassword>Mot de passe de 8 caract&egrave;res minimum, dont une lettre minuscule, une lettre majuscule, un chiffre et
+                <div>
+                    <!-- <span class=infoPassword>Mot de passe de 8 caract&egrave;res minimum, dont une lettre minuscule, une lettre majuscule, un chiffre et
                             un caractère spécial différent de & < " ></span> -->
-                <div style="margin:auto">
                     <span class=infoPassword>Mot de passe de 8 caract&egrave;res minimum, dont une lettre minuscule, une lettre majuscule, un chiffre et
                         un caractère spécial parmi # ? ! @ € $ % * - + /</span>
+                </div>
+
+                <div class="form-content">
+                    <label for="password">Confirmez le nouveau mot de passe</label>
+                    <input type="password" name="passwordConfirm" id="passwordConfirm" value="">
+                    <i class="fa fa-eye" onclick="fafaEyeConfirm()"></i>
                 </div>
 
                 <div class="submitLogin">
                     <input type="hidden" class="btn btn-light" name="idUtilisateur" value="<?= $utilisateur->idUtilisateur ?>">
                     <input type="submit" id="submit" value="Modifier">
                 </div>
+
         </form>
     </div>
-
-    <?php if (isset($errorMessageUtilisateur)) : ?>
-        <p style="color:red;"><?= $errorMessageUtilisateur ?></p>
-    <?php endif; ?>
 
     <script src="../js/scriptPassword.js"></script>
 
