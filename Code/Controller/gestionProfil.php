@@ -46,6 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erreur = true;
     }
 
+    $passwordConfirm = htmlspecialchars(trim($_POST['passwordConfirm']));
+    if ($utilisateur->password != $passwordConfirm) {
+        $errorMessageUtilisateur = 'Les deux mots de passe sont différents';
+        $erreur = true;
+    }
+
     //Si aucune erreur, met à jour l'utilisateur    
     if ($erreur == false) {
         $utilisateur = new Utilisateur();
