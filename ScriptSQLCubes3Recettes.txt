@@ -1,0 +1,200 @@
+#------------------------------------------------------------
+#        Script MySQL.
+#------------------------------------------------------------
+
+
+#------------------------------------------------------------
+# Table: utilisateur
+#------------------------------------------------------------
+
+CREATE TABLE utilisateur(
+        idUtilisateur    Int  Auto_increment  NOT NULL ,
+        nom              Varchar (50) NOT NULL ,
+        prenom           Varchar (50) NOT NULL ,
+        mail             Varchar (50) NOT NULL ,
+        password         Varchar (255) NOT NULL ,
+        validationProfil Bool NOT NULL
+	,CONSTRAINT utilisateur_PK PRIMARY KEY (idUtilisateur)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: role
+#------------------------------------------------------------
+
+CREATE TABLE role(
+        idRole  Int  Auto_increment  NOT NULL ,
+        libRole Varchar (255) NOT NULL
+	,CONSTRAINT role_PK PRIMARY KEY (idRole)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: statutRecette
+#------------------------------------------------------------
+
+CREATE TABLE statutRecette(
+        idStatut  Int  Auto_increment  NOT NULL ,
+        libStatut Varchar (50) NOT NULL
+	,CONSTRAINT statutRecette_PK PRIMARY KEY (idStatut)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: continent
+#------------------------------------------------------------
+
+CREATE TABLE continent(
+        idContinent Int  Auto_increment  NOT NULL ,
+        libPays     Varchar (50) NOT NULL
+	,CONSTRAINT continent_PK PRIMARY KEY (idContinent)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: pays
+#------------------------------------------------------------
+
+CREATE TABLE pays(
+        idPays      Int  Auto_increment  NOT NULL ,
+        libPays     Varchar (50) NOT NULL ,
+        idContinent Int NOT NULL
+	,CONSTRAINT pays_PK PRIMARY KEY (idPays)
+
+	,CONSTRAINT pays_continent_FK FOREIGN KEY (idContinent) REFERENCES continent(idContinent)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: recette
+#------------------------------------------------------------
+
+CREATE TABLE recette(
+        idRecette     Int  Auto_increment  NOT NULL ,
+        dateRecette   Date NOT NULL ,
+        titre         Varchar (50) NOT NULL ,
+        nbPersonnes   Int NOT NULL ,
+        histoire      Varchar (1000) NOT NULL ,
+        image         Varchar (100) NOT NULL ,
+        idUtilisateur Int NOT NULL ,
+        idStatut      Int NOT NULL ,
+        idPays        Int NOT NULL
+	,CONSTRAINT recette_PK PRIMARY KEY (idRecette)
+
+	,CONSTRAINT recette_utilisateur_FK FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
+	,CONSTRAINT recette_statutRecette0_FK FOREIGN KEY (idStatut) REFERENCES statutRecette(idStatut)
+	,CONSTRAINT recette_pays1_FK FOREIGN KEY (idPays) REFERENCES pays(idPays)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: etape
+#------------------------------------------------------------
+
+CREATE TABLE etape(
+        idEtape   Int  Auto_increment  NOT NULL ,
+        libEtape  Varchar (50) NOT NULL ,
+        idRecette Int NOT NULL
+	,CONSTRAINT etape_PK PRIMARY KEY (idEtape)
+
+	,CONSTRAINT etape_recette_FK FOREIGN KEY (idRecette) REFERENCES recette(idRecette)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: ingredient
+#------------------------------------------------------------
+
+CREATE TABLE ingredient(
+        idIngredient  Int  Auto_increment  NOT NULL ,
+        libIngredient Varchar (50) NOT NULL
+	,CONSTRAINT ingredient_PK PRIMARY KEY (idIngredient)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: uniteMesure
+#------------------------------------------------------------
+
+CREATE TABLE uniteMesure(
+        idUniteMesure  Int  Auto_increment  NOT NULL ,
+        libUniteMesure Varchar (50) NOT NULL
+	,CONSTRAINT uniteMesure_PK PRIMARY KEY (idUniteMesure)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: posseder
+#------------------------------------------------------------
+
+CREATE TABLE posseder(
+        idRole        Int NOT NULL ,
+        idUtilisateur Int NOT NULL
+	,CONSTRAINT posseder_PK PRIMARY KEY (idRole,idUtilisateur)
+
+	,CONSTRAINT posseder_role_FK FOREIGN KEY (idRole) REFERENCES role(idRole)
+	,CONSTRAINT posseder_utilisateur0_FK FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: commenter
+#------------------------------------------------------------
+
+CREATE TABLE commenter(
+        idRecette       Int NOT NULL ,
+        idUtilisateur   Int NOT NULL ,
+        commentaire     Varchar (255) NOT NULL ,
+        dateCommentaire Date NOT NULL
+	,CONSTRAINT commenter_PK PRIMARY KEY (idRecette,idUtilisateur)
+
+	,CONSTRAINT commenter_recette_FK FOREIGN KEY (idRecette) REFERENCES recette(idRecette)
+	,CONSTRAINT commenter_utilisateur0_FK FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: memoriser
+#------------------------------------------------------------
+
+CREATE TABLE memoriser(
+        idUtilisateur Int NOT NULL ,
+        idRecette     Int NOT NULL
+	,CONSTRAINT memoriser_PK PRIMARY KEY (idUtilisateur,idRecette)
+
+	,CONSTRAINT memoriser_utilisateur_FK FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
+	,CONSTRAINT memoriser_recette0_FK FOREIGN KEY (idRecette) REFERENCES recette(idRecette)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: noter
+#------------------------------------------------------------
+
+CREATE TABLE noter(
+        idRecette     Int NOT NULL ,
+        idUtilisateur Int NOT NULL ,
+        note          Int NOT NULL
+	,CONSTRAINT noter_PK PRIMARY KEY (idRecette,idUtilisateur)
+
+	,CONSTRAINT noter_recette_FK FOREIGN KEY (idRecette) REFERENCES recette(idRecette)
+	,CONSTRAINT noter_utilisateur0_FK FOREIGN KEY (idUtilisateur) REFERENCES utilisateur(idUtilisateur)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: contenir
+#------------------------------------------------------------
+
+CREATE TABLE contenir(
+        idRecette     Int NOT NULL ,
+        idIngredient  Int NOT NULL ,
+        idUniteMesure Int NOT NULL ,
+        quantite      Float NOT NULL
+	,CONSTRAINT contenir_PK PRIMARY KEY (idRecette,idIngredient,idUniteMesure)
+
+	,CONSTRAINT contenir_recette_FK FOREIGN KEY (idRecette) REFERENCES recette(idRecette)
+	,CONSTRAINT contenir_ingredient0_FK FOREIGN KEY (idIngredient) REFERENCES ingredient(idIngredient)
+	,CONSTRAINT contenir_uniteMesure1_FK FOREIGN KEY (idUniteMesure) REFERENCES uniteMesure(idUniteMesure)
+)ENGINE=InnoDB;
+
