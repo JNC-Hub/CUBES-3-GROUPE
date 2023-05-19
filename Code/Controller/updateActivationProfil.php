@@ -12,5 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../Controller/getUtilisateurs.php');
         exit;
     }
+} else {
+    header('Location: ../Controller/getUtilisateurs.php');
 }
-require_once '../Controller/getUtilisateurs.php';
