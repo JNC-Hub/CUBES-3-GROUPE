@@ -1,25 +1,23 @@
 <?php
 
-/**
- * Classe correspondant aux pays
- */
-
 use App\Db\DbConnection;
 
 require_once "Connection.php";
 
-class Pays
+class Contenir
 {
+    #Contienent//Propriétés
 
-    private int $idPays;
+    private int $idRecette;
+    private int $idIngredient;
+    private int $idUniteMesure;
+    private float $quantite;
 
-    private string $libPays;
-
-    private int $idContinent;
     public function __construct()
     {
     }
 
+    //  getters
     public function __get($pParam)
     {
         if (isset($this->$pParam)) {
@@ -37,15 +35,5 @@ class Pays
         } else {
             throw new Exception("Parametre inconnu : " . $pParam);
         }
-    }
-    public  function getListPays()
-    {
-        $db = DbConnection::getInstance();
-        $requete = "SELECT * FROM pays ";
-        $requetListpays =  $db->prepare($requete);
-        $requetListpays->execute();
-        $listPays = $requetListpays->fetchAll(PDO::FETCH_ASSOC);
-        $db->close();
-        return $listPays;
     }
 }

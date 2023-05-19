@@ -2,7 +2,7 @@
 
 use App\Db\DbConnection;
 
-require_once "../Model/Connection.php";
+require_once "Connection.php";
 
 class statutRecette
 {
