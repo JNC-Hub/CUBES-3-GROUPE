@@ -93,7 +93,7 @@ CREATE TABLE recette(
 
 CREATE TABLE etape(
         idEtape   Int  Auto_increment  NOT NULL ,
-        libEtape  Varchar (50) NOT NULL ,
+        libEtape  Varchar (1000) NOT NULL ,
         idRecette Int NOT NULL
 	,CONSTRAINT etape_PK PRIMARY KEY (idEtape)
 
