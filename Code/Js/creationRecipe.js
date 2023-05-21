@@ -1,14 +1,10 @@
 $(document).ready(function () {
-    var defaultMatcher = $.fn.select2.defaults.defaults.matcher;
+    // le matcher par défaut dans select 2( Si la recherche est vide, ou la requête est contenue dans le texte de l'élément il retourne data +insensibel à ala casee)
+    let defaultMatcher = $.fn.select2.defaults.defaults.matcher;
     $("#select_contient").select2({
         placeholder: "Selectionnez le continent de votre recette",
         allowClear: true
     });
-    $("#select_pays").select2({
-        placeholder: "Veuillez choisir le pays de votre recette",
-        allowClear: true
-    });
-
     $(".ingredients").select2({
         placeholder: "Ingrédient",
         minimumInputLength: 2,
@@ -30,21 +26,30 @@ $(document).ready(function () {
     $("#select_pays").select2({
         matcher: matchCustom
     });
+    // afficher les pays qui correspondent au continent choisi 
     $('#select_contient').change(function () {
         var idContinent = $(this).find('option:selected').val();
         var select_pays = $('#select_pays');
+        // si on supprime le continent et on a déja choisi le pays on désactive
         select_pays.val('').change();
         if (idContinent == '') {
             select_pays.attr('disabled', true);
+
         } else {
             select_pays.attr('disabled', false);
+            select_pays.select2({
+                placeholder: "Veuillez choisir le pays de votre recette",
+                allowClear: true,
+                minimumInputLength: 2
+            });
         }
     });
-    var text_max = 300;
+    // on calcule les lettre du champ histoire 
+    const text_max = 300;
     $('#countLength').html('0 / ' + text_max);
 
     $('#histoire').keyup(function () {
-        var text_length = $('#histoire').val().length;
+        let text_length = $('#histoire').val().length;
         $('#countLength').html(text_length + ' / ' + text_max);
     });
     // pour afficher le filename à coté du champ input file
@@ -68,6 +73,7 @@ $(document).ready(function () {
             return false
         }
     });
+    // démontionner la photo selon sa taille
 
     fileInput.change(function () {
         const file = $(this)[0].files[0];
@@ -153,6 +159,7 @@ $(document).ready(function () {
         ingredients.on('keyup', toggleButtonIngredient).trigger('keyup');
 
     }
+    // si le champ ingredient est un select et on a appuyé sur le bouton on le modifie in input et vise vers ça 
     let isSelect = true;
     $("#ajoutNewIngredient").click(function () {
         if (isSelect) {
@@ -215,7 +222,7 @@ $(document).ready(function () {
     // ingredients.on('change keyup', toggleButtonIngredient).trigger('change keyup');
 
     ingredients.on('change', toggleButtonIngredient).trigger('change');
-    // ingredients.on('keyup', toggleButtonIngredient).trigger('keyup');
+    ingredients.on('keyup', toggleButtonIngredient).trigger('keyup');
 
     function toggleButtonIngredient() {
         if (quantite.val().length === 0 || unite.val().length === 0 || ingredients.val().length === 0 || ingredients.val() === 0) {
@@ -336,14 +343,13 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             data: formData,
-            success: function (msg) {
-
-                alert("Form Submitted: " + msg);
-                console.log("test");
-            },
-            error: function (xhr, status, error) {
-
-            }
+        }).done(function (msg) {
+            alert("L'ajout de la recette est effectué avec succés ");
+            // Réorienter vers une autre page
+            window.location.href = "../Controller/compteUtilisateur.php";
+        }).fail(function (xhr, status, error) {
+            // Gérer l'erreur
         });
+
     });
 });
