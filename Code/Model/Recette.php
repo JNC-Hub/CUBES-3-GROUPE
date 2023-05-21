@@ -90,8 +90,34 @@ class Recette
     //     // récupération du résultat
     //     $result = $stmt->fetch(PDO::FETCH_COLUMN);
 
-    //     $db->close();
-    //     // retour du chemin d'accès de l'image
-    //     return $result;
+    //$db->close();
+    // retour du chemin d'accès de l'image
+    //return $result;
     // }
+
+    public function getRecipe($idRecette)
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT * FROM recette WHERE idRecette = :idRecette");
+        $stmt->bindValue(":idRecette", $idRecette);
+        $stmt->execute();
+        $recipe = $stmt->fetch(PDO::FETCH_ASSOC);
+        $db->close();
+        return $recipe;
+    }
+
+    public function getIngredientsRecipe($idRecette)
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT C.quantite, I.libIngredient, UM.libUniteMesure FROM contenir C
+                    INNER JOIN recette R ON C.idRecette = R.idRecette
+                    INNER JOIN ingredient I ON C.idIngredient = I.idIngredient
+                    INNER JOIN unitemesure UM ON UM.idUniteMesure = C.idUniteMesure
+                    WHERE R.idRecette = :idRecette");
+        $stmt->bindValue(":idRecette", $idRecette);
+        $stmt->execute();
+        $ingredientsRecipe = $stmt->fetchAll(PDO::FETCH_CLASS, 'Recette');
+        $db->close();
+        return $ingredientsRecipe;
+    }
 }

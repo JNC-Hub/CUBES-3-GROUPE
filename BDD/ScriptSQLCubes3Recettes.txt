@@ -24,7 +24,7 @@ CREATE TABLE utilisateur(
 
 CREATE TABLE role(
         idRole  Int  Auto_increment  NOT NULL ,
-        libRole Varchar (255) NOT NULL
+        libRole Varchar (50) NOT NULL
 	,CONSTRAINT role_PK PRIMARY KEY (idRole)
 )ENGINE=InnoDB;
 
@@ -45,8 +45,8 @@ CREATE TABLE statutRecette(
 #------------------------------------------------------------
 
 CREATE TABLE continent(
-        idContinent Int  Auto_increment  NOT NULL ,
-        libPays     Varchar (50) NOT NULL
+        idContinent  Int  Auto_increment  NOT NULL ,
+        libContinent Varchar (50) NOT NULL
 	,CONSTRAINT continent_PK PRIMARY KEY (idContinent)
 )ENGINE=InnoDB;
 
@@ -93,7 +93,7 @@ CREATE TABLE recette(
 
 CREATE TABLE etape(
         idEtape   Int  Auto_increment  NOT NULL ,
-        libEtape  Varchar (50) NOT NULL ,
+        libEtape  Varchar (1000) NOT NULL ,
         idRecette Int NOT NULL
 	,CONSTRAINT etape_PK PRIMARY KEY (idEtape)
 
