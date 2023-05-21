@@ -8,10 +8,10 @@ class Contenir
 {
     #Contienent//Propriétés
 
-    private int $idRecette;
-    private int $idIngredient;
-    private int $idUniteMesure;
-    private float $quantite;
+    private int $idRecette = -1;
+    private int $idIngredient = -1;
+    private int $idUniteMesure = -1;
+    private float $quantite = -1;
 
     public function __construct()
     {
@@ -35,5 +35,22 @@ class Contenir
         } else {
             throw new Exception("Parametre inconnu : " . $pParam);
         }
+    }
+    public function insertContenirRelation()
+    {
+        $db = DbConnection::getInstance();
+
+        $query = "INSERT INTO contenir (idRecette, idIngredient, idUniteMesure, quantite) VALUES (:idRecette, :idIngredient, :idUniteMesure, :quantite)";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":idRecette", $this->idRecette);
+        $stmt->bindParam(":idIngredient", $this->idIngredient);
+        $stmt->bindParam(":idUniteMesure", $this->idUniteMesure);
+        $stmt->bindParam(":quantite", $this->quantite);
+
+        $stmt->execute();
+
+        $db->close();
     }
 }

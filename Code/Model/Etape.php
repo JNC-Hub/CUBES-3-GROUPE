@@ -10,9 +10,10 @@ require_once "Connection.php";
 
 class Etape
 {
-    private int $idEtape;
+    private int $idEtape = -1;
 
-    private string $libEtape;
+    private string $libEtape = "";
+    private int $idRecette = -1;
 
     public function __construct()
     {
@@ -44,11 +45,12 @@ class Etape
 
         $libEtape = htmlspecialchars(strip_tags($this->libEtape));
 
-        $query = "INSERT INTO etape (libEtape) VALUES (:libEtape)";
+        $query = "INSERT INTO etape (libEtape, idRecette) VALUES (:libEtape, :idRecette)";
 
         $stmt = $db->prepare($query);
 
         $stmt->bindParam(":libEtape", $libEtape);
+        $stmt->bindParam(":idRecette", $this->idRecette);
 
         $stmt->execute();
         $idEtape = $db->lastInsertId();

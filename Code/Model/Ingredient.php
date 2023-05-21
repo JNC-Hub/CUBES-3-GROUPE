@@ -11,9 +11,9 @@ require_once "Connection.php";
 class Ingredient
 {
     private $table = "ingredient";
-    private int $idIngredient;
+    private int $idIngredient = -1;
 
-    private string $libIngredient;
+    private string $libIngredient = "";
 
     public function __construct()
     {
@@ -63,17 +63,29 @@ class Ingredient
     {
         $db = DbConnection::getInstance();
         if (!$this->isExistIngredient($libIngredient)) {
-            $libIngredient = htmlspecialchars(strip_tags($this->libIngredient));
+            $libIngredient = htmlspecialchars(strip_tags($libIngredient));
 
-            $query = "INSERT INTO etape (libIngredient) VALUES (:libIngredient)";
+            $query = "INSERT INTO ingredient (libIngredient) VALUES (:libIngredient)";
 
             $stmt = $db->prepare($query);
 
             $stmt->bindParam(":libIngredient", $libIngredient);
 
             $stmt->execute();
-
+            $idIngredient = $db->lastInsertId();
             $db->close();
+            return  $idIngredient;
         }
+    }
+    public function getIdIngredientFromLib($lib)
+    {
+        $db = DbConnection::getInstance();
+        $query = "SELECT idIngredient FROM " . $this->table . " WHERE libIngredient = :lib";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":lib", $lib);
+        $stmt->execute();
+        $idIngredient = $stmt->fetchColumn();
+        $db->close();
+        return $idIngredient;
     }
 }

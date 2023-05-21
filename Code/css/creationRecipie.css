@@ -114,7 +114,8 @@ textarea {
     color: #dc3545 !important;
 }
 
-#ajoutNewIngredient {
+#ajoutNewIngredient,
+#submit {
     background-color: #1e849b9e;
     text-align: center;
     color: beige;
@@ -129,4 +130,15 @@ textarea {
     color: beige;
     cursor: pointer;
     border-radius: 14px;
+}
+
+/* masquer les flèches du champ d'entrée de type "number" */
+#quantite::-webkit-inner-spin-button,
+#quantite::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#quantite {
+    -moz-appearance: textfield;
 }

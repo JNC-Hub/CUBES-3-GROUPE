@@ -48,4 +48,15 @@ class UniteMesure
         $db->close();
         return $listUnite;
     }
+    public function getIdUniteMesureFromLib($lib)
+    {
+        $db = DbConnection::getInstance();
+        $query = "SELECT idUniteMesure FROM " . $this->table . " WHERE libUniteMesure = :lib";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":lib", $lib);
+        $stmt->execute();
+        $unite = $stmt->fetchColumn();
+        $db->close();
+        return $unite;
+    }
 }
