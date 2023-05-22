@@ -18,13 +18,13 @@ $pdf->AliasNbPages();
 $pdf->AddPage();
 
 //Titre de la recette
-$pdf->setTitreRecette($recette['titre']);
+$pdf->setTitreRecette($recette->titre);
 $pdf->SetXY(10, 30);
 $pdf->SetFont('Arial', 'BU', 20);
-$pdf->Cell(0, 10, mb_convert_encoding($recette['titre'], 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+$pdf->Cell(0, 10, mb_convert_encoding($recette->titre, 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
 
 //Image de la recette
-$idRecette = $recette['idRecette'];
+$idRecette = $recette->idRecette;
 $imageFileName = glob('../imageRecipe/' . $idRecette . '.*'); //Récupère le nom de fichier car extension pas connue
 $imagePath = '../imageRecipe/' . $imageFileName[0];
 //Centrer image
@@ -37,7 +37,7 @@ $pdf->Image($imagePath, 165, 5, 30);
 //Liste des ingrédients
 $pdf->SetXY(10, 43);
 $pdf->SetFont('Arial', 'U', 12);
-$pdf->Write(10, mb_convert_encoding('Liste des ingrédients pour ' . $recette['nbPersonnes'] . ' personnes', 'ISO-8859-1', 'UTF-8'));
+$pdf->Write(10, mb_convert_encoding('Liste des ingrédients pour ' . $recette->nbPersonnes . ' personnes', 'ISO-8859-1', 'UTF-8'));
 
 $contenirIngredients = new Contenir();
 $ingredientsRecette = $contenirIngredients->getIngredientsRecipe($idRecette);
