@@ -101,7 +101,7 @@ class Recette
         $stmt = $db->prepare("SELECT * From recette WHERE idRecette = :idRecette");
         $stmt->bindValue(":idRecette", $idRecette);
         $stmt->execute();
-        $recipe = $stmt->fetch(PDO::FETCH_ASSOC);
+        $recipe = $stmt->fetch(PDO::FETCH_OBJ);
         $db->close();
         return $recipe;
     }
