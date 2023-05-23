@@ -17,41 +17,53 @@ $recette = $recette->getRecipe($idRecette);
 $pdf->AliasNbPages();
 $pdf->AddPage();
 
-//Titre de la recette
-$pdf->setTitreRecette($recette->titre);
-$pdf->SetXY(10, 30);
-$pdf->SetFont('Arial', 'BU', 20);
-$pdf->Cell(0, 10, mb_convert_encoding($recette->titre, 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
-
 //Image de la recette
 $idRecette = $recette->idRecette;
-$imageFileName = glob('../imageRecipe/' . $idRecette . '.*'); //Récupère le nom de fichier car extension pas connue
+$imageFileName = glob('../imageRecipe/' . $idRecette . '.*'); //Récupère le nom de fichier complet avec son extension (extensions différentes)
 $imagePath = '../imageRecipe/' . $imageFileName[0];
-//Centrer image
-// $pageWidth = $pdf->GetPageWidth();
-// $imageWidth = 30;
-// $x = ($pageWidth - $imageWidth) / 2;
-// $pdf->Image($imagePath, $x, 39, $imageWidth);
 $pdf->Image($imagePath, 165, 5, 30);
 
-//Liste des ingrédients
-$pdf->SetXY(10, 43);
-$pdf->SetFont('Arial', 'U', 12);
-$pdf->Write(10, mb_convert_encoding('Liste des ingrédients pour ' . $recette->nbPersonnes . ' personnes', 'ISO-8859-1', 'UTF-8'));
+//Titre recette pied de page
+$pdf->setTitreRecette(htmlspecialchars($recette->titre));
 
+//Titre de la recette body
+$pdf->SetXY(10, 33);
+$pdf->SetFont('Arial', 'B', 15);
+$pdf->SetFillColor(245, 245, 245);
+$pdf->MultiCell(0, 6, htmlspecialchars($recette->titre), 0, 'C', true);
+
+//Histoire de la recette
+$yHistoire = $pdf->GetY();
+$pdf->SetXY(10, $yHistoire + 5);
+$pdf->SetFont('Arial', 'I', 8);
+$recetteHistoire = htmlspecialchars($recette->histoire);
+$recetteHistoire = str_replace("’", "'", $recetteHistoire); //PB AVEC APOSTROPHES DANS HISTOIRE : refaire un test enregistrement recette avec apostrophes, et vérifier affichage des données
+$pdf->MultiCell(0, 4, mb_convert_encoding(htmlspecialchars($recetteHistoire), 'ISO-8859-1', 'UTF-8'), 0, 'L', false);
+
+//Liste des ingrédients
+$ylistIngredients = $pdf->GetY();
+$pdf->SetXY(10, $ylistIngredients);
+$pdf->SetFont('Arial', 'U', 11);
+$pdf->Write(10, mb_convert_encoding('Liste des ingrédients pour ' . htmlspecialchars($recette->nbPersonnes) . ' personnes', 'ISO-8859-1', 'UTF-8'));
 $contenirIngredients = new Contenir();
 $ingredientsRecette = $contenirIngredients->getIngredientsRecipe($idRecette);
-
 $numberOfIngredients = count($ingredientsRecette);
-
 foreach ($ingredientsRecette as $ingredient) {
-    $quantite = $ingredient->quantite;
-    $uniteMesure = $ingredient->libUniteMesure;
-    $libIngredient = $ingredient->libIngredient;
-    $lineY = $pdf->GetY() + 5;
-    $pdf->SetXY(10, $lineY);
+    $quantite = htmlspecialchars($ingredient->quantite);
+    $idUniteMesure = $ingredient->idUniteMesure;
+    $idUniteMesure != 12 ? $uniteMesure = htmlspecialchars($ingredient->libUniteMesure) : $uniteMesure = ''; //Enlever unité de mesure si aucune
+    $libIngredient = htmlspecialchars($ingredient->libIngredient);
+    $yIngredient = $pdf->GetY() + 4.5;
+    $pdf->SetXY(10, $yIngredient);
     $pdf->SetFont('Arial', '', 11);
-    $pdf->Write(10, mb_convert_encoding($quantite . ' ' . $uniteMesure . ' ' . $libIngredient, 'ISO-8859-1', 'UTF-8'));
+    $pdf->Write(10, mb_convert_encoding(htmlspecialchars($quantite) . ' ' . htmlspecialchars($uniteMesure) . ' ' . htmlspecialchars($libIngredient), 'ISO-8859-1', 'UTF-8'));
+}
+
+//Etapes de la recette A GERER
+$etapes = new Etape();
+$etapes = $etapes->getEtapesRecipe($idRecette);
+foreach ($etapes as $etape) {
+    $libEtape = htmlspecialchars($etape->libEtape);
 }
 
 $pdf->Output();

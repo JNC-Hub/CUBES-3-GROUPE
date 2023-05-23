@@ -41,7 +41,7 @@ class PDF extends FPDF
         $this->SetY(-15);
         $this->SetFont('Arial', 'I', 8);
 
-        // Numéro de page
+        // Numéro de page et titre de la recette
         $this->Cell(0, 10, 'Page ' .
             $this->PageNo() . '/{nb} - Recette ' . $this->titreRecette, 0, 0, 'C');
     }

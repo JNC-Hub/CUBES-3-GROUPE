@@ -57,7 +57,7 @@ class Contenir
     public function getIngredientsRecipe($idRecette)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT R.idRecette, C.quantite, I.libIngredient, UM.libUniteMesure FROM contenir C
+        $stmt = $db->prepare("SELECT R.idRecette, C.quantite, I.libIngredient, UM.libUniteMesure, UM.idUniteMesure FROM contenir C
                     INNER JOIN recette R ON C.idRecette = R.idRecette
                     INNER JOIN ingredient I ON C.idIngredient = I.idIngredient
                     INNER JOIN unitemesure UM ON UM.idUniteMesure = C.idUniteMesure
