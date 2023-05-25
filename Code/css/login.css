@@ -57,7 +57,7 @@
 }
 
 .imgLogin {
-    margin: 2% 0 0 2%;
+    margin: 2% 0 0 28%;
     max-width: 1.5%;
 }
 
@@ -82,6 +82,12 @@
     .titleGestionProfil {
         font-size: 25px;
     }
+
+    .imgLogin {
+        margin: 5% 0 0 10%;
+        max-width: 3%;
+    }
+
 }
 
 /***********************************************************************
@@ -113,7 +119,8 @@
     }
 
     .imgLogin {
-        max-width: 4.5%;
+        margin: 5% 0 0 5%;
+        max-width: 4%;
     }
 
 }

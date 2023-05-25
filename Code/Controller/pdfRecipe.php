@@ -5,65 +5,79 @@ require_once '../Model/Contenir.php';
 require_once '../Model/fpdf/fpdf.php';
 require_once '../Model/PdfClass.php';
 
-//Création du pdf A4
-$pdf = new PDF('P', 'mm', 'A4');
+if (isset($_GET['idRecette'])) {
 
-$idRecette = 2;
+    $idRecette = $_GET['idRecette'];
 
-$recette = new Recette();
-$recette = $recette->getRecipe($idRecette);
+    //Création du pdf A4
+    $pdf = new PDF('P', 'mm', 'A4');
 
-// Define alias for number of pages
-$pdf->AliasNbPages();
-$pdf->AddPage();
+    $recette = new Recette();
+    $recette = $recette->getRecipe($idRecette);
 
-//Image de la recette
-$idRecette = $recette->idRecette;
-$imageFileName = glob('../imageRecipe/' . $idRecette . '.*'); //Récupère le nom de fichier complet avec son extension (extensions différentes)
-$imagePath = '../imageRecipe/' . $imageFileName[0];
-$pdf->Image($imagePath, 165, 5, 30);
+    // Définir alias pour nombre de pages
+    $pdf->AliasNbPages();
+    $pdf->AddPage();
 
-//Titre recette pied de page
-$pdf->setTitreRecette(htmlspecialchars($recette->titre));
+    //Image de la recette
+    $idRecette = $recette->idRecette;
+    $imageFileName = glob('../imageRecipe/' . $idRecette . '.*'); //Récupère le nom de fichier complet avec son extension (extensions différentes)
+    $imagePath = '../imageRecipe/' . $imageFileName[0];
+    $pdf->Image($imagePath, 150, 5, 50);
 
-//Titre de la recette body
-$pdf->SetXY(10, 33);
-$pdf->SetFont('Arial', 'B', 15);
-$pdf->SetFillColor(245, 245, 245);
-$pdf->MultiCell(0, 6, htmlspecialchars($recette->titre), 0, 'C', true);
+    //Titre de la recette body
+    $pdf->SetXY(10, 45);
+    $pdf->SetFont('Arial', 'B', 25);
+    $pdf->SetFillColor(245, 245, 245);
+    $pdf->MultiCell(0, 8, iconv('UTF-8', 'windows-1252', htmlspecialchars($recette->titre)), 0, 'C', true); //iconv pour afficher correctement les caractères spéciaux
 
-//Histoire de la recette
-$yHistoire = $pdf->GetY();
-$pdf->SetXY(10, $yHistoire + 5);
-$pdf->SetFont('Arial', 'I', 8);
-$recetteHistoire = htmlspecialchars($recette->histoire);
-$recetteHistoire = str_replace("’", "'", $recetteHistoire); //PB AVEC APOSTROPHES DANS HISTOIRE : refaire un test enregistrement recette avec apostrophes, et vérifier affichage des données
-$pdf->MultiCell(0, 4, mb_convert_encoding(htmlspecialchars($recetteHistoire), 'ISO-8859-1', 'UTF-8'), 0, 'L', false);
+    //Histoire de la recette
+    $yHistoire = $pdf->GetY();
+    $pdf->SetXY(10, $yHistoire + 5);
+    $pdf->SetFont('Arial', 'I', 10);
+    $recetteHistoire = htmlspecialchars($recette->histoire);
+    $pdf->MultiCell(0, 4, iconv('UTF-8', 'windows-1252', (htmlspecialchars($recetteHistoire))), 0, 'L', false);
 
-//Liste des ingrédients
-$ylistIngredients = $pdf->GetY();
-$pdf->SetXY(10, $ylistIngredients);
-$pdf->SetFont('Arial', 'U', 11);
-$pdf->Write(10, mb_convert_encoding('Liste des ingrédients pour ' . htmlspecialchars($recette->nbPersonnes) . ' personnes', 'ISO-8859-1', 'UTF-8'));
-$contenirIngredients = new Contenir();
-$ingredientsRecette = $contenirIngredients->getIngredientsRecipe($idRecette);
-$numberOfIngredients = count($ingredientsRecette);
-foreach ($ingredientsRecette as $ingredient) {
-    $quantite = htmlspecialchars($ingredient->quantite);
-    $idUniteMesure = $ingredient->idUniteMesure;
-    $idUniteMesure != 12 ? $uniteMesure = htmlspecialchars($ingredient->libUniteMesure) : $uniteMesure = ''; //Enlever unité de mesure si aucune
-    $libIngredient = htmlspecialchars($ingredient->libIngredient);
-    $yIngredient = $pdf->GetY() + 4.5;
-    $pdf->SetXY(10, $yIngredient);
-    $pdf->SetFont('Arial', '', 11);
-    $pdf->Write(10, mb_convert_encoding(htmlspecialchars($quantite) . ' ' . htmlspecialchars($uniteMesure) . ' ' . htmlspecialchars($libIngredient), 'ISO-8859-1', 'UTF-8'));
+    //Liste des ingrédients
+    $yTitreIngredients = $pdf->GetY();
+    $pdf->SetXY(10, $yTitreIngredients + 5);
+    $pdf->SetFont('Arial', 'U', 14);
+    $pdf->Write(10, iconv('UTF-8', 'windows-1252', 'Liste des ingrédients pour ' . htmlspecialchars($recette->nbPersonnes) . ' personnes'));
+    $contenirIngredients = new Contenir();
+    $ingredientsRecette = $contenirIngredients->getIngredientsRecipe($idRecette);
+    $numberOfIngredients = count($ingredientsRecette);
+    $yListIngredients = $pdf->GetY();
+    $pdf->setY($yListIngredients + 1.5);
+    foreach ($ingredientsRecette as $ingredient) {
+        $quantite = htmlspecialchars($ingredient->quantite);
+        $idUniteMesure = $ingredient->idUniteMesure;
+        $idUniteMesure != 12 ? $uniteMesure = htmlspecialchars($ingredient->libUniteMesure) : $uniteMesure = ''; //Enlever unité de mesure si aucune
+        $libIngredient = htmlspecialchars($ingredient->libIngredient);
+        $yIngredient = $pdf->GetY() + 5;
+        $pdf->SetXY(10, $yIngredient);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Write(10, iconv('UTF-8', 'windows-1252', htmlspecialchars($quantite) . ' ' . htmlspecialchars($uniteMesure) . ' ' . htmlspecialchars($libIngredient)));
+    }
+
+    //Etapes de la recette
+    $yTitreEtapes = $pdf->getY() + 12;
+    $pdf->setY($yTitreEtapes);
+    $pdf->SetFont('Arial', 'U', 14);
+    $pdf->Write(10, iconv('UTF-8', 'windows-1252', 'Préparation'));
+    $etapes = new Etape();
+    $etapes = $etapes->getEtapesRecipe($idRecette);
+    $listEtapes = $pdf->GetY();
+    $pdf->setY($listEtapes + 8);
+    foreach ($etapes as $etape) {
+        $libEtape = htmlspecialchars($etape->libEtape);
+        $yEtape = $pdf->GetY() + 2;
+        $pdf->SetXY(10, $yEtape);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->MultiCell(0, 4, iconv('UTF-8', 'windows-1252', (htmlspecialchars($libEtape))), 0, 'L', false);
+    }
+
+    //Titre recette pied de page
+    $pdf->setTitreRecette(iconv('UTF-8', 'windows-1252', htmlspecialchars($recette->titre)));
+
+    $pdf->Output();
 }
-
-//Etapes de la recette A GERER
-$etapes = new Etape();
-$etapes = $etapes->getEtapesRecipe($idRecette);
-foreach ($etapes as $etape) {
-    $libEtape = htmlspecialchars($etape->libEtape);
-}
-
-$pdf->Output();

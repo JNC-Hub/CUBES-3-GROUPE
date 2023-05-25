@@ -25,8 +25,6 @@
         <p>Rejoignez-nous pour un voyage gourmand inoubliable !</p>
     </div>
 
-    <a href="../Controller/pdfRecipe.php" target="_blank">Pdf de la recette</a>
-
     <footer>
         <?php require_once 'footer.html' ?>
     </footer>

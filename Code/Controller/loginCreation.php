@@ -17,23 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ) {
 
         $erreur = false;
-        if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['mail'])) {
+        if (empty($newUtilisateur->nom) || empty($newUtilisateur->prenom) || empty($newUtilisateur->mail)) {
             $errorMessageUtilisateur = 'Tous les champs sont obligatoires !';
             $erreur = true;
         }
 
         //Vérifie si le mail existe déjà
-        $mail = !empty($_POST['mail']) ? htmlspecialchars(trim($_POST['mail'])) : htmlspecialchars($newUtilisateur->mail);
-        $newUtilisateur->mail = $mail;
         if (!$newUtilisateur->isMailValid()) {
             $errorMessageUtilisateur = 'Un utilisateur existe déjà avec cet email';
             $erreur = true;
         }
 
         //Vérifie si le mot de passe est fort
-        $password = !empty($_POST['password']) ? htmlspecialchars(trim($_POST['password'])) : htmlspecialchars($newUtilisateur->password);
-        $newUtilisateur->password = $password;
-        if (!$newUtilisateur->isPasswordStrong($password)) {
+        if (!$newUtilisateur->isPasswordStrong()) {
             // $errorUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
             //             un caractère spécial différent de & < " ou >';
             $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
@@ -68,7 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $utilisateurLogin = $utilisateur->getUtilisateurLogin($newUtilisateur->mail);
             session_start();
             $_SESSION['user'] = $utilisateurLogin;
+            $_SESSION['user_id'] = $utilisateurLogin['idUtilisateur'];
             $_SESSION['user_idRole'] = $utilisateurLogin['idRole'];
+
             //Création cookie pour déconnexion automatique au bout 30mn d'inactivité
             setcookie('last_activity', session_id(), time() + 1800, '/', '', false, true);
             header('Location: ../index.php');
