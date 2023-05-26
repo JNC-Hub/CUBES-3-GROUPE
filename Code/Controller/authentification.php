@@ -12,12 +12,11 @@ if (!isset($_SESSION['user']) || !isset($_COOKIE['last_activity'])) {
     exit();
 }
 
-//Vérifie que le compte est toujours actif pendant la navigation
+//Vérifie que le compte est toujours existant ou actif pendant la navigation
 if (isset($_SESSION['user'])) {
-    $idUtilisateur = $_SESSION['user_id'];
     $utilisateur = new Utilisateur();
-    $utilisateur = $utilisateur->getUtilisateur($idUtilisateur);
-    if (!$utilisateur->isUserActive()) {
+    $utilisateurActif = $utilisateur->getUtilisateurActif($_SESSION['user_id']);
+    if (!$utilisateurActif) {
         session_unset();
         session_destroy();
         header('Location: login.php');
