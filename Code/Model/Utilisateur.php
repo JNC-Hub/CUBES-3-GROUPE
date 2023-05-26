@@ -52,28 +52,19 @@ class Utilisateur
         return $utilisateur;
     }
 
-    public static function getUser($id): Utilisateur
+    public static function getUtilisateurActif($id)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.idUtilisateur, U.nom, U.prenom, U.mail, U.password, U.validationProfil, R.idRole 
+        $stmt = $db->prepare("SELECT U.idUtilisateur, U.validationProfil
                                 FROM utilisateur U 
-                                INNER JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
-                                INNER JOIN role R ON R.idRole = P.idRole 
-                                WHERE U.idUtilisateur = :id");
+                                LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
+                                LEFT JOIN role R ON R.idRole = P.idRole 
+                                WHERE U.idUtilisateur = :id AND U.validationProfil = 1");
         $stmt->bindValue(":id", $id);
         $stmt->execute();
-        $utilisateur = $stmt->fetchObject('Utilisateur');
+        $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
         $db->close();
         return $utilisateur;
-    }
-
-    public function isUserActive()
-    {
-        $utilisateur = $this->getUtilisateur($this->idUtilisateur);
-        if ($utilisateur->validationProfil == 0) {
-            return false;
-        }
-        return true;
     }
 
     public function getUtilisateurByMail($mail)
