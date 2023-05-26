@@ -8,7 +8,7 @@ session_start();
 if (!isset($_SESSION['user']) || !isset($_COOKIE['last_activity'])) {
     session_unset();
     session_destroy();
-    header('Location: login.php');
+    header('Location: ../Controller/login.php');
     exit();
 }
 
@@ -19,7 +19,7 @@ if (isset($_SESSION['user'])) {
     if (!$utilisateurActif) {
         session_unset();
         session_destroy();
-        header('Location: login.php');
+        header('Location: ../Controller/login.php');
         exit();
     }
 }
