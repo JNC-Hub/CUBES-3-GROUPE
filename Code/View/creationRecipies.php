@@ -30,10 +30,6 @@ $listIngredients = $ingredients->getListIngredients();
 
 <body>
 
-    <?php
-    require_once "./Header.html";
-    ?>
-
     <div class="container w-50 mt-4">
         <div class="text d-flex justify-content-center flex-column">
             <div class="text-center">
@@ -177,11 +173,6 @@ $listIngredients = $ingredients->getListIngredients();
         </form>
 
     </div>
-
-    <?php
-    require_once "./Footer.html";
-    ?>
-    </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
