@@ -98,10 +98,10 @@ class Recette
     public function getRecipe($idRecette)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT * FROM recette WHERE idRecette = :idRecette");
+        $stmt = $db->prepare("SELECT * From recette WHERE idRecette = :idRecette");
         $stmt->bindValue(":idRecette", $idRecette);
         $stmt->execute();
-        $recipe = $stmt->fetch(PDO::FETCH_ASSOC);
+        $recipe = $stmt->fetch(PDO::FETCH_OBJ);
         $db->close();
         return $recipe;
     }

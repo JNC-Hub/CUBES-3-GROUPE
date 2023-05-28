@@ -52,6 +52,21 @@ class Utilisateur
         return $utilisateur;
     }
 
+    public static function getUtilisateurActif($id)
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT U.idUtilisateur, U.validationProfil
+                                FROM utilisateur U 
+                                LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
+                                LEFT JOIN role R ON R.idRole = P.idRole 
+                                WHERE U.idUtilisateur = :id AND U.validationProfil = 1");
+        $stmt->bindValue(":id", $id);
+        $stmt->execute();
+        $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+        $db->close();
+        return $utilisateur;
+    }
+
     public function getUtilisateurByMail($mail)
     {
         $db = DbConnection::getInstance();
@@ -136,7 +151,7 @@ class Utilisateur
     public function getUtilisateurLogin($mail)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.mail, U.password, P.idRole, U.idUtilisateur, U.validationProfil
+        $stmt = $db->prepare("SELECT U.idUtilisateur, U.mail, U.password, P.idRole, U.idUtilisateur, U.validationProfil
                                     FROM utilisateur U 
                                     INNER JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
                                     INNER JOIN role R ON R.idRole = P.idRole 
@@ -148,15 +163,15 @@ class Utilisateur
         return $utilisateurLogin;
     }
 
-    function isPasswordStrong($password)
+    public function isPasswordStrong()
     {
-        $uppercase = preg_match('@[A-Z]@', $password);
-        $lowercase = preg_match('@[a-z]@', $password);
-        $number    = preg_match('@[0-9]@', $password);
+        $uppercase = preg_match('@[A-Z]@', $this->password);
+        $lowercase = preg_match('@[a-z]@', $this->password);
+        $number    = preg_match('@[0-9]@', $this->password);
         // $specialChars = preg_match('@[^\w]@', $password);
-        $specialChars = preg_match('@[#?!\@€$%*-+/]@', $password);
+        $specialChars = preg_match('@[#?!\@€$%*-+/]@', $this->password);
 
-        if (htmlspecialchars($password) != $password || !$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
+        if (htmlspecialchars($this->password) != $this->password || !$uppercase || !$lowercase || !$number || !$specialChars || strlen($this->password) < 8) {
             return false;
         } else {
             return true;

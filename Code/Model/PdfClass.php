@@ -15,25 +15,20 @@ class PDF extends FPDF
     public function Header()
     {
         // Logo
-        $this->Image('../Images/logoVG.png', 10, 8, 33);
+        $this->Image('../Images/logoVG.png', 10, 8, 15);
 
         // Nom du site
-        $this->SetFont('Arial', 'BI', 14);
-        $this->Cell(40);
-        $this->Cell(55, 5, 'Les Voyageurs Gourmands', 0, 0, 'C');
-
-        //Lien du site web
-        $link = 'http://localhost:8080/CUBES-3-GROUPE/Code/View/accueil.php';
-        $this->SetXY(45, 13);
-        $this->SetTextColor(0, 0, 255);
-        $this->SetFont('Arial', 'UI', 10); // Définir la police et le style (souligné)
-        $this->Write(10, 'www.lesvoyageursgourmands.com', $link);
-
-        // Titre du document
-        $this->SetXY(75, 30);
+        $this->SetXY(25, 4);
         $this->SetTextColor(0, 0, 0);
-        $this->SetFont('Arial', 'Bu', 15); // Définir la police et le style (souligné)
-        $this->Write(10, (mb_convert_encoding('LISTE DES COURSES', 'ISO-8859-1', 'UTF-8')));
+        $this->SetFont('Arial', 'BI', 10);
+        $this->Write(10, 'Les Voyageurs Gourmands');
+
+        //Lien vers site web
+        $link = 'http://localhost:8080/CUBES-3-GROUPE/Code/View/accueil.php';
+        $this->SetXY(25, 8);
+        $this->SetTextColor(0, 0, 255);
+        $this->SetFont('Arial', 'UI', 8);
+        $this->Write(10, 'www.lesvoyageursgourmands.com', $link);
 
         // Line break
         $this->Ln(50);
@@ -46,7 +41,7 @@ class PDF extends FPDF
         $this->SetY(-15);
         $this->SetFont('Arial', 'I', 8);
 
-        // Numéro de page
+        // Numéro de page et titre de la recette
         $this->Cell(0, 10, 'Page ' .
             $this->PageNo() . '/{nb} - Recette ' . $this->titreRecette, 0, 0, 'C');
     }

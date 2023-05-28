@@ -3,21 +3,10 @@ require_once '../Model/Recette.php';
 require_once '../Model/fpdf/fpdf.php';
 require_once '../Model/PdfClass.php';
 
-// $ingredientsRecipe = new Recette();
-// $ingredientsRecipe = $ingredientsRecipe->getIngredientsRecipe(1);
-
-// foreach ($ingredientsRecipe as $ingredientRecipe) {
-//     var_dump($ingredientRecipe->libIngredient);
-// }
-
 //Création du pdf A4
 $pdf = new PDF('P', 'mm', 'A4');
 
 //Titre de la recette
-$recette = new Recette();
-$titreRecette = $recette->getRecipe(1);
-$pdf->setTitreRecette($titreRecette['titre']);
-
 $recette = new Recette();
 $titreRecette = $recette->getRecipe(1);
 $pdf->setTitreRecette($titreRecette['titre']);

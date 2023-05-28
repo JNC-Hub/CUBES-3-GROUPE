@@ -3,6 +3,8 @@
 require_once 'authentification.php';
 require_once '../Model/Utilisateur.php';
 
+$utilisateur = new Utilisateur();
+
 //Affiche les données de l'utiisateur connecté
 if (isset($_SESSION['user'])) {
     $idUtilisateur = $_SESSION['user']['idUtilisateur'];
@@ -13,32 +15,33 @@ if (isset($_SESSION['user'])) {
 //Mettre à jour les données de l'utilisateur connecté
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    $utilisateur->nom = htmlspecialchars(trim($_POST['nom']));
+    $utilisateur->prenom = htmlspecialchars(trim($_POST['prenom']));
+    $utilisateur->mail = htmlspecialchars(trim($_POST['mail']));
+    $utilisateur->password = htmlspecialchars(trim($_POST['password']));
+
     $erreur = false;
-    if (empty($_POST['nom'])) {
+    if (empty($utilisateur->nom)) {
         $errorMessageUtilisateur = 'Le nom est obligatoire !';
         $erreur = true;
     }
-    if (empty($_POST['prenom'])) {
+    if (empty($utilisateur->prenom)) {
         $errorMessageUtilisateur = 'Le prénom est obligatoire !';
         $erreur = true;
     }
-    if (empty($_POST['mail'])) {
+    if (empty($utilisateur->mail)) {
         $errorMessageUtilisateur = 'Le mail est obligatoire !';
         $erreur = true;
     }
 
     //Vérifie que le mail n'existe pas déjà
-    $mail = !empty($_POST['mail']) ? htmlspecialchars(trim($_POST['mail'])) : '';
-    $utilisateur->mail = $mail;
     if (!$utilisateur->isMailValid()) {
         $errorMessageUtilisateur = 'Un utilisateur existe déjà avec cet email';
         $erreur = true;
     }
 
     //Vérifie si le mot de passe est fort
-    $password = !empty($_POST['password']) ? htmlspecialchars(trim($_POST['password'])) : $utilisateur->password;
-    $utilisateur->password = $password;
-    if (!$utilisateur->isPasswordStrong($password)) {
+    if (strlen($utilisateur->password) > 0 && !$utilisateur->isPasswordStrong()) {
         // $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
         //             un caractère spécial différent de & < " ou >';
         $errorMessageUtilisateur = 'Le mot de passe doit contenir 8 caractères minimum, dont au moins une lettre minuscule, une lettre majuscule, un chiffre et 
@@ -65,19 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //Si aucune erreur, met à jour l'utilisateur    
     if ($erreur == false) {
-        $utilisateur = new Utilisateur();
-        $utilisateur = $utilisateur->getUtilisateur($idUtilisateur);
-        $utilisateur->nom = htmlspecialchars(trim($_POST['nom']));
-        $utilisateur->prenom = htmlspecialchars(trim($_POST['prenom']));
-        $utilisateur->mail = htmlspecialchars(trim($_POST['mail']));
+        // Hache le mot de passe si modifié, sinon récupère le mot de passe existant
+        $utilisateurBdd = $utilisateur->getUtilisateur($_POST['idUtilisateur']);
+        !empty($utilisateur->password) ? $utilisateur->password = password_hash($utilisateur->password, PASSWORD_DEFAULT) : $utilisateur->password = $utilisateurBdd->password;
 
-        if (!empty($_POST['password'])) {
-            $password = htmlspecialchars(trim($_POST['password']));
-            // Hache le mot de passe
-            $utilisateur->password = password_hash($password, PASSWORD_DEFAULT);
-        }
         $utilisateur->updateUtilisateur($idUtilisateur);
-        header('Location: ../index.php');
+        header('Location: ../Controller/compteUtilisateur.php');
         exit;
     }
 }

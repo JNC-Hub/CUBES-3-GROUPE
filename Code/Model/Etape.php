@@ -71,4 +71,18 @@ class Etape
         $stmt->execute();
         $db->close();
     }
+
+    public function getEtapesRecipe($idRecette)
+    {
+
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT *
+                                FROM Etape E
+                                WHERE idRecette = :idRecette");
+        $stmt->bindValue(":idRecette", $idRecette);
+        $stmt->execute();
+        $etapes = $stmt->fetchAll(PDO::FETCH_CLASS, 'Etape');
+        $db->close();
+        return $etapes;
+    }
 }

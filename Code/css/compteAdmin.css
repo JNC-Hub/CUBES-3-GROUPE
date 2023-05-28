@@ -28,9 +28,16 @@
     margin-bottom: 3%;
 }
 
-.imgLogin {
-    margin: 2% 0 0 2%;
-    max-width: 1.5%;
+/***********************************************************************
+                            MEDIA QUERY 1 pour tablettes
+************************************************************************/
+@media screen and (min-width:769px) and (max-width:1024px) {
+
+    .tableUsers {
+        max-width: 100%;
+        font-size: 15px;
+    }
+
 }
 
 #spanCountRecipes {
@@ -144,7 +151,7 @@ thead {
     }
 
     .tableTitle {
-        font-size: 20px;
+        font-size: 18px;
         margin-bottom: 5%;
     }
 
@@ -155,11 +162,7 @@ thead {
 
     .tableUsers {
         max-width: 100%;
-        margin-bottom: 3%;
-    }
-
-    .imgLogin {
-        max-width: 4.5%;
+        font-size: 12px;
     }
 
 }
