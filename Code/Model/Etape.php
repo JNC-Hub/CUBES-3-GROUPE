@@ -61,6 +61,16 @@ class Etape
 
         return $this;
     }
+    public function deleteRecipe($idRecette)
+    {
+        $db = DbConnection::getInstance();
+
+        $query = "DELETE FROM etape WHERE idRecette = :idRecette";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(":idRecette", $idRecette);
+        $stmt->execute();
+        $db->close();
+    }
 
     public function getEtapesRecipe($idRecette)
     {

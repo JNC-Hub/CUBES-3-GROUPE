@@ -4,21 +4,46 @@ use App\Db\DbConnection;
 
 require_once "Connection.php";
 
-class statutRecette
+class StatutRecette
 {
     #region//Propriétés
     public int $idStatut;
-    public DateTime $libStatut;
+    public string $libStatut;
     #endregion
 
     #region//Constructeur
-    public function __construct(string $libStatut)
+    public function __construct()
     {
-        $this->libStatut = $libStatut;
     }
-    #endregion
+    //  getters
+    public function __get($pParam)
+    {
+        if (isset($pParam)) {
+            return $this->$pParam;
+        } else {
+            throw new Exception("Parametre inconnu : " . $pParam);
+        }
+    }
+    // les setters
 
-    #region//Méthodes
+    public function __set($pParam, $pValue)
+    {
+        if (isset($pParam)) {
+            $this->$pParam = $pValue;
+        } else {
+            throw new Exception("Parametre inconnu : " . $pParam);
+        }
+    }
+    public function getLibStautFromId($idStatut)
+    {
+        $db = DbConnection::getInstance();
 
-    #endregion
+        $query = "SELECT libStatut FROM statutRecette WHERE idStatut = :idStatut";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(":idStatut", $idStatut);
+        $stmt->execute();
+        $libStatut = $stmt->fetchColumn();
+        $db->close();
+        return $libStatut;
+    }
 }

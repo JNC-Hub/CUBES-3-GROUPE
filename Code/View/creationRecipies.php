@@ -93,7 +93,7 @@ $listIngredients = $ingredients->getListIngredients();
                                 <div class="dropzone">
                                     <label for="file-input">
                                         <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" id="image-preview" />
-                                        <input type="file" class="upload-input" id="file-input" accept="image/png, image/gif, image/jpeg" style="display:none;" />
+                                        <input type="file" class="upload-input" id="file-input" accept="image/png, image/gif, image/jpeg" />
                                         <span id="file-name"></span>
                                     </label>
                                 </div>
@@ -103,7 +103,7 @@ $listIngredients = $ingredients->getListIngredients();
 
                         <label for="nombrePersonne" class="form-label">
                             Pour combien de personnes cette recette est-elle adaptée ?</label>
-                        <input type="number" name="nombrePersonne" min="1" id="nombrePersonne" class="col-auto" placeholder="Nombre Personne" required>
+                        <input type="number" name="nombrePersonne" min="1" id="nombrePersonne" class="col-auto" placeholder=" Nombre personnes" required>
 
                     </div>
                     <div class="my-4">
@@ -112,7 +112,7 @@ $listIngredients = $ingredients->getListIngredients();
                             <div class="row">
                                 <div class="col-md-3 ">
                                     <div class="input-wrapper">
-                                        <input class="form-control" id="quantite" name="quantite" type="number" />
+                                        <input class="form-control" id="quantite" name="quantite" type="number" min="0.1" />
                                         <span>Quantité</span>
                                     </div>
                                 </div>
@@ -188,5 +188,8 @@ $listIngredients = $ingredients->getListIngredients();
     <script src="../Js/creationRecipe.js"></script>
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="../Js/creationRecipe.js"></script>
 
 </html>

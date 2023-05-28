@@ -48,4 +48,15 @@ class Pays
         $db->close();
         return $listPays;
     }
+    public function getLibPays($idPays)
+    {
+        $db = DbConnection::getInstance();
+        $query = "SELECT libPays FROM pays WHERE idPays = :idPays";
+        $queryPays = $db->prepare($query);
+        $queryPays->bindValue(':idPays', $idPays, PDO::PARAM_INT);
+        $queryPays->execute();
+        $libPays = $queryPays->fetchColumn();
+        $db->close();
+        return $libPays;
+    }
 }

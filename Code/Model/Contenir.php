@@ -53,7 +53,16 @@ class Contenir
 
         $db->close();
     }
+    public function deleteRelation($idRecette)
+    {
+        $db = DbConnection::getInstance();
 
+        $query = "DELETE FROM contenir WHERE idRecette = :idRecette";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(":idRecette", $idRecette);
+        $stmt->execute();
+        $db->close();
+    }
     public function getIngredientsRecipe($idRecette)
     {
         $db = DbConnection::getInstance();

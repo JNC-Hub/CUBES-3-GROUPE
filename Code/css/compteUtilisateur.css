@@ -6,11 +6,17 @@
     padding-top: 5%;
 }
 
-.tableTitle {
-    padding: 3%;
-    font-size: 25px;
-    text-align: center;
-    text-decoration: underline;
+.table-container {
+    margin-top: 30px;
+}
+
+thead {
+    background-color: #555a5e;
+    color: rgb(230, 227, 224);
+}
+
+.titleTab {
+    margin-top: 30px;
 }
 
 /***********************************************************************

@@ -1,0 +1,23 @@
+.imgLogin {
+    margin: 2% 0 0 2%;
+    max-width: 1.5%;
+}
+
+.table-container {
+    margin-top: 30px;
+}
+
+thead {
+    background-color: #555a5e;
+    color: rgb(230, 227, 224);
+}
+
+#validateRecipeButton {
+    background-color: #1e849b9e;
+    color: rgb(230, 227, 224);
+}
+
+#RejectRecipeButton {
+    background-color: #ef4d3e9e;
+    color: rgb(230, 227, 224);
+}
