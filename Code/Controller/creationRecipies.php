@@ -48,6 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $idIngredient =  $ingredientInstance->getIdIngredientFromLib($ingredient);
 
         $relationContenir->idIngredient = $idIngredient;
+        if ($uniteLib == "") {
+            $uniteLib = ' ';
+        }
         $unite = $uniteInstance->getIdUniteMesureFromLib($uniteLib);
         $relationContenir->idUniteMesure = $unite;
         $relationContenir->quantite =  (float) $quantite;
@@ -64,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $etapeInstance->idRecette = $idRecette;
         $etapeInstance->insertEtape();
     }
-
 
     if (isset($_FILES['img_book']) && $_FILES['img_book']['error'] === UPLOAD_ERR_OK) {
         // DIRECTORY_SEPARATOR selon linux / ou \

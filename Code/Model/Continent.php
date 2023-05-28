@@ -7,7 +7,7 @@ require_once "Connection.php";
 class Continent
 {
     #Contienent//Propriétés
-    private $table = "Continent";
+    private $table = "continent";
     private int $idContinent;
     private string $libContinent;
 
@@ -43,5 +43,16 @@ class Continent
         $listContinent = $requetListContinent->fetchAll(PDO::FETCH_ASSOC);
         $db->close();
         return $listContinent;
+    }
+    public function getIngredientFromIdPays($idPays)
+    {
+        $db = DbConnection::getInstance();
+        $requete = "SELECT libContinent FROM {$this->table} INNER JOIN pays ON continent.idContinent = pays.idContinent WHERE idPays = :idPays";
+        $requetContinent = $db->prepare($requete);
+        $requetContinent->bindValue(':idPays', $idPays, PDO::PARAM_INT);
+        $requetContinent->execute();
+        $libContinent = $requetContinent->fetchColumn();
+        $db->close();
+        return $libContinent;
     }
 }

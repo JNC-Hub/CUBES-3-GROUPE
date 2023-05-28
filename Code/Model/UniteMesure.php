@@ -41,8 +41,8 @@ class UniteMesure
     public  function getListUniteMesure()
     {
         $db = DbConnection::getInstance();
-        $requete = "SELECT * FROM " . $this->table;
-        $requetListUnite =  $db->prepare($requete);
+        $query = "SELECT * FROM " . $this->table;
+        $requetListUnite =  $db->prepare($query);
         $requetListUnite->execute();
         $listUnite = $requetListUnite->fetchAll(PDO::FETCH_ASSOC);
         $db->close();

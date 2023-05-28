@@ -33,6 +33,102 @@
     max-width: 1.5%;
 }
 
+#spanCountRecipes {
+    color: red;
+
+}
+
+.table-container {
+    margin-top: 30px;
+}
+
+thead {
+    background-color: #555a5e;
+    color: rgb(230, 227, 224);
+}
+
+.titleTab {
+    margin-top: 30px;
+}
+
+.modal-body .icons a {
+    text-decoration: none;
+    border: 1px solid transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal-body .icons a:nth-child(1) {
+    color: #1877F2;
+    border-color: #B7D4FB;
+}
+
+.modal-body .icons a:nth-child(1):hover {
+    background-color: #1877F2;
+    color: #fff;
+}
+
+/* .modal-body .icons a:nth-child(2) {
+    color: #46C1F6;
+    border-color: #b6e7fc;
+}
+
+.modal-body .icons a:nth-child(2):hover {
+    background-color: #46C1F6;
+    color: #fff;
+} */
+.modal-body .icons a:nth-child(2) {
+    color: #e1306c;
+    border-color: #f5bccf;
+}
+
+.modal-body .icons a:nth-child(2):hover {
+    background-color: #e1306c;
+    color: #fff;
+}
+
+.modal-body .icons a:nth-child(3) {
+    color: #0f0f0f;
+    border-color: #070707;
+}
+
+.modal-body .icons a:nth-child(3):hover {
+    background-color: #1c1d1c;
+    color: #fff;
+}
+
+.modal-body .icons a:hover {
+    border-color: transparent;
+}
+
+.modal-body .icons a span {
+    transition: all 0.09s ease-in-out;
+}
+
+.modal-body .icons a:hover span {
+    transform: scaleX(1.1);
+}
+
+.field span {
+    width: 50px;
+    font-size: 1.1rem;
+}
+
+.address-form {
+    display: none;
+}
+
+@media (max-width: 330px) {
+    .modal-body .icons a {
+        margin-right: 15px;
+        width: 35px;
+        height: 35px;
+    }
+}
+
 /***********************************************************************
                             MEDIA QUERY téléphone
 ************************************************************************/

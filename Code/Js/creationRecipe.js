@@ -225,18 +225,18 @@ $(document).ready(function () {
     ingredients.on('keyup', toggleButtonIngredient).trigger('keyup');
 
     function toggleButtonIngredient() {
-        if (quantite.val().length === 0 || unite.val().length === 0 || ingredients.val().length === 0 || ingredients.val() === 0) {
+        if (quantite.val().length === 0 || ingredients.val().length === 0 || ingredients.val() === 0) {
             buttonAddIngredient.prop('disabled', true);
         } else {
             buttonAddIngredient.prop('disabled', false);
 
         }
     }
+    let rowCount = 0; // copteur pour les ligne
     buttonAddIngredient.click(function () {
-        let rowCount = 0; // copteur pour les ligne
 
         let valQuantite = quantite.val();
-        let selectedUnite = $('#unite option:selected').text();
+        let selectedUnite = $('#unite').val() == '' ? '' : $('#unite option:selected').text();
         let selectedIngredient = $('.ingredients').is('input') ? $('.ingredients').val() : $('.ingredients option:selected').text();
 
         // creation une nouvelle ligne dans la table
@@ -269,8 +269,9 @@ $(document).ready(function () {
             buttonAddEtape.prop('disabled', false);
         }
     }
+    let i = 0;
     buttonAddEtape.click(function () {
-        let i = 0; // copteur pour les ligne
+        // copteur pour les ligne
         // creation une nouvelle ligne dans la table
         let addRow = '<tr id="rowEtape' + i + '"><td style="overflow:hidden; word-wrap:normal;">' + etape.val() + '</td><td><button type="button" class="btn btn-danger btn_remove_etape"  id="' + i + '">X</button></td></tr>';
 
@@ -293,8 +294,13 @@ $(document).ready(function () {
         let nombrePersonne = $('#nombrePersonne').val();
         let pays = $('#select_pays').val();
         let histoire = $('#histoire').val();
+        if ($('#file-input').val() == '') {
+            alert("Veuillez mettre l'image qui correspond à votre recette ")
+            return false;
+        }
         // $('#file-input') renvoie un objet jQuery, [0] pour obtenir le premier élément input puis acceder à la propriété files  du premier fichier sélectionné
         let image = $('#file-input')[0].files[0];
+
         var formData = new FormData();
         formData.append("img_book", image);
         if ($('#dynamic_field_ingredient tr').length >= 1) {

@@ -120,4 +120,61 @@ class Recette
         $db->close();
         return $ingredientsRecipe;
     }
+
+    public function getAllRecipeStatutAValider()
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT * FROM recette WHERE idStatut=1 ORDER BY idRecette DESC ");
+        $stmt->execute();
+        $recipeAValider = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $recipeAValider;
+    }
+    public function validateRecipe($idRecette)
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("UPDATE recette SET idStatut = 2 WHERE idRecette = :idRecette");
+        $stmt->bindValue(":idRecette", $idRecette);
+        $stmt->execute();
+        $db->close();
+    }
+    public function rejectRecipe($idRecette)
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("UPDATE recette SET idStatut = 3 WHERE idRecette = :idRecette");
+        $stmt->bindValue(":idRecette", $idRecette);
+        $stmt->execute();
+        $db->close();
+    }
+    public function getAllValidateRecipes()
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT * FROM recette WHERE idStatut=2 ORDER BY idRecette DESC ");
+        $stmt->execute();
+        $validateRecipe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $validateRecipe;
+    }
+    public function deleteRecipe($idRecette)
+    {
+        $db = DbConnection::getInstance();
+
+        $query = "DELETE FROM recette WHERE idRecette = :idRecette";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(":idRecette", $idRecette);
+        $stmt->execute();
+        $db->close();
+    }
+    public function getRecipesUser($idUtilisateur)
+    {
+        $db = DbConnection::getInstance();
+
+        $query = "SELECT * FROM recette WHERE idUtilisateur= :idUtilisateur ORDER BY idRecette DESC ";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(":idUtilisateur", $idUtilisateur);
+        $stmt->execute();
+        $RecipesUser = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $RecipesUser;
+    }
 }
