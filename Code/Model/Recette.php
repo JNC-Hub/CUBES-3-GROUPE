@@ -73,27 +73,27 @@ class Recette
     }
 
     // fonction de recupération
-    // public function getImageById($idRecette)
-    // {
-    //     // création de la connexion à la base de données
-    //     $db = DbConnection::getInstance();
+    public function getImageById($idRecette)
+    {
+        // création de la connexion à la base de données
+        $db = DbConnection::getInstance();
 
-    //     // préparation de la requête
-    //     $stmt = $db->prepare("SELECT image FROM recette WHERE idRecette = :idRecette ORDER BY dateRecette");
+        // préparation de la requête
+        $stmt = $db->prepare("SELECT image FROM recette WHERE idRecette = :idRecette ORDER BY dateRecette");
 
-    //     // liaison des paramètres
-    //     $stmt->bindParam(":idRecette", $idRecette);
+        // liaison des paramètres
+        $stmt->bindParam(":idRecette", $idRecette);
 
-    //     // exécution de la requête
-    //     $stmt->execute();
+        // exécution de la requête
+        $stmt->execute();
 
-    //     // récupération du résultat
-    //     $result = $stmt->fetch(PDO::FETCH_COLUMN);
+        // récupération du résultat
+        $result = $stmt->fetch(PDO::FETCH_COLUMN);
 
-    //$db->close();
-    // retour du chemin d'accès de l'image
-    //return $result;
-    // }
+        $db->close();
+        // retour du chemin d'accès de l'image
+        return $result;
+    }
 
     public function getRecipe($idRecette)
     {
@@ -138,6 +138,17 @@ class Recette
         $stmt->execute();
         $db->close();
     }
+
+    public function getAllvalidateRecipe()
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT * FROM recette WHERE idStatut=2 ORDER BY idRecette DESC ");
+        $stmt->execute();
+        $totalvalidateRecipe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $totalvalidateRecipe;
+    }
+
     public function rejectRecipe($idRecette)
     {
         $db = DbConnection::getInstance();
