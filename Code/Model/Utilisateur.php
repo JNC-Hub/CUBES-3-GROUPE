@@ -29,8 +29,8 @@ class Utilisateur
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("SELECT U.idUtilisateur, U.nom, U.prenom, U.mail, U.password, U.validationProfil, R.idRole 
                                 FROM utilisateur U
-                                LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur
-                                LEFT JOIN role R ON R.idRole = P.idRole");
+                                INNER JOIN posseder P ON U.idUtilisateur = P.idUtilisateur
+                                INNER JOIN role R ON R.idRole = P.idRole");
         $stmt->execute();
         $utilisateurs = $stmt->fetchAll(PDO::FETCH_CLASS, 'Utilisateur');
         $db->close();
@@ -40,10 +40,10 @@ class Utilisateur
     public function getUtilisateur($id): Utilisateur
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.idUtilisateur, U.nom, U.prenom, U.mail, U.password, U.validationProfil, R.idRole
+        $stmt = $db->prepare("SELECT U.idUtilisateur, U.nom, U.prenom, U.mail, U.password, U.validationProfil, P.idRole
                                 FROM utilisateur U 
-                                LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
-                                LEFT JOIN role R ON R.idRole = P.idRole 
+                                INNER JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
+                                INNER JOIN role R ON R.idRole = P.idRole 
                                 WHERE U.idUtilisateur = :id");
         $stmt->bindValue(":id", $id);
         $stmt->execute();
@@ -55,14 +55,10 @@ class Utilisateur
     public static function getUtilisateurActif($id)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.idUtilisateur, U.validationProfil
-                                FROM utilisateur U 
-                                LEFT JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
-                                LEFT JOIN role R ON R.idRole = P.idRole 
-                                WHERE U.idUtilisateur = :id AND U.validationProfil = 1");
+        $stmt = $db->prepare("SELECT * FROM utilisateur WHERE idUtilisateur = :id AND validationProfil = 1");
         $stmt->bindValue(":id", $id);
         $stmt->execute();
-        $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+        $utilisateur = $stmt->fetchObject('Utilisateur');
         $db->close();
         return $utilisateur;
     }

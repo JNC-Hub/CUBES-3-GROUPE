@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Si aucune erreur, met à jour l'utilisateur    
     if ($erreur == false) {
         // Hache le mot de passe si modifié, sinon récupère le mot de passe existant
-        $utilisateurBdd = $utilisateur->getUtilisateur($_POST['idUtilisateur']);
+        $utilisateurBdd = Utilisateur::getUtilisateurActif($_POST['idUtilisateur']);
         !empty($utilisateur->password) ? $utilisateur->password = password_hash($utilisateur->password, PASSWORD_DEFAULT) : $utilisateur->password = $utilisateurBdd->password;
 
         $utilisateur->updateUtilisateur($idUtilisateur);

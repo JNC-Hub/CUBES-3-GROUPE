@@ -17,29 +17,23 @@
 <body>
   <p> Ici vont apparaitre les images des recettes </p>
 
-  <div class="boutonImpressionPdf">
-
-    <input type="button" value="Imprimer2" onclick="window.print();">
-
-  </div>
-
   <div>
     <?php
-    include_once "../Controller/impressionPdf.php";
+    include_once "../Controller/affichageImageRecetteContinent.php";
     ?>
   </div>
 
   <div>
     <?php
-    include_once "../Controller/affichageImageRecetteController.php";
+    include_once "../Controller/affichageImageRecetteUnique.php";
     ?>
   </div>
 
   <footer>
 
-    <p>
-      Le footer va apparaitre ici
-    </p>
+    <?php
+    include_once "../View/footer.html"
+    ?>
 
   </footer>
 </body>
