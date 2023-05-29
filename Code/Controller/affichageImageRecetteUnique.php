@@ -3,7 +3,7 @@ require_once "../model/Connection.php";
 require_once "../model/Recette.php";
 
 // ID de la recette à afficher
-$idRecette = 2;
+//$idRecette = 2;
 
 // Vérifier si l'ID de la recette est présent dans la requête
 if (isset($_GET['idRecette'])) {
