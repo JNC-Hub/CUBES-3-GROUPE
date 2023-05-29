@@ -14,8 +14,7 @@ if (!isset($_SESSION['user']) || !isset($_COOKIE['last_activity'])) {
 
 //Vérifie que le compte est toujours existant ou actif pendant la navigation
 if (isset($_SESSION['user'])) {
-    $utilisateur = new Utilisateur();
-    $utilisateurActif = $utilisateur->getUtilisateurActif($_SESSION['user_id']);
+    $utilisateurActif = Utilisateur::getUtilisateurActif($_SESSION['user_id']);
     if (!$utilisateurActif) {
         session_unset();
         session_destroy();
