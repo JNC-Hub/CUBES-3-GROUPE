@@ -4,7 +4,6 @@ require_once("../Model/Recette.php");
 require_once("../Model/Continent.php");
 require_once("../Model/Recette.php");
 require_once '../Model/Utilisateur.php';
-// require_once("../Controller/shareSocialMedia.php");
 $recette = new Recette();
 $lisValidateRecipe = $recette->getAllValidateRecipes();
 $recipesAValidate = count($recette->getAllRecipeStatutAValider());

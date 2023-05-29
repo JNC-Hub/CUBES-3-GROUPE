@@ -77,7 +77,7 @@ class Etape
 
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("SELECT *
-                                FROM Etape E
+                                FROM etape E
                                 WHERE idRecette = :idRecette");
         $stmt->bindValue(":idRecette", $idRecette);
         $stmt->execute();

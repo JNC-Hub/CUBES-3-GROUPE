@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Model/fpdf/fpdf.php';
+require_once 'Fpdf/fpdf.php';
 
 class PDF extends FPDF
 {
