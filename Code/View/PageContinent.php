@@ -23,6 +23,12 @@
     ?>
   </div>
 
+  <div>
+    <?php
+    include_once "../Controller/affichageImageRecetteUnique.php";
+    ?>
+  </div>
+
   <footer>
 
     <?php
