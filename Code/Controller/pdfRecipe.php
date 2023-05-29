@@ -2,7 +2,7 @@
 require_once '../Model/Recette.php';
 require_once '../Model/Etape.php';
 require_once '../Model/Contenir.php';
-require_once '../Model/fpdf/fpdf.php';
+require_once '../Model/Fpdf/fpdf.php';
 require_once '../Model/PdfClass.php';
 
 if (isset($_GET['idRecette'])) {
