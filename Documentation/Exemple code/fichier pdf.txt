@@ -1,0 +1,13 @@
+ <div class="boutonImpressionPdf">
+
+    <input type="button" value="Imprimer2" onclick="window.print();">
+
+  </div>
+
+  <div>
+    <?php
+    include_once "../Controller/impressionPdf.php";
+    ?>
+  </div>
+
+  </div>
