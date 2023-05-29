@@ -17,23 +17,9 @@
 <body>
   <p> Ici vont apparaitre les images des recettes </p>
 
-  <!-- <div class="boutonImpressionPdf">
-
-    <input type="button" value="Imprimer2" onclick="window.print();">
-
-  </div>
-
   <div>
     <?php
-    include_once "../Controller/impressionPdf.php";
-    ?>
-  </div> -->
-
-  </div>
-
-  <div>
-    <?php
-    include_once "../Controller/affichageImageRecetteController.php";
+    include_once "../Controller/affichageImageRecetteContinent.php";
     ?>
   </div>
 
