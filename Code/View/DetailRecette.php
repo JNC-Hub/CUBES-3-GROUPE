@@ -15,23 +15,37 @@
 <body>
 
     <?php
-    require_once "./Header.html";
+    require_once "Header.html";
     ?>
 
     <div class="position-relative">
         <img src="img/cake.jpg" id="img1">
 
         <h6 id="title1">Histoire / Anecdote :</h6>
-        <p class="text-justify" id="blocktext1">dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
+        <p class="text-justify" id="blocktext1">dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet
+            fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex
+            communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem
+            certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
         <h5 id="bigtitle">Préparation</h5>
         <h6 id="title2">Etape 1 :</h6>
-        <p class="text-justify" id="blocktext2">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
+        <p class="text-justify" id="blocktext2">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit
+            amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex
+            communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem
+            certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
         <h6 id="title3">Etape 2 :</h6>
-        <p class="text-justify" id="blocktext3">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
+        <p class="text-justify" id="blocktext3">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit
+            amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex
+            communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem
+            certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
         <h6 id="title4">Etape 3 :</h6>
-        <p class="text-justify" id="blocktext4">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
+        <p class="text-justify" id="blocktext4">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit
+            amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex
+            communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem
+            certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
         <h6 id="title5">Liste des ingrédients :</h6>
-        <p class="text-justify" id="ListI"> - Farine : 250g <br> - Chocolat : 30g<br>- sucre : 20g<br>- oeuf : 6<br>- levure : 1 sachet<br> - patte d'amande : au choix<br>---------------------------<br>--------------------------<br></p>
+        <p class="text-justify" id="ListI"> - Farine : 250g <br> - Chocolat : 30g<br>- sucre : 20g<br>- oeuf : 6<br>-
+            levure : 1 sachet<br> - patte d'amande : au
+            choix<br>---------------------------<br>--------------------------<br></p>
 
         <img src="img/DL.png" id="img2">
         <a href="../Controller/pdfRecipe.php?idRecette=2" target="_blank">Téléchargez la recette !</a>
@@ -45,7 +59,7 @@
 <footer>
 
     <?php
-    require_once "./Footer.html";
+    require_once "footer.html";
     ?>
 
 </footer>
