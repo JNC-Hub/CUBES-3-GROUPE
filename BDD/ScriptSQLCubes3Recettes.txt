@@ -75,7 +75,6 @@ CREATE TABLE recette(
         titre         Varchar (50) NOT NULL ,
         nbPersonnes   Int NOT NULL ,
         histoire      Varchar (1000) NOT NULL ,
-        image         Varchar (100) NOT NULL ,
         idUtilisateur Int NOT NULL ,
         idStatut      Int NOT NULL ,
         idPays        Int NOT NULL
@@ -144,7 +143,7 @@ CREATE TABLE posseder(
 CREATE TABLE commenter(
         idRecette       Int NOT NULL ,
         idUtilisateur   Int NOT NULL ,
-        commentaire     Varchar (255) NOT NULL ,
+        commentaire     Varchar (500) NOT NULL ,
         dateCommentaire Date NOT NULL
 	,CONSTRAINT commenter_PK PRIMARY KEY (idRecette,idUtilisateur)
 
