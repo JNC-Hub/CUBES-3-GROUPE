@@ -30,6 +30,10 @@ $listIngredients = $ingredients->getListIngredients();
 
 <body>
 
+    <?php
+    require_once "Header.html";
+    ?>
+
     <div class="container w-50 mt-4">
         <div class="text d-flex justify-content-center flex-column">
             <div class="text-center">
@@ -37,8 +41,8 @@ $listIngredients = $ingredients->getListIngredients();
                 <hr class="w-25 m-auto bg-dark">
             </div>
             <div class="text-center align-self-center">
-                <span class="titleSpan">Les recettes seront visibles sur le site après validation de l'équipe
-                    <strong>voyageurs gourmands</strong>.</span>
+                <span class="titleSpan">Les recettes seront visibles sur le site après validation de l'équipe des
+                    <strong>Voyageurs Gourmands</strong>.</span>
             </div>
         </div>
 
@@ -72,7 +76,7 @@ $listIngredients = $ingredients->getListIngredients();
                 </div>
             </div>
             <div class="histoire my-4">
-                <label for="histoire" class="form-label">Partagez avec nous une petite histoire/anecdote de votre
+                <label for="histoire" class="form-label">Partagez avec nous une petite histoire/anecdote sur votre
                     recette </label>
                 <textarea class="form-control" id="histoire" rows="4" required maxlength="300" placeholder="Votre histoire/anecdote"></textarea>
                 <span class="float-end label label-default" id="countLength"></span>
@@ -99,7 +103,7 @@ $listIngredients = $ingredients->getListIngredients();
 
                         <label for="nombrePersonne" class="form-label">
                             Pour combien de personnes cette recette est-elle adaptée ?</label>
-                        <input type="number" name="nombrePersonne" min="1" id="nombrePersonne" class="col-auto" placeholder=" Nombre personnes" required>
+                        <input type="number" name="nombrePersonne" min="1" id="nombrePersonne" class="col-auto" placeholder=" Nombre de personnes" required>
 
                     </div>
                     <div class="my-4">
@@ -171,14 +175,14 @@ $listIngredients = $ingredients->getListIngredients();
                         <button type="submit" class="btn btn-success" id="submit">Envoyer votre recette</button>
                     </div>
         </form>
-
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="../Js/creationRecipe.js"></script>
+    <?php
+    require_once "Footer.html";
+    ?>
 
 </body>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="../Js/creationRecipe.js"></script>

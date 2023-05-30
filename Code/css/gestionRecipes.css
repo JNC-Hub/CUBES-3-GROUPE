@@ -4,12 +4,14 @@
 }
 
 .table-container {
+    margin: auto;
     margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 thead {
-    background-color: #555a5e;
-    color: rgb(230, 227, 224);
+    background-color: #8f8f8f;
+    color: white;
 }
 
 #validateRecipeButton {
