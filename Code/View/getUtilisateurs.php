@@ -56,7 +56,7 @@
                             <td>
                                 <form action="../Controller/updateActivationProfil.php" method="post">
                                     <input type="hidden" name="idUtilisateur" value="<?= $utilisateur->idUtilisateur ?>">
-                                    <button type="submit" style="border:none; background-color:transparent"><img src="../images/person-lock.svg"></button>
+                                    <button type="submit" style="border:none; background-color:transparent"><img src="../Images/person-lock.svg"></button>
                                 </form>
                             </td>
                         </tr>
