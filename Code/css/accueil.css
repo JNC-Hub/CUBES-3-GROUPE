@@ -27,10 +27,15 @@
     line-height: 50px;
     text-align: center;
     margin: 1% auto 4% auto;
+    padding: 3%;
 }
 
 .linkAccueil a {
     font-weight: bold;
+}
+
+.linkAccueil .btn {
+    padding: 10px 25px;
 }
 
 /***********************************************************************

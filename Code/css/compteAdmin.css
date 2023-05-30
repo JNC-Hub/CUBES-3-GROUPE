@@ -3,7 +3,7 @@
     justify-content: space-evenly;
     max-width: 50%;
     margin: auto;
-    padding-top: 5%;
+    padding: 4% 0 4% 0;
 }
 
 .tableTitle {
@@ -23,9 +23,8 @@
 }
 
 .tableUsers {
-    margin: auto;
+    margin: 1% auto 4% auto;
     max-width: 70%;
-    margin-bottom: 3%;
 }
 
 /***********************************************************************
@@ -42,16 +41,20 @@
 
 #spanCountRecipes {
     color: red;
-
+    font-size: 13px;
+    font-weight: bold;
+    vertical-align: top;
 }
 
 .table-container {
+    margin: auto;
     margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 thead {
-    background-color: #555a5e;
-    color: rgb(230, 227, 224);
+    background-color: #8f8f8f;
+    color: white;
 }
 
 .titleTab {

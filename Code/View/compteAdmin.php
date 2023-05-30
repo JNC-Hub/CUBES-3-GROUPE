@@ -28,12 +28,16 @@ $recipesAValidate = count($recette->getAllRecipeStatutAValider());
     </header>
 
     <div class="linkUtilisateur">
-        <div><a href="../Controller/getUtilisateurs.php" class="btn btn-light .btn-lg">G&eacute;rer les utilisateurs</a>
+
+        <div>
+            <a href="../Controller/getUtilisateurs.php" class="btn btn-light .btn-lg">G&eacute;rer les utilisateurs</a>
         </div>
+
+        <div> <a href="../Controller/gestionRecipes.php" class="btn btn-light .btn-lg">Gérer les recettes <span id="spanCountRecipes"><?= $recipesAValidate ?></span></a>
+        </div>
+
         <div> <a href="../Controller/logout.php" class="btn btn-light .btn-lg">Se d&eacute;connecter</a></div>
-        <div> <a href="../Controller/gestionRecipes.php" class="btn btn-light .btn-lg">Gestion des
-                recettes <span id="spanCountRecipes"><?= $recipesAValidate ?></span></a>
-        </div>
+
     </div>
     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModel" id="shareBtn">
         <svg xmlns=" http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
@@ -79,12 +83,13 @@ $recipesAValidate = count($recette->getAllRecipeStatutAValider());
     </div>
     <div class="titleTab">
         <div class="text-center">
-            <h2>Liste des Recettes Non Validées</h2>
+            <h2>Liste des recettes non validées</h2>
             <hr class="w-25 m-auto bg-dark">
         </div>
     </div>
+
     <div class="table-container">
-        <table class="table">
+        <table class="table table-hover">
             <thead class="table-bordered">
                 <tr>
                     <th scope="col">Nom de la recette</th>
