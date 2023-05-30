@@ -21,9 +21,8 @@ if (isset($_GET['idRecette'])) {
 
     //Image de la recette
     $idRecette = $recette->idRecette;
-    $imageFileName = glob('../imageRecipe/' . $idRecette . '.*'); //Récupère le nom de fichier complet avec son extension (extensions différentes)
-    $imagePath = '../imageRecipe/' . $imageFileName[0];
-    $pdf->Image($imagePath, 150, 5, 50);
+    $imageFile = glob('../imageRecipe/' . $idRecette . '.*'); //Récupère le chemin complet vers fichier, avec son extension (extension inconnue)
+    $pdf->Image($imageFile[0], 150, 5, 50);
 
     //Titre de la recette body
     $pdf->SetXY(10, 45);
@@ -45,7 +44,6 @@ if (isset($_GET['idRecette'])) {
     $pdf->Write(10, iconv('UTF-8', 'windows-1252', 'Liste des ingrédients pour ' . htmlspecialchars($recette->nbPersonnes) . ' personnes'));
     $contenirIngredients = new Contenir();
     $ingredientsRecette = $contenirIngredients->getIngredientsRecipe($idRecette);
-    $numberOfIngredients = count($ingredientsRecette);
     $yListIngredients = $pdf->GetY();
     $pdf->setY($yListIngredients + 1.5);
     foreach ($ingredientsRecette as $ingredient) {
