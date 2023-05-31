@@ -1,18 +1,20 @@
-//Transforme l'input password en input text et change incone fa-eye
+//Transforme l'input password en input text
+
 function fafaEye() {
+
+  //Input password 1
   var passwordInput = document.getElementById("password");
   if (passwordInput.type === "password") {
     passwordInput.type = "text";
   } else {
     passwordInput.type = "password";
   }
-}
 
-function fafaEyeConfirm() {
-  var passwordInput = document.getElementById("passwordConfirm");
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
+  //Input password 2
+  var passwordInputConfirm = document.getElementById("passwordConfirm");
+  if (passwordInputConfirm.type === "password") {
+    passwordInputConfirm.type = "text";
   } else {
-    passwordInput.type = "password";
+    passwordInputConfirm.type = "password";
   }
 }

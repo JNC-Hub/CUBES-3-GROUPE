@@ -58,7 +58,7 @@
                     <div class="form-content">
                         <label for="password">Confirmez le mot de passe *</label>
                         <input type="password" name="passwordConfirm" id="passwordConfirm" value="">
-                        <i class="fa fa-eye" onclick="fafaEyeConfirm()"></i>
+                        <i class="fa fa-eye" onclick="fafaEye()"></i>
                     </div>
 
                     <div class="submitLogin">

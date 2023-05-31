@@ -1,26 +1,29 @@
-#bigtitle{
+#bigtitle {
     position: relative;
     padding-left: 55%;
     margin-bottom: 2%;
 }
-#blocktext1{
+
+#blocktext1 {
     position: relative;
     margin-left: 35%;
     margin-right: 5%;
     padding: 0.5%;
     border-radius: 3%;
-    border-style:ridge;
+    border-style: ridge;
     margin-top: 1%;
     margin-bottom: 3%;
     background-color: rgb(242, 242, 242);
 }
-#title1{
+
+#title1 {
     position: relative;
     padding-left: 35%;
     margin-top: 1%;
     margin-bottom: 1%;
 }
-#blocktext2{
+
+#blocktext2 {
     position: relative;
     text-align: left justify;
     float: right;
@@ -28,69 +31,77 @@
     margin-right: 5%;
     padding: 0.5%;
     border-radius: 3%;
-    border-style:ridge;
+    border-style: ridge;
     margin-top: 1%;
     margin-bottom: 1%;
     background-color: rgb(242, 242, 242);
 }
-#title2{
+
+#title2 {
     position: relative;
     padding-left: 35%;
     margin-top: 1%;
     margin-bottom: 1%;
 }
-#blocktext3{
+
+#blocktext3 {
     position: relative;
     text-align: left justify;
     float: right;
     width: 60%;
     padding: 0.5%;
     border-radius: 3%;
-    border-style:ridge;
+    border-style: ridge;
     margin-top: 1%;
     margin-bottom: 1%;
     margin-right: 5%;
     background-color: rgb(242, 242, 242);
 }
-#title3{
+
+#title3 {
     position: relative;
     padding-left: 35%;
     margin-top: 1%;
     margin-bottom: 1%;
 }
-#blocktext4{
+
+#blocktext4 {
     position: relative;
     padding: 0.5%;
     text-align: left justify;
     float: right;
     width: 60%;
     border-radius: 3%;
-    border-style:ridge;
+    border-style: ridge;
     margin-top: 1%;
     margin-bottom: 1%;
     margin-right: 5%;
     background-color: rgb(242, 242, 242);
 }
-#title4{
+
+#title4 {
     position: relative;
     padding-left: 35%;
     margin-top: 1%;
     margin-bottom: 1%;
 }
-#img1{
+
+#img1 {
     position: absolute;
     width: 30%;
-    border-style:double;
+    border-style: double;
     margin: 1%;
 }
-#img2{
-    position:relative;
+
+#img2 {
+    position: relative;
     width: 50px;
     margin-left: 3%;
-    border-style:groove;
-    
+    border-style: groove;
+
 }
-#ListI{
+
+#ListI {
     position: relative;
     padding: 1%;
     border-style: groove;
@@ -101,15 +112,18 @@
     background-color: rgb(242, 242, 242);
 
 }
-#title5{
+
+#title5 {
     position: relative;
     margin-left: 1%;
     left: 2%;
 }
-footer{
+
+footer {
     margin-top: 10%;
 }
-#text1{
+
+#text1 {
     text-align: center;
-    
+
 }

@@ -1,7 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.contentAccueil {
+    display: flex;
+    flex-direction: row;
+}
+
 .presentation {
-    padding: 3% 2% 3% 2%;
+    padding: 4% 2% 2% 4%;
     width: 50%;
     font-size: 15px;
+    max-width: 50%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.lastRecipeAccueil {
+    max-width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.linkAccueil {
+    line-height: 50px;
+    text-align: center;
+    margin: 1% auto 4% auto;
+    padding: 3%;
+}
+
+.linkAccueil a {
+    font-weight: bold;
+}
+
+.linkAccueil .btn {
+    padding: 10px 25px;
 }
 
 /***********************************************************************
@@ -9,10 +43,17 @@
 ************************************************************************/
 @media screen and (max-width:768px) {
 
-    .presentation {
-        min-width: 100%;
-        padding: 5% 2% 5% 2%;
-        font-size: 13px;
+    .contentAccueil {
+        flex-direction: column;
     }
 
+    .presentation {
+        font-size: 13px;
+        min-width: 100%;
+    }
+
+    .lastRecipeAccueil {
+        min-width: 100%;
+        padding: 5% 0 5% 0;
+    }
 }

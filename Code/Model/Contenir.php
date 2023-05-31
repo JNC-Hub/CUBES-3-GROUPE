@@ -69,7 +69,7 @@ class Contenir
         $stmt = $db->prepare("SELECT R.idRecette, C.quantite, I.libIngredient, UM.libUniteMesure, UM.idUniteMesure FROM contenir C
                     INNER JOIN recette R ON C.idRecette = R.idRecette
                     INNER JOIN ingredient I ON C.idIngredient = I.idIngredient
-                    INNER JOIN unitemesure UM ON UM.idUniteMesure = C.idUniteMesure
+                    INNER JOIN uniteMesure UM ON UM.idUniteMesure = C.idUniteMesure
                     WHERE R.idRecette = :idRecette");
         $stmt->bindValue(":idRecette", $idRecette);
         $stmt->execute();
