@@ -33,12 +33,12 @@ foreach ($lignesRecettesValidees as $ligne) {
 
     foreach ($ligne as $recetteValidee) {
         $idRecette = $recetteValidee['idRecette'];
-        $imageRecette = $recetteValidee['image'];
+        //$imageRecette = $recetteValidee['image'];
         $titreRecette = $recetteValidee['titre'];
 
         echo '<div class="col-md-4">';
         echo '<a href="detailRecette.php?idRecette=' . $idRecette . '">';
-        echo '<img src="../imageRecipe/' . $imageRecette . '" alt="' . $titreRecette . '" width="300" height="200" />';
+        echo '<img src="../imageRecipe/' . $idRecette . '" alt="' . $titreRecette . '" width="300" height="200" />';
         echo '<h4>' . $titreRecette . '</h4>';
         echo '</a>';
         echo '</div>';
