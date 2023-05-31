@@ -24,8 +24,12 @@
 
         <img src="<?= $image ?>" id="img1">
 
+        <p>Continent : <?= htmlspecialchars($recette->libContinent) ?></p>
+        <p>Pays : <?= htmlspecialchars($recette->libPays) ?></p>
+
         <h2 id="title1">Histoire / Anecdote sur la recette :</h2>
         <p class="text-justify" id="blocktext1"><?= htmlspecialchars($recette->histoire) ?></p>
+
         <h2 id="bigtitle">Préparation</h2>
 
         <?php
