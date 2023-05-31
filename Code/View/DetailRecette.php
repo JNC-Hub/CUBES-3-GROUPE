@@ -24,7 +24,7 @@
 
         <img src="<?= $image ?>" id="img1">
 
-        <p>Continent : <?= htmlspecialchars($recette->libContinent) ?></p>
+        <p>Continent : <?= htmlspecialchars($recette->libContinent) ?> </p>
         <p>Pays : <?= htmlspecialchars($recette->libPays) ?></p>
 
         <h2 id="title1">Histoire / Anecdote sur la recette :</h2>

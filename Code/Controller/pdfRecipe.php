@@ -37,15 +37,15 @@ if (isset($_GET['idRecette'])) {
     $recetteHistoire = htmlspecialchars($recette->histoire);
     $pdf->MultiCell(0, 4, iconv('UTF-8', 'windows-1252', (htmlspecialchars($recetteHistoire))), 0, 'L', false);
 
-    //Pays et continent
+    //Pays
     $yPays = $pdf->GetY();
     $pdf->SetXY(10, $yPays + 2);
     $pdf->SetFont('Arial', '', 12);
     $pdf->Write(10, iconv('UTF-8', 'windows-1252', 'Continent : ' . htmlspecialchars($recette->libContinent)));
 
     //Pays
-    $yPays = $pdf->GetY();
-    $pdf->SetXY(10, $yPays + 5);
+    $yContinent = $pdf->GetY();
+    $pdf->SetXY(10, $yContinent + 5);
     $pdf->SetFont('Arial', '', 12);
     $pdf->Write(10, iconv('UTF-8', 'windows-1252', 'Pays : ' . htmlspecialchars($recette->libPays)));
 
