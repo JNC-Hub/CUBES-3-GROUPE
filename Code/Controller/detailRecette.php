@@ -5,8 +5,11 @@ require_once '../Model/Contenir.php';
 
 if (isset($_GET['idRecette'])) {
 
+
     //$idRecette = 3;
     $idRecette = $_GET['idRecette'];
+
+
 
     $recette = new Recette();
     $recette = $recette->getRecipe($idRecette);
