@@ -10,12 +10,12 @@ if (isset($_GET['idRecette'])) {
     // Récupérer l'ID de la recette depuis la requête
     $idRecette = $_GET['idRecette'];
 
-    $imageRecette = new Recette();
-    $imageRecette->image = $imageRecette->getImageById($idRecette);
+    // $imageFileName = glob('../imageRecipe/' . $idRecette . '.*'); //Récupère le nom de fichier complet avec son extension (extensions différentes)
+    // $imagePath = '../imageRecipe/' . $imageFileName[0];
 
-    if ($imageRecette->image !== null) {
+    if ($idRecette->image !== null) {
         // Afficher l'image
-        echo '<img src="../imageRecipe/' . $imageRecette->image . '" width="300" height="200" />';
+        echo '<img src="../imageRecipe/' . $idRecette->image . '" width="300" height="200" />';
     } else {
         echo "Aucune image trouvée pour cette recette";
     }

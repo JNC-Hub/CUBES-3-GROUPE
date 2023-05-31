@@ -149,6 +149,17 @@ class Recette
         return $totalvalidateRecipe;
     }
 
+    public function getAllvalidateRecipeByContinent()
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT * FROM recette WHERE idStatut=2 AND idContinent = :idContinent ORDER BY idRecette DESC ");
+        $stmt->bindParam(':idContinent', $idContinent);
+        $stmt->execute();
+        $totalvalidateRecipeByContinent = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $totalvalidateRecipeByContinent;
+    }
+
     public function rejectRecipe($idRecette)
     {
         $db = DbConnection::getInstance();
