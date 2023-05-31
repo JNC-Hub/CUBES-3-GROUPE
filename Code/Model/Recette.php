@@ -98,7 +98,10 @@ class Recette
     public function getRecipe($idRecette)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT * From recette WHERE idRecette = :idRecette");
+        $stmt = $db->prepare("SELECT * From recette R
+                                INNER JOIN pays P ON P.idPays = R.idPays
+                                INNER JOIN continent C ON C.idContinent = P.idContinent
+                                WHERE R.idRecette = :idRecette ");
         $stmt->bindValue(":idRecette", $idRecette);
         $stmt->execute();
         $recipe = $stmt->fetch(PDO::FETCH_OBJ);
