@@ -55,4 +55,14 @@ class Continent
         $db->close();
         return $libContinent;
     }
+    public function getPaysByContinent($idContinent)
+    {
+        $db = DbConnection::getInstance();
+        $requetListPays =  $db->prepare("SELECT * FROM pays WHERE idContinent = :idContinent");
+        $requetListPays->bindValue(':idContinent', $idContinent, PDO::PARAM_INT);
+        $requetListPays->execute();
+        $listPays = $requetListPays->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $listPays;
+    }
 }
