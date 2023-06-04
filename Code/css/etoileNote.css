@@ -1,13 +1,17 @@
-/* Style des étoiles */
-.rating-star {
-    display: inline-block;
-    font-size: 20px;
-    color: #ccc;
-    cursor: pointer;
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
 }
 
-/* Style des étoiles survolées */
-.rating-star:hover,
-.rating-star.active {
-    color: gold;
+.rating-star {
+    display: inline-block;
+    font-size: 30px;
+    cursor: pointer;
+    color: gray;
+}
+
+.rating-star.filled,
+.rating-star:hover {
+    color: yellow;
 }

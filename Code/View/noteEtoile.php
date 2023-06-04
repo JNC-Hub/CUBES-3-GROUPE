@@ -7,18 +7,31 @@
     <link rel="stylesheet" href="../css/etoileNote.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        console.log(jQuery.fn.jquery);
+    </script>
+
+    <script>
         $(document).ready(function() {
+            $('.rating-star').mouseenter(function() {
+                $(this).addClass('filled');
+                $(this).prevAll('.rating-star').addBack().addClass('filled');
+            });
+
+            $('.rating-star').mouseleave(function() {
+                $('.rating-star').removeClass('filled');
+            });
+
             $('.rating-star').click(function() {
                 // Récupérer la note attribuée
                 var rating = $(this).data('rating');
 
-                // Récupérer l'ID de la recette et l'ID de l'utilisateur (vous devrez les passer depuis votre modèle ou votre contrôleur)
+                // Récupérer l'ID de la recette et l'ID de l'utilisateur
                 var recipeId = <?php echo $recipeId; ?>;
                 var userId = <?php echo $userId; ?>;
 
                 // Envoyer la requête AJAX pour enregistrer la note
                 $.ajax({
-                    url: 'notationRecette.php',
+                    url: '../Controller/notationRecette.php', // Spécifiez l'URL du script PHP ici
                     type: 'POST',
                     data: {
                         action: 'enregistrer_note',
@@ -48,7 +61,8 @@
 <body>
     <h1>Notation de la recette</h1>
     <div>
-        <h3>Note actuelle : <span id="current-rating"><?php echo $currentRating; ?></span></h3>
+        <!-- <h3>Note actuelle : <span id="current-rating"><?php echo $averageNote; ?></span></h3> -->
+
         <h3>Attribuer une note :</h3>
         <div class="rating">
             <span class="rating-star" data-rating="1">&#9733;</span>
