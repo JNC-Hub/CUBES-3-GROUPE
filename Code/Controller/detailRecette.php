@@ -5,11 +5,8 @@ require_once '../Model/Contenir.php';
 
 if (isset($_GET['idRecette'])) {
 
-
     //$idRecette = 3;
     $idRecette = $_GET['idRecette'];
-
-
 
     $recette = new Recette();
     $recette = $recette->getRecipe($idRecette);
@@ -17,7 +14,6 @@ if (isset($_GET['idRecette'])) {
     //Image de la recette
     $imageFile = glob('../imageRecipe/' . $idRecette . '.*');
     $image = $imageFile[0];
-
 
     $contenirIngredients = new Contenir();
     $ingredients = $contenirIngredients->getIngredientsRecipe($idRecette);

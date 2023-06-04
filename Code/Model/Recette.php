@@ -152,6 +152,17 @@ class Recette
         return $totalvalidateRecipe;
     }
 
+    public function getRecetteByPays($idPays)
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT * FROM recette WHERE idPays = :idPays");
+        $stmt->bindParam(':idPays', $idPays);
+        $stmt->execute();
+        $recettes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $recettes;
+    }
+
     public function getAllvalidateRecipeByContinent()
     {
         $db = DbConnection::getInstance();
@@ -201,5 +212,16 @@ class Recette
         $RecipesUser = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $db->close();
         return $RecipesUser;
+    }
+
+    public function getRecetteByContinent($idContinent)
+    {
+        $db = DbConnection::getInstance();
+        $requetListPays =  $db->prepare("SELECT * FROM recette INNER JOIN Pays ON Pays.idPays = recette.idPays WHERE idContinent = :idContinent AND idStatut=2");
+        $requetListPays->bindValue(':idContinent', $idContinent, PDO::PARAM_INT);
+        $requetListPays->execute();
+        $listPays = $requetListPays->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $listPays;
     }
 }

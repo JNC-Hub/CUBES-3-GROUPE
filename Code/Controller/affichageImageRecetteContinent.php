@@ -51,20 +51,20 @@ require_once "../model/Pays.php";
 // Créer une instance de Recette
 $recette = new Recette();
 $pays = new Pays();
+$continent = new Continent();
 
 // Vérifier si l'ID du continent est présent dans la requête
 if (isset($_GET['idContinent'])) {
     // Récupérer l'ID du continent depuis la requête
     $idContinent = $_GET['idContinent'];
 
-    // Récupérer les pays associés au continent
-    $paysDuContinent = $continent->getPaysByContinent($idContinent);
+    $recettesValidees = $recette->getRecetteByContinent($idContinent);
 
-    // Récupérer les recettes validées pour les pays du continent spécifié
-    $recettesValidees = $recette->getAllvalidateRecipeByContinent($paysDuContinent);
-} else {
-    // Récupérer toutes les recettes validées
-    $recettesValidees = $recette->getAllvalidateRecipe();
+    //     // Récupérer les recettes validées pour les pays du continent spécifié
+    //     $recettesValidees = $recette->getAllvalidateRecipeByContinent($paysDuContinent);
+    // } else {
+    //     // Récupérer toutes les recettes validées
+    //     $recettesValidees = $recette->getAllvalidateRecipe();
 }
 
 // Calculer le nombre de recettes validées
@@ -82,7 +82,7 @@ foreach ($lignesRecettesValidees as $ligne) {
 
     foreach ($ligne as $recetteValidee) {
         $idRecette = $recetteValidee['idRecette'];
-        $idPays = $recetteValidee['pays'];
+        $idPays = $recetteValidee['idPays'];
         $titreRecette = $recetteValidee['titre'];
 
         // Récupérer le nom du pays
