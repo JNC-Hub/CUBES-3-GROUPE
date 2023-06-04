@@ -8,7 +8,7 @@ use App\Db\DbConnection;
 
 require_once "Connection.php";
 
-class note
+class Note
 {
     private $idUtilisateur;
     private $note;
