@@ -61,11 +61,12 @@ if (isset($_GET['idRecette'])) {
     foreach ($ingredientsRecette as $ingredient) {
         $quantite = htmlspecialchars($ingredient->quantite);
         $idUniteMesure = $ingredient->idUniteMesure;
+        $libUniteMesure = $ingredient->libUniteMesure;
         $libIngredient = htmlspecialchars($ingredient->libIngredient);
         $yIngredient = $pdf->GetY() + 5;
         $pdf->SetXY(10, $yIngredient);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Write(10, iconv('UTF-8', 'windows-1252', htmlspecialchars($quantite) . ' ' . htmlspecialchars($uniteMesure) . ' ' . htmlspecialchars($libIngredient)));
+        $pdf->Write(10, iconv('UTF-8', 'windows-1252', htmlspecialchars($quantite) . ' ' . htmlspecialchars($libUniteMesure) . ' ' . htmlspecialchars($libIngredient)));
     }
 
     //Etapes de la recette
