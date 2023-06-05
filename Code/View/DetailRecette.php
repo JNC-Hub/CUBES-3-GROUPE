@@ -42,7 +42,7 @@
         <h2 id="title5">Liste des ingrédients :</h2>
         <?php
         foreach ($ingredients as $ingredient) : ?>
-            <p class="text-justify" id="ListI"> <?= htmlspecialchars($ingredient->libIngredient) ?></p>
+            <p class="text-justify" id="ListI"> <?= htmlspecialchars($ingredient->quantite) . ' ' . strtolower(htmlspecialchars($ingredient->libUniteMesure)) . ' ' . strtolower(htmlspecialchars($ingredient->libIngredient)) ?></p>
         <?php endforeach; ?>
 
         <a href="../Controller/pdfRecipe.php?idRecette=<?= $recette->idRecette ?>" target="_blank" class="btn btn-light">Téléchargez la recette !</a>

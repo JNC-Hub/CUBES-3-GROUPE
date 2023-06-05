@@ -61,7 +61,6 @@ if (isset($_GET['idRecette'])) {
     foreach ($ingredientsRecette as $ingredient) {
         $quantite = htmlspecialchars($ingredient->quantite);
         $idUniteMesure = $ingredient->idUniteMesure;
-        $idUniteMesure != 12 ? $uniteMesure = htmlspecialchars($ingredient->libUniteMesure) : $uniteMesure = ''; //Enlever unité de mesure si aucune
         $libIngredient = htmlspecialchars($ingredient->libIngredient);
         $yIngredient = $pdf->GetY() + 5;
         $pdf->SetXY(10, $yIngredient);
