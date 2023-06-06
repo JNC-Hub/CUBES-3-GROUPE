@@ -1,15 +1,3 @@
-<?php
-require_once '../Controller/authentification.php';
-require_once("../Model/Recette.php");
-require_once("../Model/Continent.php");
-require_once("../Model/Pays.php");
-require_once("../Model/StatutRecette.php");
-$recette = new Recette();
-if (isset($_SESSION['user'])) {
-    $idUtilisateur = $_SESSION['user']['idUtilisateur'];
-}
-$listRecipesUser = $recette->getRecipesUser(intval($idUtilisateur));
-?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -33,7 +21,7 @@ $listRecipesUser = $recette->getRecipesUser(intval($idUtilisateur));
     <div class="linkUtilisateur">
         <div><a href="../Controller/gestionProfil.php" class="btn btn-light .btn-lg">Mes informations personnelles</a>
         </div>
-        <div><a href="../View/creationRecipies.php" class="btn btn-light .btn-lg">Publier une recette</a></div>
+        <div><a href="../Controller/RecipieCreation.php" class="btn btn-light .btn-lg">Publier une recette</a></div>
         <div><a href="../Controller/logout.php" class="btn btn-light .btn-lg">Se déconnecter</a></div>
     </div>
     <div class="titleTab">
