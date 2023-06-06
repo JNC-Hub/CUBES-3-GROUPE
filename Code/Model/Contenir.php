@@ -1,6 +1,6 @@
 <?php
 
-use App\Db\DbConnection;
+// use App\Db\DbConnection;
 
 require_once "Connection.php";
 

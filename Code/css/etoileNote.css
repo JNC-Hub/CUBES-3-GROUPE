@@ -1,0 +1,17 @@
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+}
+
+.rating-star {
+    display: inline-block;
+    font-size: 30px;
+    cursor: pointer;
+    color: gray;
+}
+
+.rating-star.filled,
+.rating-star:hover {
+    color: yellow;
+}

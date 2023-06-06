@@ -1,7 +1,5 @@
 <?php
 
-use App\Db\DbConnection;
-
 require_once "Connection.php";
 
 class Recette
@@ -98,7 +96,10 @@ class Recette
     public function getRecipe($idRecette)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT * From recette WHERE idRecette = :idRecette");
+        $stmt = $db->prepare("SELECT * From recette R
+                                INNER JOIN pays P ON P.idPays = R.idPays
+                                INNER JOIN continent C ON C.idContinent = P.idContinent
+                                WHERE R.idRecette = :idRecette ");
         $stmt->bindValue(":idRecette", $idRecette);
         $stmt->execute();
         $recipe = $stmt->fetch(PDO::FETCH_OBJ);
@@ -149,6 +150,28 @@ class Recette
         return $totalvalidateRecipe;
     }
 
+    public function getRecetteByPays($idPays)
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT * FROM recette WHERE idPays = :idPays");
+        $stmt->bindParam(':idPays', $idPays);
+        $stmt->execute();
+        $recettes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $recettes;
+    }
+
+    public function getAllvalidateRecipeByContinent()
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT * FROM recette WHERE idStatut=2 AND idContinent = :idContinent ORDER BY idRecette DESC ");
+        $stmt->bindParam(':idContinent', $idContinent);
+        $stmt->execute();
+        $totalvalidateRecipeByContinent = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $totalvalidateRecipeByContinent;
+    }
+
     public function rejectRecipe($idRecette)
     {
         $db = DbConnection::getInstance();
@@ -187,5 +210,16 @@ class Recette
         $RecipesUser = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $db->close();
         return $RecipesUser;
+    }
+
+    public function getRecetteByContinent($idContinent)
+    {
+        $db = DbConnection::getInstance();
+        $requetListPays =  $db->prepare("SELECT * FROM recette INNER JOIN Pays ON Pays.idPays = recette.idPays WHERE idContinent = :idContinent AND idStatut=2");
+        $requetListPays->bindValue(':idContinent', $idContinent, PDO::PARAM_INT);
+        $requetListPays->execute();
+        $listPays = $requetListPays->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $listPays;
     }
 }

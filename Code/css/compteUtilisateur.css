@@ -3,20 +3,18 @@
     justify-content: space-evenly;
     max-width: 90%;
     margin: auto;
-    padding-top: 5%;
+    padding: 4% 0 4% 0;
 }
 
 .table-container {
+    margin: auto;
     margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 thead {
-    background-color: #555a5e;
-    color: rgb(230, 227, 224);
-}
-
-.titleTab {
-    margin-top: 30px;
+    background-color: #8f8f8f;
+    color: white;
 }
 
 /***********************************************************************

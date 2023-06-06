@@ -25,38 +25,49 @@
     </div>
 
     <a href="../Controller/login.php"><img src="../Images/avatar.png" id="imageuser"></a>
-    <h2 class="tableTitle">Liste des utilisateurs</h2>
 
-    <div class="tableUsers">
-        <table class="table table-hover">
-            <tr>
-                <th>Nom</th>
-                <th>Pr&eacute;nom</th>
-                <th>Mail</th>
-                <th>Statut du compte</th>
-                <th>Modifier statut</th>
-            </tr>
+    <div>
+        <div class="text-center">
+            <h2>Liste des utilisateurs</h2>
+            <hr class="w-25 m-auto bg-dark">
+        </div>
+    </div>
 
-            <?php
-            foreach ($utilisateurs as $utilisateur) :
-                if ($utilisateur->idRole == 2) : ?>
-            <tr>
-                <td><?= htmlspecialchars($utilisateur->nom) ?></td>
-                <td><?= htmlspecialchars($utilisateur->prenom) ?></td>
-                <td><?= htmlspecialchars($utilisateur->mail) ?></td>
-                <td><?= $utilisateur->validationProfil == 1 ? 'Actif' : 'Inactif' ?></td>
+    <div class="table-container">
 
-                <td>
-                    <form action="../Controller/updateActivationProfil.php" method="post">
-                        <input type="hidden" name="idUtilisateur" value="<?= $utilisateur->idUtilisateur ?>">
-                        <button type="submit" style="border:none; background-color:transparent"><img
-                                src="../Images/person-lock.svg"></button>
-                    </form>
-                </td>
-            </tr>
-            <?php endif;
-            endforeach; ?>
-        </table>
+        <div class="tableUsers">
+            <table class="table table-hover">
+                <thead class="table-bordered">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Pr&eacute;nom</th>
+                        <th>Mail</th>
+                        <th>Statut du compte</th>
+                        <th>Modifier statut</th>
+                    </tr>
+                </thead>
+                <?php
+                foreach ($utilisateurs as $utilisateur) :
+                    if ($utilisateur->idRole == 2) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($utilisateur->nom) ?></td>
+                    <td><?= htmlspecialchars($utilisateur->prenom) ?></td>
+                    <td><?= htmlspecialchars($utilisateur->mail) ?></td>
+                    <td><?= $utilisateur->validationProfil == 1 ? 'Actif' : 'Inactif' ?></td>
+
+                    <td>
+                        <form action="../Controller/updateActivationProfil.php" method="post">
+                            <input type="hidden" name="idUtilisateur" value="<?= $utilisateur->idUtilisateur ?>">
+                            <button type="submit" style="border:none; background-color:transparent"><img
+                                    src="../Images/person-lock.svg"></button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endif;
+                endforeach; ?>
+            </table>
+        </div>
+
     </div>
 
     <footer>

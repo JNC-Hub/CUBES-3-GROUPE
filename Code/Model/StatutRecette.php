@@ -1,7 +1,5 @@
 <?php
 
-use App\Db\DbConnection;
-
 require_once "Connection.php";
 
 class StatutRecette

@@ -21,9 +21,8 @@ if (isset($_GET['idRecette'])) {
 
     //Image de la recette
     $idRecette = $recette->idRecette;
-    $imageFileName = glob('../imageRecipe/' . $idRecette . '.*'); //Récupère le nom de fichier complet avec son extension (extensions différentes)
-    $imagePath = '../imageRecipe/' . $imageFileName[0];
-    $pdf->Image($imagePath, 150, 5, 50);
+    $imageFile = glob('../imageRecipe/' . $idRecette . '.*'); //Récupère le chemin complet vers fichier, avec son extension (extension inconnue)
+    $pdf->Image($imageFile[0], 150, 5, 50);
 
     //Titre de la recette body
     $pdf->SetXY(10, 45);
@@ -38,25 +37,36 @@ if (isset($_GET['idRecette'])) {
     $recetteHistoire = htmlspecialchars($recette->histoire);
     $pdf->MultiCell(0, 4, iconv('UTF-8', 'windows-1252', (htmlspecialchars($recetteHistoire))), 0, 'L', false);
 
+    //Pays
+    $yPays = $pdf->GetY();
+    $pdf->SetXY(10, $yPays + 2);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Write(10, iconv('UTF-8', 'windows-1252', 'Continent : ' . htmlspecialchars($recette->libContinent)));
+
+    //Pays
+    $yContinent = $pdf->GetY();
+    $pdf->SetXY(10, $yContinent + 5);
+    $pdf->SetFont('Arial', '', 12);
+    $pdf->Write(10, iconv('UTF-8', 'windows-1252', 'Pays : ' . htmlspecialchars($recette->libPays)));
+
     //Liste des ingrédients
     $yTitreIngredients = $pdf->GetY();
-    $pdf->SetXY(10, $yTitreIngredients + 5);
+    $pdf->SetXY(10, $yTitreIngredients + 10);
     $pdf->SetFont('Arial', 'U', 14);
     $pdf->Write(10, iconv('UTF-8', 'windows-1252', 'Liste des ingrédients pour ' . htmlspecialchars($recette->nbPersonnes) . ' personnes'));
     $contenirIngredients = new Contenir();
     $ingredientsRecette = $contenirIngredients->getIngredientsRecipe($idRecette);
-    $numberOfIngredients = count($ingredientsRecette);
     $yListIngredients = $pdf->GetY();
     $pdf->setY($yListIngredients + 1.5);
     foreach ($ingredientsRecette as $ingredient) {
         $quantite = htmlspecialchars($ingredient->quantite);
         $idUniteMesure = $ingredient->idUniteMesure;
-        $idUniteMesure != 12 ? $uniteMesure = htmlspecialchars($ingredient->libUniteMesure) : $uniteMesure = ''; //Enlever unité de mesure si aucune
+        $libUniteMesure = $ingredient->libUniteMesure;
         $libIngredient = htmlspecialchars($ingredient->libIngredient);
         $yIngredient = $pdf->GetY() + 5;
         $pdf->SetXY(10, $yIngredient);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Write(10, iconv('UTF-8', 'windows-1252', htmlspecialchars($quantite) . ' ' . htmlspecialchars($uniteMesure) . ' ' . htmlspecialchars($libIngredient)));
+        $pdf->Write(10, iconv('UTF-8', 'windows-1252', htmlspecialchars($quantite) . ' ' . htmlspecialchars($libUniteMesure) . ' ' . htmlspecialchars($libIngredient)));
     }
 
     //Etapes de la recette

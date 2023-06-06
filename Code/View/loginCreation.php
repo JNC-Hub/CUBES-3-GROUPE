@@ -47,7 +47,6 @@
                         <label for="password">Mot de passe *</label>
                         <input type="password" name="password" id="password" value="">
                         <i class="fa fa-eye" onclick="fafaEye()"></i>
-                        <!-- <i class="fa fa-eye" onclick="fafaEye()"></i> -->
                     </div>
                     <div>
                         <!-- <span class=infoPassword>Mot de passe de 8 caract&egrave;res minimum, dont une lettre minuscule, une lettre majuscule, un chiffre et
@@ -59,9 +58,7 @@
                     <div class="form-content">
                         <label for="password">Confirmez le mot de passe *</label>
                         <input type="password" name="passwordConfirm" id="passwordConfirm" value="">
-                        <!-- <input type="password" name="password" id="password" value=""> -->
                         <i class="fa fa-eye" onclick="fafaEye()"></i>
-                        <!-- <i class="fa fa-eye" onclick="fafaEyeConfirm()"></i> -->
                     </div>
 
                     <div class="submitLogin">

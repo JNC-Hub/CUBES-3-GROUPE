@@ -1,11 +1,3 @@
-<?php
-require_once '../Controller/authentification.php';
-require_once("../Model/Recette.php");
-require_once("../Model/Continent.php");
-require_once '../Model/Utilisateur.php';
-$recette = new Recette();
-$listRecipesAvalider = $recette->getAllRecipeStatutAValider();
-?>
 <!doctype html>
 <html lang="en">
 
@@ -28,14 +20,15 @@ $listRecipesAvalider = $recette->getAllRecipeStatutAValider();
         <div><a href="../Controller/compteAdmin.php"><img src="../Images/back-arrow.png" alt="Go back" class="imgLogin"></a></div>
     </div>
 
-    <div>
+    <div class="titleTab">
         <div class="text-center">
-            <h2>Liste des Recettes Non Validées</h2>
+            <h2>Liste des recettes non validées</h2>
             <hr class="w-25 m-auto bg-dark">
         </div>
     </div>
+
     <div class="table-container">
-        <table class="table">
+        <table class="table table-hover">
             <thead class="table-bordered">
                 <tr>
                     <th scope="col">Nom de la recette</th>
@@ -72,7 +65,13 @@ $listRecipesAvalider = $recette->getAllRecipeStatutAValider();
             </tbody>
         </table>
     </div>
+
+    <header>
+        <?php require_once 'Footer.html' ?>
+    </header>
+
 </body>
+
 <script src="../Js/gestionRecipes.js"></script>
 
 </html>

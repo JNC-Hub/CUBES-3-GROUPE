@@ -4,8 +4,6 @@
  * Classe correspondant aux unités  des mesures
  */
 
-use App\Db\DbConnection;
-
 require_once "Connection.php";
 
 class UniteMesure
