@@ -1,5 +1,6 @@
 <?php
 
+require_once "Connection.php";
 require_once 'Fpdf/fpdf.php';
 
 class PDF extends FPDF
