@@ -19,10 +19,14 @@
     <div class="contentAccueil">
 
         <div class="presentation">
-            <p>Bienvenue sur le site des <b>Voyageurs Gourmands</b>, votre guide de r&eacute;f&eacute;rence pour explorer le monde des desserts et des p&acirc;tisseries !</p>
-            <p>Passionn&eacute;s par la d&eacute;couverte de nouvelles saveurs, recettes et cultures culinaires, notre site propose &agrave; tous les gourmands de partager
-                les meilleurs desserts et p&acirc;tisseries du monde entier, de l'Am&eacute;rique du Sud &agrave; l'Asie, en passant par l'Europe et l'Afrique.</p>
-            <p>Notre communaut&eacute; de Voyageurs Gourmands partage ses recettes, ainsi qu'une histoire ou anecdote sur ces recettes, afin de satisfaire votre palais sucr&eacute; et
+            <p>Bienvenue sur le site des <b>Voyageurs Gourmands</b>, votre guide de r&eacute;f&eacute;rence pour
+                explorer le monde des desserts et des p&acirc;tisseries !</p>
+            <p>Passionn&eacute;s par la d&eacute;couverte de nouvelles saveurs, recettes et cultures culinaires, notre
+                site propose &agrave; tous les gourmands de partager
+                les meilleurs desserts et p&acirc;tisseries du monde entier, de l'Am&eacute;rique du Sud &agrave;
+                l'Asie, en passant par l'Europe et l'Afrique.</p>
+            <p>Notre communaut&eacute; de Voyageurs Gourmands partage ses recettes, ainsi qu'une histoire ou anecdote
+                sur ces recettes, afin de satisfaire votre palais sucr&eacute; et
                 votre curiosit&eacute;.</p>
             <p>Rejoignez-nous pour un voyage gourmand inoubliable !</p>
         </div>
@@ -34,7 +38,7 @@
     </div>
 
     <div class="linkAccueil">
-        <a href="../View/creationRecipies.php" class="btn btn-light .btn-lg">Toi aussi, partage ta recette !</a>
+        <a href="../Controller/RecipieCreation.php" class="btn btn-light .btn-lg">Toi aussi, partage ta recette !</a>
     </div>
 
     <footer>

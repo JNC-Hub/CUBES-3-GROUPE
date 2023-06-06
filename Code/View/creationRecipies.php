@@ -103,7 +103,10 @@ $listIngredients = $ingredients->getListIngredients();
 
                         <label for="nombrePersonne" class="form-label">
                             Pour combien de personnes cette recette est-elle adaptée ?</label>
-                        <input type="number" name="nombrePersonne" min="1" id="nombrePersonne" class="col-auto" placeholder=" Nombre de personnes" required>
+                        <<<<<<< HEAD <input type="number" name="nombrePersonne" min="1" id="nombrePersonne" class="col-auto" placeholder=" Nombre personnes" required>
+                            =======
+                            <input type="number" name="nombrePersonne" min="1" id="nombrePersonne" class="col-auto" placeholder=" Nombre de personnes" required>
+                            >>>>>>> origin
 
                     </div>
                     <div class="my-4">
@@ -172,17 +175,12 @@ $listIngredients = $ingredients->getListIngredients();
 
                     </div>
                     <div class="d-grid gap-2 col-6 mx-auto">
-                        <button type="submit" class="btn btn-success" id="submit">Envoyer votre recette</button>
+                        <button type="button" class="btn btn-success" id="submit">Envoyer votre recette</button>
                     </div>
         </form>
     </div>
 
-    <?php
-    require_once "Footer.html";
-    ?>
-
 </body>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="../Js/creationRecipe.js"></script>

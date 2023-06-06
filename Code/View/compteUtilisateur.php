@@ -20,7 +20,7 @@
     <div class="linkUtilisateur">
         <div><a href="../Controller/gestionProfil.php" class="btn btn-light .btn-lg">Mes informations personnelles</a>
         </div>
-        <div><a href="../View/creationRecipies.php" class="btn btn-light .btn-lg">Publier une recette</a></div>
+        <div><a href="../Controller/RecipieCreation.php" class="btn btn-light .btn-lg">Publier une recette</a></div>
         <div><a href="../Controller/logout.php" class="btn btn-light .btn-lg">Se déconnecter</a></div>
     </div>
 

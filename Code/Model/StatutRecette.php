@@ -5,8 +5,8 @@ require_once "Connection.php";
 class StatutRecette
 {
     #region//Propriétés
-    public int $idStatut;
-    public string $libStatut;
+    private int $idStatut;
+    private string $libStatut;
     #endregion
 
     #region//Constructeur
