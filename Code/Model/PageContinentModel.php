@@ -2,7 +2,6 @@
 /**
  * Classe correspondant aux images
  */
-use App\Db\DbConnection;
 
 require_once "../model/Connection.php";
 
@@ -19,6 +18,3 @@ class ImageModel {
       return $stmt->fetchAll();
     }
   }
-
-
-?>
