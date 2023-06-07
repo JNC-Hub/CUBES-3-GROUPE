@@ -1,9 +1,8 @@
 <?php
 
-// namespace Cubes3Recettes\Db;
-
+/*namespace Cubes3Recettes\Db;
 use PDO;
-use PDOException;
+use PDOException;*/
 
 class DbConnection extends PDO
 {

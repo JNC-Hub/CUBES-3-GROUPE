@@ -142,7 +142,7 @@ class Utilisateur
         $db->close();
     }
 
-    public function getUtilisateurLogin($mail)
+    public static function getUtilisateurLogin($mail)
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("SELECT U.idUtilisateur, U.mail, U.password, P.idRole, U.idUtilisateur, U.validationProfil

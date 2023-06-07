@@ -57,11 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($erreur == false) {
             // Hacher le mot de passe
             $newUtilisateur->password = password_hash($newUtilisateur->password, PASSWORD_DEFAULT);
-            $utilisateur = $newUtilisateur->addUtilisateur();
-            $utilisateur->addRoleUtilisateur();
+            $newUtilisateur->addUtilisateur();
+            $newUtilisateur->addRoleUtilisateur();
 
-            //Récupère les données login pour connexion active
-            $utilisateurLogin = $utilisateur->getUtilisateurLogin($newUtilisateur->mail);
+            //Récupère les données login pour connexion active en cours
+            $utilisateurLogin = Utilisateur::getUtilisateurLogin($newUtilisateur->mail);
             session_start();
             $_SESSION['user'] = $utilisateurLogin;
             $_SESSION['user_id'] = $utilisateurLogin['idUtilisateur'];
