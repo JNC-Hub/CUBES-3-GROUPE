@@ -1,8 +1,8 @@
 <?php
-require_once "../model/Connection.php";
-require_once "../model/Recette.php";
-require_once "../model/Continent.php";
-require_once "../model/Pays.php";
+require_once "../Model/Connection.php";
+require_once "../Model/Recette.php";
+require_once "../Model/Continent.php";
+require_once "../Model/Pays.php";
 require_once "../Model/Note.php";
 
 // Créer une instance de Recette
