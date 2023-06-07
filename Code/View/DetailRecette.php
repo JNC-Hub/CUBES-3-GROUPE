@@ -49,8 +49,8 @@
         </p>
         <?php endforeach; ?>
 
-        <a href="../Controller/pdfRecipe.php?idRecette=<?= $recette->idRecette ?>" target="_blank"
-            class="btn btn-light">Téléchargez la recette !</a>
+        <a href="../Controller/pdfRecipe.php?idRecette=<?= $recette->idRecette ?>" target="_blank" class="btn btn-light"
+            id="linkpdf">Téléchargez la recette !</a>
         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModel"
             id="shareBtn">
             <svg xmlns=" http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share"
