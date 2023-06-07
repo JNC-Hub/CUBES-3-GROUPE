@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newUtilisateur->addUtilisateur();
             $newUtilisateur->addRoleUtilisateur();
 
-            //Récupère les données login pour connexion active
+            //Récupère les données login pour connexion active en cours
             $utilisateurLogin = Utilisateur::getUtilisateurLogin($newUtilisateur->mail);
             session_start();
             $_SESSION['user'] = $utilisateurLogin;
