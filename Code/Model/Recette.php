@@ -222,4 +222,14 @@ class Recette
         $db->close();
         return $listPays;
     }
+
+    public function getRecettesById()
+    {
+        $db = DbConnection::getInstance();
+        $stmt = $db->prepare("SELECT * FROM recette WHERE idStatut=2 ORDER BY idRecette DESC");
+        $stmt->execute();
+        $recettes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db->close();
+        return $recettes;
+    }
 }

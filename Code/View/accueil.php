@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="../css/accueil.css">
+    <link rel="stylesheet" type="text/css" href="../css/affichageEtoile.css">
+    <link rel="stylesheet" type="text/css" href="../css/etoileNote.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Les Voyageurs Gourmands</title>
 </head>
@@ -32,7 +34,8 @@
         </div>
 
         <div class="lastRecipeAccueil">
-            <img src="#.php" alt="Image recette">
+            <?php include_once "../Controller/affichageImageRecetteUnique.php"; ?>
+            <img src="../Controller/affichageImageRecetteUnique.php" alt="Image recette">
             <h1>Titre recette</h1>
         </div>
     </div>

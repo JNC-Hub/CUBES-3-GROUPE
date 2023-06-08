@@ -3,20 +3,24 @@
   width: 22px;
 
   left: 90%;
-  top: 20%;
+  top: 22%;
 }
 
-.logo-width {
-  width: 75%;
-  max-width: 100%;
-  margin-right: auto;
+.nav-link {
+  font-size: 22px !important;
 }
 
 #logo {
   margin-top: -40px;
+  width: 70vh;
+  max-width: 100%;
 }
 
 #navbar {
   margin-top: -40px;
 
+}
+
+.fa-home {
+  color: #ef4d3e9e;
 }

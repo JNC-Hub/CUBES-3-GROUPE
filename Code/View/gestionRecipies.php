@@ -50,7 +50,7 @@
 
                 ?>
                     <tr>
-                        <td><a href='#?&idbc=' <?= $recipeAV['idRecette'] ?>><?= $recipeAV['titre'] ?></a>
+                        <td><a href="../Controller/detailRecette.php?idRecette=<?= intval($recipeAV['idRecette']) ?>"><?= $recipeAV['titre'] ?></a>
                         </td>
                         <td><?= $dateRecipe ?></td>
                         <td><?= $libContinent ?></td>
