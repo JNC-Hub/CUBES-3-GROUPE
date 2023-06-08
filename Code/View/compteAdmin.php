@@ -60,7 +60,8 @@
 
                 ?>
                 <tr>
-                    <td><a href="" <?= $vRecipe['idRecette'] ?>><?= $vRecipe['titre'] ?></a>
+                    <td><a
+                            href="../Controller/detailRecette.php?idRecette=<?= intval($vRecipe['idRecette']) ?>"><?= $vRecipe['titre'] ?></a>
                     </td>
                     <td><?= $dateRecipe ?></td>
                     <td><?= $libContinent ?></td>
