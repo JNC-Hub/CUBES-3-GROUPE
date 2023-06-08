@@ -24,5 +24,5 @@ if (isset($_GET['idRecette'])) {
     $etapes = new Etape();
     $etapes = $etapes->getEtapesRecipe($idRecette);
 
-    require_once '../View/detailRecette.php';
+    require_once '../View/DetailRecette.php';
 }

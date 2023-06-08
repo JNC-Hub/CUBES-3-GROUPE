@@ -1,20 +1,17 @@
 <?php
+require_once('authentification.php');
+require_once("../Model/Recette.php");
+require_once("../Model/Ingredient.php");
+require_once("../Model/Etape.php");
+require_once("../Model/Contenir.php");
+require_once("../Model/UniteMesure.php");
 // Header ouvre l'api à tous les sources pour y acceder (*)
 header("Access-Control-Allow-Origin: *");
 // contenu de reponse json
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: GET");
-// la durée de vie de la requete
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Methods: POST");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    require_once('authentification.php');
-    require_once("../Model/Recette.php");
-    require_once("../Model/Ingredient.php");
-    require_once("../Model/Etape.php");
-    require_once("../Model/Contenir.php");
-    require_once("../Model/UniteMesure.php");
+
     // on récupére id utulisateur pour le stocker dans table recette
     if (isset($_SESSION['user'])) {
         $idUtilisateur = $_SESSION['user']['idUtilisateur'];
@@ -41,7 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $quantite = $objectIngredient['quantite'];
         $uniteLib = $objectIngredient['unite'];
         $ingredient = $objectIngredient['ingredient'];
-        // $existIngredient = $ingredientInstance->isExistIngredient($ingredient);
+
+        $ingredient = strtolower($ingredient);
+        $ingredient = ucfirst($ingredient);
 
         $idIngredient = $ingredientInstance->insertIngredient($ingredient);
 
@@ -69,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (isset($_FILES['img_book']) && $_FILES['img_book']['error'] === UPLOAD_ERR_OK) {
+        error_log(("test"));
         // DIRECTORY_SEPARATOR selon linux / ou \
         $targetDirectory = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'imageRecipe';
         $imageType = pathinfo($_FILES['img_book']['name'], PATHINFO_EXTENSION);
@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo 'Source file exists.';
         } else {
             echo 'Source file does not exist.';
+            error_log(("Source file does not exist"));
         }
 
         // Validate the target file path
@@ -110,4 +111,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo 'Image file upload error';
     }
 }
-header('Location: ../Controller/compteUtilisateur.php');
+// header('Location: ../Controller/compteUtilisateur.php');

@@ -286,7 +286,7 @@ $(document).ready(function () {
         $('#rowEtape' + button_id_etape + '').remove();
     });
 
-    $('#submit').click(function (event) {
+    $('#submit').click(function () {
         let tableValueIngredient = [];
         let etapeTab = [];
         let titleRecetteValue = $('#titleRecette').val();

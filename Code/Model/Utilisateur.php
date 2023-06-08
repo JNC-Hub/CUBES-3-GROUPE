@@ -1,7 +1,5 @@
 <?php
 
-use App\Db\DbConnection;
-
 require_once "../Model/Connection.php";
 
 class Utilisateur
@@ -144,7 +142,7 @@ class Utilisateur
         $db->close();
     }
 
-    public function getUtilisateurLogin($mail)
+    public static function getUtilisateurLogin($mail)
     {
         $db = DbConnection::getInstance();
         $stmt = $db->prepare("SELECT U.idUtilisateur, U.mail, U.password, P.idRole, U.idUtilisateur, U.validationProfil

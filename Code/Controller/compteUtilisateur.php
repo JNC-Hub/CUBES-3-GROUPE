@@ -11,5 +11,4 @@ if (isset($_SESSION['user'])) {
     $idUtilisateur = $_SESSION['user']['idUtilisateur'];
 }
 $listRecipesUser = $recette->getRecipesUser(intval($idUtilisateur));
-
 require_once '../View/compteUtilisateur.php';

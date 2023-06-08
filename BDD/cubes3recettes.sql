@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 31 mai 2023 à 08:01
+-- Généré le : mer. 07 juin 2023 à 07:07
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS `commenter`;
 CREATE TABLE IF NOT EXISTS `commenter` (
   `idRecette` int NOT NULL,
   `idUtilisateur` int NOT NULL,
-  `commentaire` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `commentaire` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `dateCommentaire` date NOT NULL,
   PRIMARY KEY (`idRecette`,`idUtilisateur`),
   KEY `commenter_utilisateur0_FK` (`idUtilisateur`)
@@ -73,12 +73,6 @@ INSERT INTO `contenir` (`idRecette`, `idIngredient`, `idUniteMesure`, `quantite`
 (3, 110, 1, 125),
 (3, 111, 3, 25),
 (3, 112, 1, 200),
-(4, 10, 1, 85),
-(4, 64, 3, 25),
-(4, 72, 1, 250),
-(4, 109, 1, 130),
-(4, 110, 1, 125),
-(4, 112, 1, 200),
 (5, 5, 7, 2),
 (5, 10, 1, 125),
 (5, 57, 8, 1),
@@ -89,9 +83,7 @@ INSERT INTO `contenir` (`idRecette`, `idIngredient`, `idUniteMesure`, `quantite`
 (8, 10, 1, 200),
 (8, 109, 1, 400),
 (8, 110, 7, 6),
-(8, 114, 1, 500),
-(9, 10, 12, 1),
-(9, 110, 12, 2);
+(8, 114, 1, 500);
 
 -- --------------------------------------------------------
 
@@ -102,7 +94,7 @@ INSERT INTO `contenir` (`idRecette`, `idIngredient`, `idUniteMesure`, `quantite`
 DROP TABLE IF EXISTS `continent`;
 CREATE TABLE IF NOT EXISTS `continent` (
   `idContinent` int NOT NULL AUTO_INCREMENT,
-  `libContinent` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `libContinent` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`idContinent`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -131,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `etape` (
   `idRecette` int NOT NULL,
   PRIMARY KEY (`idEtape`),
   KEY `etape_recette_FK` (`idRecette`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `etape`
@@ -159,20 +151,6 @@ INSERT INTO `etape` (`idEtape`, `libEtape`, `idRecette`) VALUES
 (20, 'Ajoutez le beurre et mélangez. Laissez refroidir à température ambiante afin d’obtenir la consistance d’une pâte à tartiner.', 3),
 (21, 'Tartinez la surface de votre génoise de ganache. Roulez délicatement l’ensemble. Éliminez les extrémités.', 3),
 (22, 'Tartinez le pourtour de votre bûche de ganache puis appliquez des copeaux de chocolat.', 3),
-(23, 'Séparez les blancs des jaunes de vos 4 œufs. Monte', 4),
-(24, 'Faites fondre 35 g de beurre au micro-ondes.', 4),
-(25, 'Mettez les jaunes d’œufs avec le sucre dans la cuv', 4),
-(26, 'Ajoutez petit à petit la farine puis le beurre tou', 4),
-(27, 'Incorporez vos blancs en neige à cette pâte à l’ai', 4),
-(28, 'Versez votre pâte sur une plaque de cuisson recouv', 4),
-(29, 'Déposez votre génoise sur un torchon humide et lai', 4),
-(30, 'Cassez le chocolat en morceaux.', 4),
-(31, 'Faites fondre 50 g de beurre au micro-ondes.', 4),
-(32, 'Dans une casserole, chauffez la crème liquide. Lor', 4),
-(33, 'Versez petit à petit la crème sur le chocolat en m', 4),
-(34, 'Ajoutez le beurre et mélangez. Laissez refroidir à', 4),
-(35, 'Tartinez la surface de votre génoise de ganache. R', 4),
-(36, 'Tartinez le pourtour de votre bûche de ganache pui', 4),
 (37, '1) préchauffer le four à 180°C .', 5),
 (38, 'Préparer une feuille de papier sulfurisé.', 5),
 (39, '2) travailler le beurre, le sucre et l\'essence de vanille dans un saladier jusqu\'à obtention d\'un mélange crémeux et clair.', 5),
@@ -183,9 +161,7 @@ INSERT INTO `etape` (`idEtape`, `libEtape`, `idRecette`) VALUES
 (44, 'Mélanger la farine, le sucre et le beurre. Bien pétrir, d\'abord par morceaux.', 8),
 (45, 'Former des fines rondelles, petites ou grandes, comme vous voulez !', 8),
 (46, 'Les mettre sur une plaque de cuisson (beurrée) à 175°C (thermostat 6) jusqu\'à ce qu\'elles dorent légèrement.', 8),
-(47, 'Etaler dessus la confiture de lait, couvrir avec une autre rondelle et saupoudrer de sucre glace.', 8),
-(48, 'dghkfhl', 9),
-(49, 'gjm!hkl%§', 9);
+(47, 'Etaler dessus la confiture de lait, couvrir avec une autre rondelle et saupoudrer de sucre glace.', 8);
 
 -- --------------------------------------------------------
 
@@ -196,7 +172,7 @@ INSERT INTO `etape` (`idEtape`, `libEtape`, `idRecette`) VALUES
 DROP TABLE IF EXISTS `ingredient`;
 CREATE TABLE IF NOT EXISTS `ingredient` (
   `idIngredient` int NOT NULL AUTO_INCREMENT,
-  `libIngredient` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `libIngredient` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`idIngredient`)
 ) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -358,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `noter` (
 DROP TABLE IF EXISTS `pays`;
 CREATE TABLE IF NOT EXISTS `pays` (
   `idPays` int NOT NULL AUTO_INCREMENT,
-  `libPays` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `libPays` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `idContinent` int NOT NULL,
   PRIMARY KEY (`idPays`),
   KEY `pays_continent_FK` (`idContinent`)
@@ -589,7 +565,8 @@ CREATE TABLE IF NOT EXISTS `posseder` (
 INSERT INTO `posseder` (`idRole`, `idUtilisateur`) VALUES
 (2, 1),
 (1, 2),
-(2, 9);
+(2, 9),
+(2, 10);
 
 -- --------------------------------------------------------
 
@@ -601,9 +578,9 @@ DROP TABLE IF EXISTS `recette`;
 CREATE TABLE IF NOT EXISTS `recette` (
   `idRecette` int NOT NULL AUTO_INCREMENT,
   `dateRecette` date NOT NULL,
-  `titre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `titre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nbPersonnes` int NOT NULL,
-  `histoire` varchar(1000) COLLATE utf8mb4_general_ci NOT NULL,
+  `histoire` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `idUtilisateur` int NOT NULL,
   `idStatut` int NOT NULL,
   `idPays` int NOT NULL,
@@ -611,7 +588,7 @@ CREATE TABLE IF NOT EXISTS `recette` (
   KEY `recette_utilisateur_FK` (`idUtilisateur`),
   KEY `recette_statutRecette0_FK` (`idStatut`),
   KEY `recette_pays1_FK` (`idPays`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `recette`
@@ -620,10 +597,8 @@ CREATE TABLE IF NOT EXISTS `recette` (
 INSERT INTO `recette` (`idRecette`, `dateRecette`, `titre`, `nbPersonnes`, `histoire`, `idUtilisateur`, `idStatut`, `idPays`) VALUES
 (2, '2023-05-22', 'Tiramisu', 4, 'On raconte qu\'à la fin du XVIème siècle, la véritable recette du tiramisu a été inventée en Toscane en raison de la visite du grand-duc de Toscane Cosme III de Médicis. Ce dernier a tellement aimé ce dessert italien qu’il l’a partagé dans toutes les régions d’Italie. Au XVIIIème siècle, ce dessert i', 1, 2, 88),
 (3, '2023-05-24', 'Bûche de Noël exceptio\'nnelle', 10, 'C\'est une création personnelle', 1, 2, 64),
-(4, '2023-05-24', 'Bûche de Noël exceptio\'nnelle', 8, 'Pas d\'histoire à raconter', 1, 2, 88),
 (5, '2023-05-24', 'Biscuits à la confiture', 15, 'Biscuits for the tea time, évidemment !', 1, 2, 152),
-(8, '2023-05-30', 'Alfajores', 8, 'c\'est en 1840 que l\'alfajor se démocratise en Amérique latine : lorsqu\'un Français (oui oui), Auguste Chammas, fonde une fabrique familiale en Argentine. Il y fabrique plusieurs sucreries et va s\'inspirer de l\'alajú pour créer l\'alfajor tel que vous pouvez le trouver aujourd\'hui en Amérique latine.', 1, 1, 10),
-(9, '2023-05-31', 'Test', 2, 'qstjdghk', 1, 1, 24);
+(8, '2023-05-30', 'Alfajores', 8, 'c\'est en 1840 que l\'alfajor se démocratise en Amérique latine : lorsqu\'un Français (oui oui), Auguste Chammas, fonde une fabrique familiale en Argentine. Il y fabrique plusieurs sucreries et va s\'inspirer de l\'alajú pour créer l\'alfajor tel que vous pouvez le trouver aujourd\'hui en Amérique latine.', 1, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -634,7 +609,7 @@ INSERT INTO `recette` (`idRecette`, `dateRecette`, `titre`, `nbPersonnes`, `hist
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
   `idRole` int NOT NULL AUTO_INCREMENT,
-  `libRole` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `libRole` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`idRole`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -655,7 +630,7 @@ INSERT INTO `role` (`idRole`, `libRole`) VALUES
 DROP TABLE IF EXISTS `statutrecette`;
 CREATE TABLE IF NOT EXISTS `statutrecette` (
   `idStatut` int NOT NULL AUTO_INCREMENT,
-  `libStatut` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `libStatut` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`idStatut`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -665,7 +640,7 @@ CREATE TABLE IF NOT EXISTS `statutrecette` (
 
 INSERT INTO `statutrecette` (`idStatut`, `libStatut`) VALUES
 (1, 'Envoyé'),
-(2, 'En cours de traitement'),
+(2, 'Validé'),
 (3, 'Refusé');
 
 -- --------------------------------------------------------
@@ -677,7 +652,7 @@ INSERT INTO `statutrecette` (`idStatut`, `libStatut`) VALUES
 DROP TABLE IF EXISTS `unitemesure`;
 CREATE TABLE IF NOT EXISTS `unitemesure` (
   `idUniteMesure` int NOT NULL AUTO_INCREMENT,
-  `libUniteMesure` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `libUniteMesure` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`idUniteMesure`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -708,22 +683,23 @@ INSERT INTO `unitemesure` (`idUniteMesure`, `libUniteMesure`) VALUES
 DROP TABLE IF EXISTS `utilisateur`;
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `idUtilisateur` int NOT NULL AUTO_INCREMENT,
-  `nom` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `prenom` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `mail` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `prenom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `mail` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `validationProfil` tinyint(1) NOT NULL,
   PRIMARY KEY (`idUtilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`idUtilisateur`, `nom`, `prenom`, `mail`, `password`, `validationProfil`) VALUES
-(1, 'HOUDAILLE', 'Valérie', 'hadriva@wanadoo.fr', '$2y$10$WsSP4/tOXqwA2pma6t6g1.L4eO0ZyRPEN16IrDZHmQrM5y2PnU7vC', 1),
+(1, 'HOUDAILLE', 'Valérie', 'hadriva@wanadoo.fr', '$2y$10$fSf88T7xsFnZAXYliwCj0.oNnxOsVbZiy3CWdLCa9MktpY9qFfGwi', 1),
 (2, 'HOUDAILLE', 'Valérie', 'valerie.houdaille@viacesi.fr', '$2y$10$N2fFn/2yAqWiKhbu33Y/UeFbtkbbYzcz1xBOGkynkqUGKmNXY6gcq', 1),
-(9, 'BLUE', 'Tom', 'tom.blue@mail.fr', '$2y$10$nnRafhu3BuUSZSzJVZYPDu8ptrp2fyUIWIZ5qnG9Jrn7GMmKlXLme', 0);
+(9, 'BLUE', 'Tom', 'tom.blue@mail.fr', '$2y$10$nnRafhu3BuUSZSzJVZYPDu8ptrp2fyUIWIZ5qnG9Jrn7GMmKlXLme', 0),
+(10, 'Test', 'Test', 'test@test.fr', '$2y$10$4hOaQzOeJNXfyjcpt/7Kce4.X..tZFvpxZlSdlod6R4QhIhdQ4Q8S', 1);
 
 --
 -- Contraintes pour les tables déchargées

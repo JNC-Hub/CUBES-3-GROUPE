@@ -1,7 +1,5 @@
 <?php
 
-use App\Db\DbConnection;
-
 require_once "Connection.php";
 
 class Recette
@@ -217,7 +215,7 @@ class Recette
     public function getRecetteByContinent($idContinent)
     {
         $db = DbConnection::getInstance();
-        $requetListPays =  $db->prepare("SELECT * FROM recette INNER JOIN Pays ON Pays.idPays = recette.idPays WHERE idContinent = :idContinent AND idStatut=2");
+        $requetListPays =  $db->prepare("SELECT * FROM recette INNER JOIN pays ON pays.idpays = recette.idPays WHERE idContinent = :idContinent AND idStatut=2");
         $requetListPays->bindValue(':idContinent', $idContinent, PDO::PARAM_INT);
         $requetListPays->execute();
         $listPays = $requetListPays->fetchAll(PDO::FETCH_ASSOC);

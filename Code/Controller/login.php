@@ -22,8 +22,7 @@ if (isset($_SESSION['user'])) {
         $mail = htmlspecialchars(trim($_POST['mail']));
         $password = htmlspecialchars(trim($_POST['password']));
 
-        $utilisateur = new Utilisateur();
-        $utilisateurLogin = $utilisateur->getUtilisateurLogin($mail);
+        $utilisateurLogin = Utilisateur::getUtilisateurLogin($mail);
         //Récupère le mot de passe haché de l'utilisateur
         if ($utilisateurLogin) {
             $hashpassword = $utilisateurLogin['password'];

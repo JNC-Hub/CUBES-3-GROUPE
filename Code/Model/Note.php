@@ -4,8 +4,6 @@
  * Classe correspondant aux notes
  */
 
-use App\Db\DbConnection;
-
 require_once "Connection.php";
 
 class Note

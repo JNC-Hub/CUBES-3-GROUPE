@@ -1,20 +1,37 @@
 <?php
 
-use App\Db\DbConnection;
-
 require_once "../Model/Connection.php";
 
 class Role
 {
     #region//Propriétés
-    public int $idRole = -1;
-    public string $libRole;
+    private int $idRole = -1;
+    private string $libRole;
     #endregion
 
     #region//Constructeur
     public function __construct(string $libRole = '')
     {
         $this->libRole = $libRole;
+    }
+    #endregion
+    #region//Getters et setters
+    public function __get($pParam)
+    {
+        if (isset($this->$pParam)) {
+            return $this->$pParam;
+        } else {
+            throw new Exception("Parametre inconnu : " . $pParam);
+        }
+    }
+
+    public function __set($pParam, $pValue)
+    {
+        if (isset($pParam)) {
+            $this->$pParam = $pValue;
+        } else {
+            throw new Exception("Parametre inconnu : " . $pParam);
+        }
     }
     #endregion
 
