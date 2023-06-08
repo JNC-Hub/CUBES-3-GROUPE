@@ -26,11 +26,12 @@ if ($recetteValidee) {
 
     // Récupérer la note de la recette
     $averageNote = $note->getNoteRecette($idRecette);
-
+    $images = glob('../imageRecipe/' . $idRecette . '.*');
+    $image = $images[0];
     echo '<div class="row">';
     echo '<div class="col-md-4">';
     echo '<a href="../Controller/detailRecette.php?idRecette=' . $idRecette . '">';
-    echo '<img src="../imageRecipe/' . $idRecette . '" alt="' . $titreRecette . '" width="300" height="200" />';
+    echo '<img src="' . $image . '" alt="' . $titreRecette . '" width="300" height="200" />';
     echo '<h4>' . $titreRecette . '</h4>';
     echo '<p> ' . $nomPays . '</p>';
 
