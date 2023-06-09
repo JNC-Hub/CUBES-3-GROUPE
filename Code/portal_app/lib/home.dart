@@ -1,6 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:portal_app/loginCreation.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomePage extends StatelessWidget {
+
+  void connectUser(String email, String password) async {
+
+    var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateur.php';
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'mail': email,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print('Échec de la connexion');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +111,7 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // Action à effectuer lors de la connexion
+                  connectUser('email_saisi', 'password_saisi');
                 },
                 child: Text('Connexion'),
               ),

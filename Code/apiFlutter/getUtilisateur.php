@@ -8,8 +8,10 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require_once '../Model/Utilisateur.php';
 
-$mail = $_POST['mail'];
-$password = $_POST['password'];
+$request_body = file_get_contents('php://input');
+$data = json_decode($request_body, true);
+$mail = $data['mail'];
+$password = $data['password'];
 
 $utilisateurLogin = Utilisateur::getUtilisateurLogin($mail);
 $hashpassword = $utilisateurLogin['password'];
