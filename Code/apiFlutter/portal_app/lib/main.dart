@@ -19,8 +19,16 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Les Voyageurs Gourmands'),
-        backgroundColor: Colors.white,
+        title: Text(
+          'Les Voyageurs Gourmands',
+          style: TextStyle(
+            color: Colors.black, // Couleur du texte de la appBar
+          ),
+        ),
+        backgroundColor: Color.fromRGBO(242, 242, 242, 1.0),
+        iconTheme: IconThemeData(
+          color: Colors.black, // Couleur des icônes du bouton du Drawer
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -28,7 +36,7 @@ class LoginPage extends StatelessWidget {
             image: AssetImage('ressources/images/logoSite.png'),
             fit: BoxFit.fitWidth,
             colorFilter: ColorFilter.mode(
-              Colors.white.withOpacity(0.5),
+              Colors.white.withOpacity(0.2),
               BlendMode.dstATop,
             ),
           ),
@@ -37,6 +45,24 @@ class LoginPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(
+                'Nouveau voyageur gourmand',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20),
+              Container(
+                width: 200, // Adjust the width as needed
+                child: TextButton(
+                  onPressed: () {
+                    // Action to be performed when "Créer un compte" button is pressed
+                  },
+                  child: Text(
+                    'Créer un compte',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
               Text(
                 'Formulaire de connexion',
                 style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
@@ -47,29 +73,23 @@ class LoginPage extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 10),
-                    FractionallySizedBox(
-                      widthFactor: 0.7, // Adjust the width of the text fields
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20),
-                        child: TextField(
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                          ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
                         ),
                       ),
                     ),
                     SizedBox(height: 10),
-                    FractionallySizedBox(
-                      widthFactor: 0.7, // Adjust the width of the text fields
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20),
-                        child: TextField(
-                          textAlign: TextAlign.center,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: 'Mot de passe',
-                          ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          labelText: 'Mot de passe',
                         ),
                       ),
                     ),
@@ -92,27 +112,45 @@ class LoginPage extends StatelessWidget {
           children: [
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Color.fromRGBO(242, 242, 242, 1.0),
               ),
               child: Text(
                 'Les Voyageurs Gourmands',
-                style: TextStyle(color: Colors.white, fontSize: 24),
+                style: TextStyle(
+                  color: Colors.black, // Couleur du texte du header du drawer
+                  fontSize: 24,
+                ),
               ),
             ),
             ListTile(
-              title: Text('Connexion'),
+              title: Text(
+                'Connexion',
+                style: TextStyle(
+                  color: Colors.black, // Couleur du texte des éléments du drawer
+                ),
+              ),
               onTap: () {
                 // Action à effectuer lors du clic sur Connexion
               },
             ),
             ListTile(
-              title: Text('Affichage des données utilisateurs'),
+              title: Text(
+                'Affichage des données utilisateurs',
+                style: TextStyle(
+                  color: Colors.black, // Couleur du texte des éléments du drawer
+                ),
+              ),
               onTap: () {
                 // Action à effectuer lors du clic sur Affichage des données utilisateurs
               },
             ),
             ListTile(
-              title: Text('Déconnexion'),
+              title: Text(
+                'Déconnexion',
+                style: TextStyle(
+                  color: Colors.black, // Couleur du texte des éléments du drawer
+                ),
+              ),
               onTap: () {
                 // Action à effectuer lors du clic sur Déconnexion
               },
@@ -122,7 +160,7 @@ class LoginPage extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         height: 50,
-        color: Colors.grey,
+        color: Color.fromRGBO(242, 242, 242, 1.0),
         child: Center(
           child: Text(
             '© Droits d\'auteur',
