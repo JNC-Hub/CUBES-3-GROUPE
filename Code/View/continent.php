@@ -53,7 +53,7 @@
             }
             ?>
 
-            <p>Note: <span class="star-rating"><?php echo $starRating; ?></span></p>
+            <p>Note : <span class="star-rating"><?php echo $starRating; ?></span></p>
           </a>
         </div>
       <?php endforeach; ?>
