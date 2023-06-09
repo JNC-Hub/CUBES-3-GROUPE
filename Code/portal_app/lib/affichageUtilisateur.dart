@@ -12,7 +12,11 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => AffichageUtilisateurPage(),
-        '/profile': (context) => ProfilePage(),
+        '/profile': (context) => ProfilePage(
+          name: 'John',
+          firstName: 'Doe',
+          email: 'john.doe@example.com',
+        ),
       },
     );
   }
