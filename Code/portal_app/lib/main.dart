@@ -12,12 +12,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My App',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginCreationPage(),
-        '/home': (context) => HomePage(),
-        '/affichageUtilisateur': (context) => AffichageUtilisateurPage(),
-      },
+      //initialRoute: '/',
+     // routes: {
+        //'/': (context) => LoginCreationPage(),
+        home: HomePage(),
     );
   }
 }
