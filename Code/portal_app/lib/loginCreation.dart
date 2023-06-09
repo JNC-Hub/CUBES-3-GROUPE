@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My App',
-      home: LoginCreationPage(), // Correction : Utiliser LoginCreationPage() au lieu de LoginPage()
+      home: LoginCreationPage(),
     );
   }
 }
@@ -22,12 +22,12 @@ class LoginCreationPage extends StatelessWidget {
         title: Text(
           'Les Voyageurs Gourmands',
           style: TextStyle(
-            color: Colors.black, // Couleur du texte de la appBar
+            color: Colors.black,
           ),
         ),
         backgroundColor: Color.fromRGBO(242, 242, 242, 1.0),
         iconTheme: IconThemeData(
-          color: Colors.black, // Couleur des icônes du bouton du Drawer
+          color: Colors.black,
         ),
       ),
       body: Container(
@@ -47,7 +47,7 @@ class LoginCreationPage extends StatelessWidget {
             children: [
               SizedBox(height: 40),
               Container(
-                width: 200, // Adjust the width as needed
+                width: 200,
               ),
               SizedBox(height: 20),
               Text(
@@ -151,7 +151,7 @@ class LoginCreationPage extends StatelessWidget {
               title: Text(
                 'Connexion',
                 style: TextStyle(
-                  color: Colors.black, // Couleur du texte des éléments du drawer
+                  color: Colors.black,
                 ),
               ),
               onTap: () {
@@ -162,7 +162,7 @@ class LoginCreationPage extends StatelessWidget {
               title: Text(
                 'Affichage des données utilisateurs',
                 style: TextStyle(
-                  color: Colors.black, // Couleur du texte des éléments du drawer
+                  color: Colors.black,
                 ),
               ),
               onTap: () {
@@ -173,7 +173,7 @@ class LoginCreationPage extends StatelessWidget {
               title: Text(
                 'Déconnexion',
                 style: TextStyle(
-                  color: Colors.black, // Couleur du texte des éléments du drawer
+                  color: Colors.black,
                 ),
               ),
               onTap: () {
