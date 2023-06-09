@@ -23,7 +23,7 @@
 
     <div class="position-relative">
 
-        <h1><?= htmlspecialchars($recette->titre) ?></h1>
+        <h1 id="RecetteTitle"><?= htmlspecialchars($recette->titre) ?></h1>
 
         <img src="<?= $image ?>" id="img1">
 
@@ -39,11 +39,11 @@
             }
         }
         ?>
-
+    <div id="StarRating">
         <p>Note : <span class="star-rating"><?php echo $starRating; ?></span></p>
-
-        <p>Continent : <?= htmlspecialchars($recette->libContinent) ?> </p>
-        <p>Pays : <?= htmlspecialchars($recette->libPays) ?></p>
+    </div>
+        <p id="Continent">Continent : <?= htmlspecialchars($recette->libContinent) ?> </p>
+        <p id="Pays">Pays : <?= htmlspecialchars($recette->libPays) ?></p>
 
         <h2 id="title1">Histoire / Anecdote sur la recette :</h2>
         <p class="text-justify" id="blocktext1"><?= htmlspecialchars($recette->histoire) ?></p>
@@ -56,7 +56,7 @@
             </p>
         <?php endforeach; ?>
 
-        <h2 id="bigtitle">Préparation</h2>
+        <h2 id="titleh2">Préparation</h2>
 
         <?php
         $numeroEtape = 0;
