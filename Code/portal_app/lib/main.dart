@@ -54,7 +54,10 @@ class LoginPage extends StatelessWidget {
                 width: 200, // Adjust the width as needed
                 child: TextButton(
                   onPressed: () {
-                    // Action to be performed when "Créer un compte" button is pressed
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginCreationPage()),
+                    );
                   },
                   child: Text(
                     'Créer un compte',
@@ -169,6 +172,23 @@ class LoginPage extends StatelessWidget {
             '© Droits d\'auteur',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginCreationPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Créer un compte'),
+      ),
+      body: Center(
+        child: Text(
+          'Contenu de la page de création de compte',
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );
