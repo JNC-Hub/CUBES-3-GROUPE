@@ -40,13 +40,21 @@
         }
         ?>
 
-        <p>Note: <span class="star-rating"><?php echo $starRating; ?></span></p>
+        <p>Note : <span class="star-rating"><?php echo $starRating; ?></span></p>
 
         <p>Continent : <?= htmlspecialchars($recette->libContinent) ?> </p>
         <p>Pays : <?= htmlspecialchars($recette->libPays) ?></p>
 
         <h2 id="title1">Histoire / Anecdote sur la recette :</h2>
         <p class="text-justify" id="blocktext1"><?= htmlspecialchars($recette->histoire) ?></p>
+
+        <h2 id="title5">Liste des ingrédients :</h2>
+        <?php
+        foreach ($ingredients as $ingredient) : ?>
+            <p class="text-justify" id="ListI">
+                <?= htmlspecialchars($ingredient->quantite) . ' ' . strtolower(htmlspecialchars($ingredient->libUniteMesure)) . ' ' . strtolower(htmlspecialchars($ingredient->libIngredient)) ?>
+            </p>
+        <?php endforeach; ?>
 
         <h2 id="bigtitle">Préparation</h2>
 
@@ -55,14 +63,6 @@
         foreach ($etapes as $etape) : ?>
             <h3 id="title2">Etape <?= $numeroEtape += 1 ?> :</h3>
             <p class="text-justify" id="blocktext2"> <?= htmlspecialchars($etape->libEtape) ?></p>
-        <?php endforeach; ?>
-
-        <h2 id="title5">Liste des ingrédients :</h2>
-        <?php
-        foreach ($ingredients as $ingredient) : ?>
-            <p class="text-justify" id="ListI">
-                <?= htmlspecialchars($ingredient->quantite) . ' ' . strtolower(htmlspecialchars($ingredient->libUniteMesure)) . ' ' . strtolower(htmlspecialchars($ingredient->libIngredient)) ?>
-            </p>
         <?php endforeach; ?>
 
         <a href="../Controller/pdfRecipe.php?idRecette=<?= $recette->idRecette ?>" target="_blank" class="btn btn-light" id="linkpdf">Téléchargez la recette !</a>
