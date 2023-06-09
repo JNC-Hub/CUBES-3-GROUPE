@@ -9,12 +9,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My App',
-      home: LoginPage(),
+      home: LoginCreationPage(), // Correction : Utiliser LoginCreationPage() au lieu de LoginPage()
     );
   }
 }
 
-class LoginPage extends StatelessWidget {
+class LoginCreationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

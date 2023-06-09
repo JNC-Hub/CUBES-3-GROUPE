@@ -11,14 +11,14 @@ class MyApp extends StatelessWidget {
       title: 'My App',
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginPage(),
+        '/': (context) => AffichageUtilisateurPage(),
         '/profile': (context) => ProfilePage(),
       },
     );
   }
 }
 
-class LoginPage extends StatelessWidget {
+class AffichageUtilisateurPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
