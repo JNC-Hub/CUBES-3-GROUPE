@@ -43,65 +43,87 @@ class LoginPage extends StatelessWidget {
         ),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                'Nouveau voyageur gourmand',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
               Container(
                 width: 200, // Adjust the width as needed
-                child: TextButton(
-                  onPressed: () {
-                    // Action to be performed when "Créer un compte" button is pressed
-                  },
-                  child: Text(
-                    'Créer un compte',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
               ),
               SizedBox(height: 20),
               Text(
-                'Formulaire de connexion',
+                'Création de compte',
                 style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
               ),
               SizedBox(height: 20),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: TextField(
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                              labelText: 'Nom *',
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Mot de passe',
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: TextField(
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                              labelText: 'Prénom *',
+                            ),
+                          ),
                         ),
-                      ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: TextField(
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                              labelText: 'Email *',
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: TextField(
+                            textAlign: TextAlign.center,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: 'Mot de passe *',
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.only(left: 20, right: 20),
+                          child: TextField(
+                            textAlign: TextAlign.center,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: 'Confirmation du mot de passe *',
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Action à effectuer lors de la création de compte
+                          },
+                          child: Text('Création de compte'),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // Action à effectuer lors de la connexion
-                },
-                child: Text('Connexion'),
               ),
             ],
           ),
