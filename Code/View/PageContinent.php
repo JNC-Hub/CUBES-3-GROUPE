@@ -19,18 +19,49 @@
 </head>
 
 <body>
-  <div>
-    <?php
-    include_once "../Controller/affichageImageRecetteContinent.php";
-    ?>
-  </div>
+
+  <?php foreach ($lignesRecettesValidees as $ligne) : ?>
+    <div class="row">
+
+      <?php foreach ($ligne as $recetteValidee) :
+        $idRecette = $recetteValidee['idRecette'];
+        $idPays = $recetteValidee['idPays'];
+        $titreRecette = $recetteValidee['titre'];
+        // Récupérer le nom du pays
+        $nomPays = $pays->getLibPays($idPays);
+
+        // Récupérer la note de la recette
+        $averageNote = $note->getNoteRecette($idRecette);
+      ?>
+
+        <div class="col-md-4">
+          <a href="../Controller/detailRecette.php?idRecette=<?= $idRecette  ?>">
+            <img src="../imageRecipe/<?= $idRecette ?> " alt="<?= $titreRecette ?>" width="300" height="200" />
+            <h4><?= $titreRecette ?></h4>
+            <p><?= $nomPays ?></p>
+
+            <?php
+            $averageNote = $note->getNoteRecette($idRecette);
+            // Afficher les étoiles en fonction de la note
+            $starRating = '';
+            for ($i = 1; $i <= 5; $i++) {
+              if ($i <= round($averageNote)) {
+                $starRating .= '<i class="fas fa-star"></i>'; // Étoile pleine
+              } else {
+                $starRating .= '<i class="far fa-star"></i>'; // Étoile vide
+              }
+            }
+            ?>
+
+            <p>Note: <span class="star-rating"><?php echo $starRating; ?></span></p>
+          </a>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  <?php endforeach; ?>
 
   <footer>
-
-    <?php
-    include_once "../View/footer.html"
-    ?>
-
+    <?php include_once "../View/footer.html" ?>
   </footer>
 </body>
 
