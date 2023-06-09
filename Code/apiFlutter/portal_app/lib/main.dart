@@ -161,7 +161,6 @@ class LoginPage extends StatelessWidget {
           ],
         ),
       ),
-
       bottomNavigationBar: Container(
         height: 50,
         color: Color.fromRGBO(242, 242, 242, 1.0),
