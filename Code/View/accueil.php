@@ -43,7 +43,7 @@
         <div class="lastRecipeAccueil">
             <div class="row">
                 <div class="col-md-4">
-                    <a href="../Controller/detailRecette.php?idRecette=' . $idRecette . '">
+                    <a href="../Controller/detailRecette.php?idRecette=<?= $idRecette  ?>">
                         <img src="../imageRecipe/<?= $idRecette ?> " alt="<?= $titreRecette ?>" width="300" height="200" />
                         <h4><?= $titreRecette ?></h4>
                         <p><?= $nomPays ?></p>
