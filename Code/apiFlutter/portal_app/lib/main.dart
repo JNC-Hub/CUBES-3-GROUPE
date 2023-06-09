@@ -114,12 +114,15 @@ class LoginPage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Color.fromRGBO(242, 242, 242, 1.0),
               ),
-              child: Text(
-                'Les Voyageurs Gourmands',
-                style: TextStyle(
-                  color: Colors.black, // Couleur du texte du header du drawer
-                  fontSize: 24,
-                ),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Image.asset(
+                      'ressources/images/logoSite.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ],
               ),
             ),
             ListTile(
@@ -158,6 +161,7 @@ class LoginPage extends StatelessWidget {
           ],
         ),
       ),
+
       bottomNavigationBar: Container(
         height: 50,
         color: Color.fromRGBO(242, 242, 242, 1.0),
