@@ -10,6 +10,7 @@ require_once '../Model/Utilisateur.php';
 
 $request_body = file_get_contents('php://input');
 $data = json_decode($request_body, true);
+
 $mail = $data['mail'];
 $password = $data['password'];
 
