@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:portal_app/loginCreation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'affichageUtilisateur.dart';
 
 class HomePage extends StatelessWidget {
 
-  void connectUser(String email, String password) async {
-
+  Future<bool> connectUser(String email, String password) async {
     var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateur.php';
     var response = await http.post(
       Uri.parse(url),
@@ -19,8 +19,10 @@ class HomePage extends StatelessWidget {
 
     if (response.statusCode == 200) {
       print(response.body);
+      return true;
     } else {
       print('Échec de la connexion');
+      return false;
     }
   }
 
@@ -110,8 +112,16 @@ class HomePage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  connectUser('email_saisi', 'password_saisi');
+                onPressed: () async {
+                  bool loginSuccess = await connectUser('email_saisi', 'password_saisi');
+                  if (loginSuccess) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AffichageUtilisateurPage(),
+                      ),
+                    );
+                  }
                 },
                 child: Text('Connexion'),
               ),
