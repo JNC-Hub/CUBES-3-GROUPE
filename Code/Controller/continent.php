@@ -25,5 +25,5 @@ if (isset($_GET['idContinent'])) {
     // Diviser le tableau de recettes validées en sous-tableaux de 3 recettes par ligne
     $lignesRecettesValidees = array_chunk($recettesValidees, 3);
 
-    require_once '../View/PageContinent.php';
+    require_once '../View/continent.php';
 }
