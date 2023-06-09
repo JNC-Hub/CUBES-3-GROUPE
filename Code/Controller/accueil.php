@@ -26,30 +26,9 @@ if ($recetteValidee) {
 
     // Récupérer la note de la recette
     $averageNote = $note->getNoteRecette($idRecette);
+
     $images = glob('../imageRecipe/' . $idRecette . '.*');
     $image = $images[0];
-    // echo '<div class="row">';
-    // echo '<div class="col-md-4">';
-    // echo '<a href="../Controller/detailRecette.php?idRecette=' . $idRecette . '">';
-    // echo '<img src="' . $image . '" alt="' . $titreRecette . '" width="300" height="200" />';
-    // echo '<h4>' . $titreRecette . '</h4>';
-    // echo '<p> ' . $nomPays . '</p>';
-
-    // Afficher les étoiles en fonction de la note
-    // $starRating = '';
-    // for ($i = 1; $i <= 5; $i++) {
-    //     if ($i <= round($averageNote)) {
-    //         $starRating .= '<i class="fas fa-star"></i>'; // Étoile pleine
-    //     } else {
-    //         $starRating .= '<i class="far fa-star"></i>'; // Étoile vide
-    //     }
-    // }
-    // echo '<p>Note: <span class="star-rating">' . $starRating . '</span></p>';
-
-    // // echo '<p>Note: ' . $averageNote . '</p>';
-    // echo '</a>';
-    // echo '</div>';
-    // echo '</div>';
 } else {
     echo 'Aucune recette publiée pour le moment.';
 }

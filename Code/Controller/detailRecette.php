@@ -16,13 +16,14 @@ if (isset($_GET['idRecette'])) {
     $imageFile = glob('../imageRecipe/' . $idRecette . '.*');
     $image = $imageFile[0];
 
-    //require_once '../View/noteEtoile.php';
-
     $contenirIngredients = new Contenir();
     $ingredients = $contenirIngredients->getIngredientsRecipe($idRecette);
 
     $etapes = new Etape();
     $etapes = $etapes->getEtapesRecipe($idRecette);
+
+    $note = new Note();
+    $averageNote = $note->getNoteRecette($idRecette);
 
     require_once '../View/DetailRecette.php';
 }
