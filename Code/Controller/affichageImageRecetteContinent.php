@@ -42,26 +42,27 @@ foreach ($lignesRecettesValidees as $ligne) {
 
         // Récupérer la note de la recette
         $averageNote = $note->getNoteRecette($idRecette);
+        $roundedNote = round($averageNote, 2);
+        $images = glob('../imageRecipe/' . $idRecette . '.*');
+        $image = $images[0];
 
         echo '<div class="col-md-4">';
         echo '<a href="../Controller/detailRecette.php?idRecette=' . $idRecette . '">';
-        echo '<img src="../imageRecipe/' . $idRecette . '" alt="' . $titreRecette . '" width="300" height="200" />';
+        echo '<img src="' . $image . '"  alt="' . $titreRecette . '" width="300" height="200" />';
         echo '<h4>' . $titreRecette . '</h4>';
         echo '<p> ' . $nomPays . '</p>';
-
+        echo '</a>';
         // Afficher les étoiles en fonction de la note
-        $starRating = '';
         for ($i = 1; $i <= 5; $i++) {
-            if ($i <= round($averageNote)) {
-                $starRating .= '<i class="fas fa-star"></i>'; // Étoile pleine
+            $starClass = ($i <= $roundedNote) ? 'filled' : 'empty';
+
+            if ($i < $roundedNote + 1 && $i + 0.5 > $roundedNote) {
+                echo '<span class="star half-filled ' . $starClass . '"><i class="fas fa-star-half-alt"></i></span>';
             } else {
-                $starRating .= '<i class="far fa-star"></i>'; // Étoile vide
+                echo '<span class="star ' . $starClass . '"><i class="fas fa-star"></i></span>';
             }
         }
-        echo '<p>Note: <span class="star-rating">' . $starRating . '</span></p>';
 
-        // echo '<p>Note: ' . $averageNote . '</p>';
-        echo '</a>';
         echo '</div>';
     }
 

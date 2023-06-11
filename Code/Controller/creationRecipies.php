@@ -5,6 +5,7 @@ require_once("../Model/Ingredient.php");
 require_once("../Model/Etape.php");
 require_once("../Model/Contenir.php");
 require_once("../Model/UniteMesure.php");
+require_once("../Model/Note.php");
 // Header ouvre l'api à tous les sources pour y acceder (*)
 header("Access-Control-Allow-Origin: *");
 // contenu de reponse json
@@ -22,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $recetteInstance = new Recette();
     $relationContenir = new Contenir();
     $uniteInstance = new UniteMesure();
+    $note = new Note();
     // on décode le data (car elle est sous forme json)
 
     $recetteInstance->titre = $_POST['title'];
@@ -38,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $quantite = $objectIngredient['quantite'];
         $uniteLib = $objectIngredient['unite'];
         $ingredient = $objectIngredient['ingredient'];
-
+        //  mettre l'ingredient en maj avant le verifier et le stocker 
         $ingredient = strtolower($ingredient);
         $ingredient = ucfirst($ingredient);
 
@@ -66,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $etapeInstance->idRecette = $idRecette;
         $etapeInstance->insertEtape();
     }
+    $note->deleteNote($idRecette);
 
     if (isset($_FILES['img_book']) && $_FILES['img_book']['error'] === UPLOAD_ERR_OK) {
         error_log(("test"));

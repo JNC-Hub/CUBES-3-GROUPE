@@ -40,8 +40,6 @@ class Note
     {
         $db = DbConnection::getInstance();
 
-        $note = htmlspecialchars(strip_tags($this->libEtape));
-
         $query = "INSERT INTO noter (idRecette, idUtilisateur, note) VALUES (:idRecette, :idUtilisateur, :note)";
 
         $stmt = $db->prepare($query);
@@ -51,7 +49,6 @@ class Note
         $stmt->bindValue(":note", $this->note);
 
         $stmt->execute();
-        $idEtape = $db->lastInsertId();
 
         $db->close();
 
@@ -69,9 +66,9 @@ class Note
 
         $count = $stmt->fetchColumn();
 
-        $db = null;
+        $db->close();
 
-        return ($count > 0);
+        return $count;
     }
 
     public function getNoteRecette($idRecette)
@@ -84,23 +81,34 @@ class Note
         $stmt->execute();
 
         $averageNote = $stmt->fetchColumn();
-
-        $db = null;
+        error_log($query);
+        $db->close();
 
         return $averageNote;
     }
 
-    public function updateRating($idRecette, $idutilisateur, $note)
+    public function updateRating()
     {
         $db = DbConnection::getInstance();
 
         $query = "UPDATE noter SET note = :note WHERE idRecette = :idRecette AND idUtilisateur = :idUtilisateur";
         $stmt = $db->prepare($query);
-        $stmt->bindValue(":note", $note);
-        $stmt->bindValue(":idRecette", $idRecette);
-        $stmt->bindValue(":idUtilisateur", $idutilisateur);
+        $stmt->bindValue(":idRecette", $this->idRecette);
+        $stmt->bindValue(":idUtilisateur", $this->idUtilisateur);
+        $stmt->bindValue(":note", $this->note);
+
         $stmt->execute();
 
-        $db = null;
+        $db->close();
+    }
+    public function deleteNote($idRecette)
+    {
+        $db = DbConnection::getInstance();
+
+        $query = "DELETE FROM note WHERE idRecette = :idRecette";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(":idRecette", $idRecette);
+        $stmt->execute();
+        $db->close();
     }
 }

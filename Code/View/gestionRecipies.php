@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/gestionRecipes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <title>Les Voyageurs Gourmands</title>
 </head>
 
@@ -17,7 +18,8 @@
     </header>
 
     <div>
-        <div><a href="../Controller/compteAdmin.php"><img src="../Images/back-arrow.png" alt="Go back" class="imgLogin"></a></div>
+        <div><a href="../Controller/compteAdmin.php"><img src="../Images/back-arrow.png" alt="Go back"
+                    class="imgLogin"></a></div>
     </div>
 
     <div class="titleTab">
@@ -49,16 +51,19 @@
                     $recipeUtilisateur = $utilisateur->getUtilisateur($recipeAV['idUtilisateur']);
 
                 ?>
-                    <tr>
-                        <td><a href="../Controller/detailRecette.php?idRecette=<?= intval($recipeAV['idRecette']) ?>"><?= $recipeAV['titre'] ?></a>
-                        </td>
-                        <td><?= $dateRecipe ?></td>
-                        <td><?= $libContinent ?></td>
-                        <td><?= $recipeUtilisateur->nom . ' ' . $recipeUtilisateur->prenom  ?></td>
-                        <td <?php echo "validateRecipe='" . $recipeAV['idRecette'] . "'" ?>><button type="button" class="btn" id="validateRecipeButton">Valider</button></td>
-                        <td <?php echo "rejectRecipe='" . $recipeAV['idRecette'] . "'" ?>><button type="button" class="btn" id="RejectRecipeButton">Refuser</button></td>
+                <tr>
+                    <td><a
+                            href="../Controller/detailRecette.php?idRecette=<?= intval($recipeAV['idRecette']) ?>"><?= $recipeAV['titre'] ?></a>
+                    </td>
+                    <td><?= $dateRecipe ?></td>
+                    <td><?= $libContinent ?></td>
+                    <td><?= $recipeUtilisateur->nom . ' ' . $recipeUtilisateur->prenom  ?></td>
+                    <td <?php echo "validateRecipe='" . $recipeAV['idRecette'] . "'" ?>><button type="button"
+                            class="btn" id="validateRecipeButton">Valider</button></td>
+                    <td <?php echo "rejectRecipe='" . $recipeAV['idRecette'] . "'" ?>><button type="button" class="btn"
+                            id="RejectRecipeButton">Refuser</button></td>
 
-                    </tr>
+                </tr>
                 <?php
                 }
                 ?>
@@ -67,7 +72,7 @@
     </div>
 
     <header>
-        <?php require_once 'Footer.html' ?>
+        <?php require_once 'footer.html' ?>
     </header>
 
 </body>
