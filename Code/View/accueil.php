@@ -43,23 +43,33 @@
             <div class="row">
                 <div class="col-md-4">
                     <a href="../Controller/detailRecette.php?idRecette=<?= $idRecette  ?>">
-                        <img src="../imageRecipe/<?= $idRecette ?> " alt="<?= $titreRecette ?>" width="300" height="200" />
-                        <h4><?= $titreRecette ?></h4>
-                        <p><?= $nomPays ?></p>
                         <?php
-                        $averageNote = $note->getNoteRecette($idRecette);
-                        // Afficher les étoiles en fonction de la note
-                        $starRating = '';
-                        for ($i = 1; $i <= 5; $i++) {
-                            if ($i <= round($averageNote)) {
-                                $starRating .= '<i class="fas fa-star"></i>'; // Étoile pleine
-                            } else {
-                                $starRating .= '<i class="far fa-star"></i>'; // Étoile vide
-                            }
-                        }
+                        $images = glob('../imageRecipe/' . $idRecette . '.*');
+                        $image = $images[0];
                         ?>
+                        <div class="d-flex flex-column align-items-center">
+                            <img src="<?= $image ?>" alt="<?= $titreRecette ?>" width="300" height="200" />
+                            <h4><?= $titreRecette ?></h4>
+                            <p><?= $nomPays ?></p>
+                            <div class="d-flex justify-content-center">
+                                <?php
+                            $averageNote = $note->getNoteRecette($idRecette);
+                            $roundedNote = round($averageNote, 2);
+                            // Afficher les étoiles en fonction de la note
 
-                        <p>Note : <span class="star-rating"><?php echo $starRating; ?></span></p>
+                            for ($i = 1; $i <= 5; $i++) {
+                                $starClass = ($i <= $roundedNote) ? 'filled' : 'empty';
+
+                                if ($i < $roundedNote + 1 && $i + 0.5 > $roundedNote) {
+                                    echo '<span class="star half-filled ' . $starClass . '"><i class="fas fa-star-half-alt"></i></span>';
+                                } else {
+                                    echo '<span class="star ' . $starClass . '"><i class="fas fa-star"></i></span>';
+                                }
+                            }
+                            ?>
+
+                            </div>
+                        </div>
                 </div>
             </div>
             </a>
