@@ -1,0 +1,19 @@
+name: portal_app
+description: A new Flutter project.
+version: 1.0.0+1
+environment:
+  sdk: ">=2.15.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.3
+
+
+flutter:
+  # Configuration for Flutter-specific settings
+  assets:
+    - ressources/images/logoSite.png
+  uses-material-design: true
+
+  # Other Flutter configurations...

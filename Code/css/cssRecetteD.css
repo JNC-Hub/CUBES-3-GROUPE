@@ -1,14 +1,36 @@
-#bigtitle {
+#RecetteTitle{
+    text-align: center;
+    margin: 2%;
+}
+#titleh2{
+    float: left;
+}
+#StarRating{
     position: relative;
-    padding-left: 55%;
-    margin-bottom: 2%;
+    float:right;
+    padding-right: 30%;
+    padding-top: 2%;
+    margin: 1%;
+    padding-left: 25%;
 }
 
+#Continent{
+    position: relative;
+    float: right;
+    padding-left: 30%;
+}
+
+#Pays{
+    position: relative;
+    float:right;
+    padding-left: 30%;
+}
 #blocktext1 {
     position: relative;
-    margin-left: 35%;
-    margin-right: 5%;
+    margin-right: 2%;
+    margin: 1%;
     padding: 0.5%;
+    float: left;
     border-radius: 3%;
     border-style: ridge;
     margin-top: 1%;
@@ -18,15 +40,16 @@
 
 #title1 {
     position: relative;
-    padding-left: 35%;
-    margin-top: 1%;
+    margin: 2%;
+    margin-top: 2%;
     margin-bottom: 1%;
+    float: left;
+    
 }
 
 #blocktext2 {
     position: relative;
     text-align: left justify;
-    float: right;
     width: 60%;
     margin-right: 5%;
     padding: 0.5%;
@@ -39,7 +62,6 @@
 
 #title2 {
     position: relative;
-    padding-left: 35%;
     margin-top: 1%;
     margin-bottom: 1%;
 }
@@ -47,20 +69,17 @@
 #blocktext3 {
     position: relative;
     text-align: left justify;
-    float: right;
     width: 60%;
     padding: 0.5%;
     border-radius: 3%;
     border-style: ridge;
     margin-top: 1%;
     margin-bottom: 1%;
-    margin-right: 5%;
     background-color: rgb(242, 242, 242);
 }
 
 #title3 {
     position: relative;
-    padding-left: 35%;
     margin-top: 1%;
     margin-bottom: 1%;
 }
@@ -69,62 +88,65 @@
     position: relative;
     padding: 0.5%;
     text-align: left justify;
-    float: right;
     width: 60%;
     border-radius: 3%;
     border-style: ridge;
     margin-top: 1%;
     margin-bottom: 1%;
-    margin-right: 5%;
     background-color: rgb(242, 242, 242);
 }
 
 #title4 {
     position: relative;
-    padding-left: 35%;
     margin-top: 1%;
     margin-bottom: 1%;
 }
 
 #img1 {
-    position: absolute;
+    position: relative;
     width: 30%;
     border-style: double;
     margin: 1%;
+    margin-left: 2%;
+    
+    float: right;
+    
 }
 
 #img2 {
     position: relative;
     width: 50px;
-    margin-left: 3%;
     border-style: groove;
-
 }
 
 #ListI {
     position: relative;
-    padding: 1%;
     border-style: groove;
     width: 25%;
-    margin: 2%;
-    text-align: center justify;
+    
+    text-align: center;
     border-radius: 3%;
     background-color: rgb(242, 242, 242);
-
 }
 
 #title5 {
     position: relative;
-    margin-left: 1%;
-    left: 2%;
+    margin: 2%;
+    float: right;
 }
 
 footer {
     margin-top: 10%;
+
 }
 
 #text1 {
     text-align: center;
+
+}
+#linkpdf{
+    position: relative;
+    margin: 1%;
 
 }
 

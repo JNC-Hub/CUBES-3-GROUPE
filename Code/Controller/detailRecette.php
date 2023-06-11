@@ -16,8 +16,6 @@ if (isset($_GET['idRecette'])) {
     $imageFile = glob('../imageRecipe/' . $idRecette . '.*');
     $image = $imageFile[0];
 
-    //require_once '../View/noteEtoile.php';
-
     $contenirIngredients = new Contenir();
     $ingredients = $contenirIngredients->getIngredientsRecipe($idRecette);
 

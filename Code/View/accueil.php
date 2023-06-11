@@ -32,10 +32,37 @@
             <p>Rejoignez-nous pour un voyage gourmand inoubliable !</p>
         </div>
 
-        <div class="lastRecipeAccueil">
+        <!-- <div class="lastRecipeAccueil">
             <?php include_once "../Controller/affichageImageRecetteUnique.php"; ?>
             <img src="../Controller/affichageImageRecetteUnique.php" alt="Image recette">
             <h1>Titre recette</h1>
+        </div>
+    </div> -->
+
+        <div class="lastRecipeAccueil">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="../Controller/detailRecette.php?idRecette=<?= $idRecette  ?>">
+                        <img src="../imageRecipe/<?= $idRecette ?> " alt="<?= $titreRecette ?>" width="300" height="200" />
+                        <h4><?= $titreRecette ?></h4>
+                        <p><?= $nomPays ?></p>
+                        <?php
+                        $averageNote = $note->getNoteRecette($idRecette);
+                        // Afficher les étoiles en fonction de la note
+                        $starRating = '';
+                        for ($i = 1; $i <= 5; $i++) {
+                            if ($i <= round($averageNote)) {
+                                $starRating .= '<i class="fas fa-star"></i>'; // Étoile pleine
+                            } else {
+                                $starRating .= '<i class="far fa-star"></i>'; // Étoile vide
+                            }
+                        }
+                        ?>
+
+                        <p>Note : <span class="star-rating"><?php echo $starRating; ?></span></p>
+                </div>
+            </div>
+            </a>
         </div>
     </div>
 

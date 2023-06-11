@@ -145,7 +145,7 @@ class Utilisateur
     public static function getUtilisateurLogin($mail)
     {
         $db = DbConnection::getInstance();
-        $stmt = $db->prepare("SELECT U.idUtilisateur, U.mail, U.password, P.idRole, U.idUtilisateur, U.validationProfil
+        $stmt = $db->prepare("SELECT U.idUtilisateur, U.mail, U.password, U.nom, U.prenom, P.idRole, U.validationProfil
                                     FROM utilisateur U 
                                     INNER JOIN posseder P ON U.idUtilisateur = P.idUtilisateur 
                                     INNER JOIN role R ON R.idRole = P.idRole 
