@@ -227,3 +227,17 @@ footer {
         height: 35px;
     }
 }
+
+.rating-star.filled,
+.rating-star:hover,
+.star.filled,
+.half-filled {
+    color: #ffba00;
+    display: inline-block;
+    cursor: pointer;
+
+}
+
+#facebook {
+    width: 20px;
+}
