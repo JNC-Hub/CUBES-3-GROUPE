@@ -23,10 +23,11 @@ session_start();
     <?php
     require_once "Header.html";
     ?>
-
+    
     <div class="position-relative">
-        <h1><?= htmlspecialchars($recette->titre) ?></h1>
-        <div class="d-flex justify-content-center">
+        <h1 id="RecetteTitle"><?= htmlspecialchars($recette->titre) ?></h1>
+        <img src="<?= $image ?>" id="img1">
+        <div id="StarRating" class="d-flex justify-content-center">
             <?php
             for ($i = 1; $i <= 5; $i++) {
                 $starClass = ($i <= $roundedNote) ? 'filled' : 'empty';
@@ -39,7 +40,7 @@ session_start();
             }
             ?>
         </div>
-        <img src="<?= $image ?>" id="img1">
+        
 
         <?php
         $averageNote = $note->getNoteRecette($idRecette);
