@@ -3,11 +3,15 @@ import 'package:portal_app/loginCreation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'affichageUtilisateur.dart';
+import 'utilisateur.dart';
 
 class HomePage extends StatelessWidget {
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   Future<bool> connectUser(String email, String password) async {
-    var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateur.php';
+    var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateurLogin.php';
     var response = await http.post(
       Uri.parse(url),
       headers: {'Content-Type': 'application/json'},
@@ -90,6 +94,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: TextField(
+                        controller: emailController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -100,6 +105,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: TextField(
+                        controller: passwordController,
                         textAlign: TextAlign.center,
                         obscureText: true,
                         decoration: InputDecoration(
@@ -113,7 +119,9 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
-                  bool loginSuccess = await connectUser('email_saisi', 'password_saisi');
+                  String email = emailController.text;
+                  String password = passwordController.text;
+                  bool loginSuccess = await connectUser(emailController.text, passwordController.text);
                   if (loginSuccess) {
                     Navigator.push(
                       context,

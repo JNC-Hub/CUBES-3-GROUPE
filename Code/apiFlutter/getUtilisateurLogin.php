@@ -14,6 +14,18 @@ $data = json_decode($request_body, true);
 $mail = $data['mail'];
 $password = $data['password'];
 
+// var_dump($mail);
+// var_dump($password);
+
+echo 'Mail1: ' . $mail . '<br>';
+echo 'Password1: ' . $password . '<br>';
+
+error_log('Mail: ' . $mail, 3);
+error_log('Password: ' . $password, 3);
+
+echo 'Mail2: ' . $mail . '<br>';
+echo 'Password2: ' . $password . '<br>';
+
 $utilisateurLogin = Utilisateur::getUtilisateurLogin($mail);
 $hashpassword = $utilisateurLogin['password'];
 
