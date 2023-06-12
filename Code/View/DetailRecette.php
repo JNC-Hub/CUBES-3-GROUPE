@@ -25,7 +25,7 @@ session_start();
     ?>
     
     <div class="position-relative">
-        <h1 id="TitleRecette"><?= htmlspecialchars($recette->titre) ?></h1>
+        <h1 id="RecetteTitle"><?= htmlspecialchars($recette->titre) ?></h1>
         <img src="<?= $image ?>" id="img1">
         <div id="StarRating" class="d-flex justify-content-center">
             <?php
