@@ -11,31 +11,21 @@ require_once '../Model/Utilisateur.php';
 $request_body = file_get_contents('php://input');
 $data = json_decode($request_body, true);
 
-$mail = $data['mail'];
-$password = $data['password'];
+$utilisateurLogin = Utilisateur::getUtilisateurLogin($data['mail']);
 
-// var_dump($mail);
-// var_dump($password);
-
-echo 'Mail1: ' . $mail . '<br>';
-echo 'Password1: ' . $password . '<br>';
-
-error_log('Mail: ' . $mail, 3);
-error_log('Password: ' . $password, 3);
-
-echo 'Mail2: ' . $mail . '<br>';
-echo 'Password2: ' . $password . '<br>';
-
-$utilisateurLogin = Utilisateur::getUtilisateurLogin($mail);
 $hashpassword = $utilisateurLogin['password'];
 
-if ($utilisateurLogin && password_verify($password, $hashpassword)) {
+$idUtilisateur = $utilisateurLogin['idUtilisateur'];
+$nom = $utilisateurLogin['nom'];
+$prenom = $utilisateurLogin['prenom'];
+$mail = $utilisateurLogin['mail'];
+
+if ($utilisateurLogin && password_verify($data['password'], $hashpassword)) {
     $utilisateur_arr = array(
-        "id" => $utilisateurLogin['idUtilisateur'],
-        "nom" => htmlspecialchars($utilisateurLogin['nom']),
-        "prenom" => htmlspecialchars($utilisateurLogin['prenom']),
-        "mail" => $utilisateurLogin['mail'],
-        // "password" => $utilisateurLogin['password'],
+        "id" => $idUtilisateur,
+        "nom" => htmlspecialchars($nom),
+        "prenom" => htmlspecialchars($prenom),
+        "mail" => htmlspecialchars($mail),
     );
     http_response_code(200);
     echo json_encode($utilisateur_arr, JSON_UNESCAPED_UNICODE);
