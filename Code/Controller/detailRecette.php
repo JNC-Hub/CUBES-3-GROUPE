@@ -19,10 +19,13 @@ if (isset($_GET['idRecette'])) {
     $contenirIngredients = new Contenir();
     $ingredients = $contenirIngredients->getIngredientsRecipe($idRecette);
 
-    $etapes = new Etape();
-    $etapes = $etapes->getEtapesRecipe($idRecette);
+    $etape = new Etape();
+    $etapes = $etape->getEtapesRecipe($idRecette);
     $note = new Note();
-    $wrintig = $note->getNoteRecette($idRecette);
-    $roundedNote = round($wrintig, 2);
+    $rating = $note->getNoteRecette($idRecette);
+    if ($rating != null) {
+        $roundedNote = round($rating, 2);
+    }
+
     require_once '../View/DetailRecette.php';
 }
