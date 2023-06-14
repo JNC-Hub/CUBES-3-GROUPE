@@ -12,7 +12,10 @@
 }
 
 .lastRecipeAccueil {
+    position: relative;
     max-width: 50%;
+    padding-top: 4%;
+    margin-left: 1%;
     margin: auto;
     text-align: center;
 }
