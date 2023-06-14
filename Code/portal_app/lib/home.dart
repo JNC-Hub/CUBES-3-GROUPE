@@ -7,17 +7,17 @@ import 'utilisateur.dart';
 
 class HomePage extends StatelessWidget {
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
-  Future<bool> connectUser(String email, String password) async {
+  Future<bool> connectUser() async {
     var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateurLogin.php';
     var response = await http.post(
       Uri.parse(url),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'mail': email,
-        'password': password,
+        'mail': email.text,
+        'password': password.text,
       }),
     );
 
@@ -94,7 +94,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: TextField(
-                        controller: emailController,
+                        controller: email,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -105,7 +105,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: TextField(
-                        controller: passwordController,
+                        controller: password,
                         textAlign: TextAlign.center,
                         obscureText: true,
                         decoration: InputDecoration(
@@ -119,9 +119,7 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
-                  String email = emailController.text;
-                  String password = passwordController.text;
-                  bool loginSuccess = await connectUser(emailController.text, passwordController.text);
+                  bool loginSuccess = await connectUser();
                   if (loginSuccess) {
                     Navigator.push(
                       context,
