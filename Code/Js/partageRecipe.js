@@ -82,3 +82,58 @@ buttonSubmitMail.addEventListener("click", () => {
             window.alert("l'envoie de l'email a échoué");
         })
 });
+
+// systeme de ite pour les etoiles 
+let ratingValue = 0;
+let ratingStars = document.querySelectorAll('.rating-star');
+
+ratingStars.forEach(function (star) {
+    let afterSave = false;
+    star.addEventListener('mouseenter', function () {
+        let rating = parseInt(this.dataset.rating);
+        Array.from(this.parentElement.children).forEach(function (sibling) {
+            if (parseInt(sibling.dataset.rating) <= rating) {
+                sibling.classList.add('filled');
+            } else {
+                sibling.classList.remove('filled');
+            }
+        });
+    });
+
+    star.addEventListener('mouseleave', function () {
+        if (afterSave) {
+            afterSave = false;
+        } else {
+            ratingStars.forEach(function (star) {
+                star.classList.remove('filled');
+            });
+            Array.from(ratingStars).slice(0, ratingValue).forEach(function (star) {
+                star.classList.add('filled');
+            });
+        }
+    });
+
+    star.addEventListener('click', function () {
+        ratingValue = parseInt(this.dataset.rating);
+        Array.from(ratingStars).slice(0, ratingValue).forEach(function (star) {
+            star.classList.add('filled');
+        });
+
+        var idRecette = document.querySelector('input[name="idRecette"]').value;
+        var idUtilisateur = document.querySelector('input[name="idUtilisateur"]').value;
+
+        fetch('../Controller/attributionNoteEtoile.php', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                'ratingValue': ratingValue,
+                'idRecette': idRecette,
+                'idUtilisateur': idUtilisateur
+            })
+        })
+        afterSave = true;
+    });
+});

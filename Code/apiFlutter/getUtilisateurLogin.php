@@ -8,19 +8,24 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require_once '../Model/Utilisateur.php';
 
-$mail = $_POST['mail'];
-$password = $_POST['password'];
+$request_body = file_get_contents('php://input');
+$data = json_decode($request_body, true);
 
-$utilisateurLogin = Utilisateur::getUtilisateurLogin($mail);
+$utilisateurLogin = Utilisateur::getUtilisateurLogin($data['mail']);
+
 $hashpassword = $utilisateurLogin['password'];
 
-if ($utilisateurLogin && password_verify($password, $hashpassword)) {
+$idUtilisateur = $utilisateurLogin['idUtilisateur'];
+$nom = $utilisateurLogin['nom'];
+$prenom = $utilisateurLogin['prenom'];
+$mail = $utilisateurLogin['mail'];
+
+if ($utilisateurLogin && password_verify($data['password'], $hashpassword)) {
     $utilisateur_arr = array(
-        "id" => $utilisateurLogin['idUtilisateur'],
-        "nom" => htmlspecialchars($utilisateurLogin['nom']),
-        "prenom" => htmlspecialchars($utilisateurLogin['prenom']),
-        "mail" => $utilisateurLogin['mail'],
-        // "password" => $utilisateurLogin['password'],
+        "id" => $idUtilisateur,
+        "nom" => htmlspecialchars($nom),
+        "prenom" => htmlspecialchars($prenom),
+        "mail" => htmlspecialchars($mail),
     );
     http_response_code(200);
     echo json_encode($utilisateur_arr, JSON_UNESCAPED_UNICODE);

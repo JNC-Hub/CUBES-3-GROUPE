@@ -25,10 +25,6 @@ if ($recetteValidee) {
     $nomPays = $pays->getLibPays($idPays);
 
     // Récupérer la note de la recette
-    $averageNote = $note->getNoteRecette($idRecette);
-
-    $images = glob('../imageRecipe/' . $idRecette . '.*');
-    $image = $images[0];
 } else {
     echo 'Aucune recette publiée pour le moment.';
 }

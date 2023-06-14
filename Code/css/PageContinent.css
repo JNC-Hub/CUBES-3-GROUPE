@@ -28,3 +28,11 @@
   border: 1px solid #ccc;
   max-height: 250px;
 }
+
+.rating-star.filled,
+.rating-star:hover,
+.star.filled,
+.half-filled {
+  color: #ffba00;
+  display: inline-block;
+}

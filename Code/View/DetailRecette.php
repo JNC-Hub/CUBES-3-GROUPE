@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,12 +23,24 @@
     <?php
     require_once "Header.html";
     ?>
-
+    
     <div class="position-relative">
-
-        <h1><?= htmlspecialchars($recette->titre) ?></h1>
-
+        <h1 id="RecetteTitle"><?= htmlspecialchars($recette->titre) ?></h1>
         <img src="<?= $image ?>" id="img1">
+        <div id="StarRating" class="d-flex justify-content-center">
+            <?php
+            for ($i = 1; $i <= 5; $i++) {
+                $starClass = ($i <= $roundedNote) ? 'filled' : 'empty';
+
+                if ($i < $roundedNote + 1 && $i + 0.5 > $roundedNote) {
+                    echo '<span class="star half-filled ' . $starClass . '"><i class="fas fa-star-half-alt"></i></span>';
+                } else {
+                    echo '<span class="star ' . $starClass . '"><i class="fas fa-star"></i></span>';
+                }
+            }
+            ?>
+        </div>
+        
 
         <?php
         $averageNote = $note->getNoteRecette($idRecette);
@@ -39,11 +54,8 @@
             }
         }
         ?>
-
-        <p>Note : <span class="star-rating"><?php echo $starRating; ?></span></p>
-
-        <p>Continent : <?= htmlspecialchars($recette->libContinent) ?> </p>
-        <p>Pays : <?= htmlspecialchars($recette->libPays) ?></p>
+        <p id="Continent">Continent : <?= htmlspecialchars($recette->libContinent) ?> </p>
+        <p id="Pays">Pays : <?= htmlspecialchars($recette->libPays) ?></p>
 
         <h2 id="title1">Histoire / Anecdote sur la recette :</h2>
         <p class="text-justify" id="blocktext1"><?= htmlspecialchars($recette->histoire) ?></p>
@@ -56,7 +68,7 @@
             </p>
         <?php endforeach; ?>
 
-        <h2 id="bigtitle">Préparation</h2>
+        <h2 id="titleh2">Préparation</h2>
 
         <?php
         $numeroEtape = 0;
@@ -83,12 +95,9 @@
                     <div class="modal-body">
                         <div class="d-flex align-items-center icons">
                             <a href="#" class="fs-5 d-flex align-items-center justify-content-center" id="shareFacebook">
-                                <span class="fa fa-facebook"></span>
+                                <img src="../Images/logoFacebook.png" id="facebook">
                             </a>
-                            <!-- <a href="#" class="fs-5 d-flex align-items-center justify-content-center">
-                                <span class="fa fa-instagram"></span>
-                            </a> -->
-                            <a href="#" class="fs-5 d-flex align-items-center justify-content-center" id="shareEmail">
+                            <a href=" #" class="fs-5 d-flex align-items-center justify-content-center" id="shareEmail">
                                 <span class="fa fa-envelope"></span>
                             </a>
                             <a href="#" class="fs-5 d-flex align-items-center justify-content-center" id="shareLink">
@@ -108,8 +117,27 @@
                 </div>
             </div>
         </div>
-        <a href="../Controller/login.php" class="btn btn-light">Connectez-vous et donnez votre avis !</a>
 
+        <?php
+        if (isset($_SESSION['user'])) {
+        ?>
+            <input type="hidden" name="idRecette" value="<?= $recette->idRecette ?>">
+            <input type="hidden" name="idUtilisateur" value="<?= $_SESSION['user']['idUtilisateur'] ?>">
+            <div class="row">
+                <h4 class="rating-stars text-center mt-2 mb-4">
+
+                    <span>Notez la recette : </span>
+                    <span class="rating-star" data-rating="1">&#9733;</span>
+                    <span class="rating-star" data-rating="2">&#9733;</span>
+                    <span class="rating-star" data-rating="3">&#9733;</span>
+                    <span class="rating-star" data-rating="4">&#9733;</span>
+                    <span class="rating-star" data-rating="5">&#9733;</span>
+
+                </h4>
+            </div>
+        <?php } else { ?>
+            <a href="../Controller/login.php" class="btn btn-light">Connectez-vous et donnez votre avis !</a>
+        <?php } ?>
     </div>
 </body>
 

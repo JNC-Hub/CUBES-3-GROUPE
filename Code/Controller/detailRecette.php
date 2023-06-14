@@ -21,9 +21,8 @@ if (isset($_GET['idRecette'])) {
 
     $etapes = new Etape();
     $etapes = $etapes->getEtapesRecipe($idRecette);
-
     $note = new Note();
-    $averageNote = $note->getNoteRecette($idRecette);
-
+    $wrintig = $note->getNoteRecette($idRecette);
+    $roundedNote = round($wrintig, 2);
     require_once '../View/DetailRecette.php';
 }

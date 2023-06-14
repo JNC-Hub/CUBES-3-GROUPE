@@ -1,6 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:portal_app/loginCreation.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'affichageUtilisateur.dart';
+import 'utilisateur.dart';
 
 class HomePage extends StatelessWidget {
+
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  Future<bool> connectUser() async {
+    var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateurLogin.php';
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'mail': email.text,
+        'password': password.text,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      return true;
+    } else {
+      print('Échec de la connexion');
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +94,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: TextField(
+                        controller: email,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -75,6 +105,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: TextField(
+                        controller: password,
                         textAlign: TextAlign.center,
                         obscureText: true,
                         decoration: InputDecoration(
@@ -87,8 +118,16 @@ class HomePage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  // Action à effectuer lors de la connexion
+                onPressed: () async {
+                  bool loginSuccess = await connectUser();
+                  if (loginSuccess) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AffichageUtilisateurPage(),
+                      ),
+                    );
+                  }
                 },
                 child: Text('Connexion'),
               ),
