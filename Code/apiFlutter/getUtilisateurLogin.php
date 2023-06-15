@@ -11,20 +11,18 @@ require_once '../Model/Utilisateur.php';
 $request_body = file_get_contents('php://input');
 $data = json_decode($request_body, true);
 
-$utilisateurLogin = Utilisateur::getUtilisateurLogin($data['mail']);
+$utilisateurLogin = Utilisateur::getUtilisateurLogin(htmlspecialchars(trim($data['mail'])));
+
+$mail = htmlspecialchars(trim($data['mail']));
+$password = htmlspecialchars(trim($data['password']));
 
 $hashpassword = $utilisateurLogin['password'];
 
-$idUtilisateur = $utilisateurLogin['idUtilisateur'];
-$nom = $utilisateurLogin['nom'];
-$prenom = $utilisateurLogin['prenom'];
-$mail = $utilisateurLogin['mail'];
-
-if ($utilisateurLogin && password_verify($data['password'], $hashpassword)) {
+if ($utilisateurLogin && password_verify($password, $hashpassword)) {
     $utilisateur_arr = array(
-        "id" => $idUtilisateur,
-        "nom" => htmlspecialchars($nom),
-        "prenom" => htmlspecialchars($prenom),
+        "idUtilisateur" => $utilisateurLogin['idUtilisateur'],
+        "nom" => htmlspecialchars($utilisateurLogin['nom']),
+        "prenom" => htmlspecialchars($utilisateurLogin['prenom']),
         "mail" => htmlspecialchars($mail),
     );
     http_response_code(200);
