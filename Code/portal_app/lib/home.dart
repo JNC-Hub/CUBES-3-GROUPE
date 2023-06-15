@@ -113,6 +113,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
+
                   ],
                 ),
               ),
@@ -120,11 +121,20 @@ class HomePage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   bool loginSuccess = await connectUser();
+                  print(loginSuccess);
                   if (loginSuccess) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => AffichageUtilisateurPage(),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Identifiants invalides'),
+                        duration: Duration(seconds: 2),
+                        backgroundColor: Colors.grey,
                       ),
                     );
                   }
