@@ -5,10 +5,20 @@ import 'dart:convert';
 import 'affichageUtilisateur.dart';
 import 'utilisateur.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+class _HomePageState extends State<HomePage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  //Pour afficher/masque password
+  bool isPasswordVisible = false;
+
+  //Pour récupérer les données utilisateur de l'API
+  Map<String, dynamic>? data;
 
   Future<bool> connectUser() async {
     var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateurLogin.php';
@@ -16,12 +26,14 @@ class HomePage extends StatelessWidget {
       Uri.parse(url),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'mail': email.text,
-        'password': password.text,
+        'mail': emailController.text,
+        'password': passwordController.text,
       }),
     );
 
     if (response.statusCode == 200) {
+      // Récupération des données de l'utilisateur dans variables globales
+      data = jsonDecode(response.body);
       print(response.body);
       return true;
     } else {
@@ -94,7 +106,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: TextField(
-                        controller: email,
+                        controller: emailController,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -104,16 +116,25 @@ class HomePage extends StatelessWidget {
                     SizedBox(height: 10),
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20),
-                      child: TextField(
-                        controller: password,
+                      child: TextFormField(
+                        controller: passwordController,
                         textAlign: TextAlign.center,
-                        obscureText: true,
+                        obscureText: !isPasswordVisible,
                         decoration: InputDecoration(
                           labelText: 'Mot de passe',
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isPasswordVisible = !isPasswordVisible;
+                              });
+                            },
+                            child: Icon(
+                              isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -126,7 +147,14 @@ class HomePage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AffichageUtilisateurPage(),
+                        builder: (context) => AffichageUtilisateurPage(
+                          utilisateur: Utilisateur(
+                            idUtilisateur: data?['idUtilisateur'],
+                            nom: data?['nom'],
+                            prenom: data?['prenom'],
+                            mail: data?['mail'],
+                          ),
+                        ),
                       ),
                     );
                   } else {
@@ -171,7 +199,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                // Action à effectuer lors du clic sur Connexion
+                Navigator.pushNamed(context, '/connexion');
               },
             ),
             ListTile(
@@ -376,8 +404,8 @@ class LoginCreationPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                // Action à effectuer lors du clic sur Déconnexion
-              },
+                //Retour vers accueil et suppression données de navigation
+                Navigator.popUntil(context, ModalRoute.withName('/'));              },
             ),
           ],
         ),

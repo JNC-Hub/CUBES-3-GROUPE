@@ -15,9 +15,10 @@ $utilisateur->prenom = htmlspecialchars(trim($data->prenom));
 $utilisateur->mail = htmlspecialchars(trim($data->mail));
 
 $password = htmlspecialchars(trim($data->password));
+$passwordConfirm = htmlspecialchars(trim($data->passwordConfirm));
 $utilisateur->password = password_hash($password, PASSWORD_DEFAULT);
 
-if ($utilisateur->isMailValid()) {
+if ($utilisateur->isMailValid() && ($password === $passwordConfirm)) {
     $utilisateur->addUtilisateur();
     $utilisateur->addRoleUtilisateur();
     $newUtilisateur = Utilisateur::getUtilisateurLogin($utilisateur->mail);
