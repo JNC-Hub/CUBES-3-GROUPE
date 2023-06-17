@@ -12,8 +12,6 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/cssRecetteD.css">
-    <link rel="stylesheet" type="text/css" href="../css/affichageEtoile.css">
-    <link rel="stylesheet" type="text/css" href="../css/etoileNote.css">
     <title>Détail Recette</title>
 
 </head>
@@ -23,37 +21,27 @@ session_start();
     <?php
     require_once "Header.html";
     ?>
-    
+
     <div class="position-relative">
         <h1 id="RecetteTitle"><?= htmlspecialchars($recette->titre) ?></h1>
         <img src="<?= $image ?>" id="img1">
         <div id="StarRating" class="d-flex justify-content-center">
             <?php
-            for ($i = 1; $i <= 5; $i++) {
-                $starClass = ($i <= $roundedNote) ? 'filled' : 'empty';
+            if (isset($roundedNote) && $roundedNote != '') {
+                for ($i = 1; $i <= 5; $i++) {
+                    $starClass = ($i <= $roundedNote) ? 'filled' : 'empty';
 
-                if ($i < $roundedNote + 1 && $i + 0.5 > $roundedNote) {
-                    echo '<span class="star half-filled ' . $starClass . '"><i class="fas fa-star-half-alt"></i></span>';
-                } else {
-                    echo '<span class="star ' . $starClass . '"><i class="fas fa-star"></i></span>';
+                    if ($i < $roundedNote + 1 && $i + 0.5 > $roundedNote) {
+                        echo '<span class="star half-filled ' . $starClass . '"><i class="fas fa-star-half-alt"></i></span>';
+                    } else {
+                        echo '<span class="star ' . $starClass . '"><i class="fas fa-star"></i></span>';
+                    }
                 }
             }
+
             ?>
         </div>
-        
 
-        <?php
-        $averageNote = $note->getNoteRecette($idRecette);
-        // Afficher les étoiles en fonction de la note
-        $starRating = '';
-        for ($i = 1; $i <= 5; $i++) {
-            if ($i <= round($averageNote)) {
-                $starRating .= '<i class="fas fa-star"></i>'; // Étoile pleine
-            } else {
-                $starRating .= '<i class="far fa-star"></i>'; // Étoile vide
-            }
-        }
-        ?>
         <p id="Continent">Continent : <?= htmlspecialchars($recette->libContinent) ?> </p>
         <p id="Pays">Pays : <?= htmlspecialchars($recette->libPays) ?></p>
 
