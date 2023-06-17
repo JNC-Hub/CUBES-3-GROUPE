@@ -48,16 +48,21 @@ class AffichageUtilisateurPage extends StatelessWidget {
                   width: 200,
                 ),
                 SizedBox(height: 20),
-                Center(
-                  child: Text(
-                    'Bienvenue ${utilisateur.prenom} ${utilisateur.nom} !',
-                    style: TextStyle(fontSize: 24),
+                Container(
+                  padding: EdgeInsets.only(bottom: 100), // Ajout du padding de 100 pixels en bas
+                  child: Column(
+                    children: [
+                      Text(
+                        'Bienvenue ${utilisateur.prenom} ${utilisateur.nom} !',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Votre email est : ${utilisateur.mail}',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  'Votre email est : ${utilisateur.mail}',
-                  style: TextStyle(fontSize: 18),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
