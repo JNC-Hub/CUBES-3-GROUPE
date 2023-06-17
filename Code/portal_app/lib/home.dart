@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  //Pour afficher/masque password
+  //Pour afficher/masquer password
   bool isPasswordVisible = false;
 
   //Pour récupérer les données utilisateur de l'API
@@ -173,60 +173,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(242, 242, 242, 1.0),
-              ),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Image.asset(
-                      'ressources/images/logoSite.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Connexion',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                Navigator.pushNamed(context, '/connexion');
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Affichage des données utilisateurs',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Affichage des données utilisateurs
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Déconnexion',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Déconnexion
-              },
-            ),
-          ],
-        ),
-      ),
       bottomNavigationBar: Container(
         height: 50,
         color: Color.fromRGBO(242, 242, 242, 1.0),
@@ -354,60 +300,6 @@ class LoginCreationPage extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(242, 242, 242, 1.0),
-              ),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Image.asset(
-                      'ressources/images/logoSite.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Connexion',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Connexion
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Affichage des données utilisateurs',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Affichage des données utilisateurs
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Déconnexion',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                //Retour vers accueil et suppression données de navigation
-                Navigator.popUntil(context, ModalRoute.withName('/'));              },
-            ),
-          ],
         ),
       ),
       bottomNavigationBar: Container(

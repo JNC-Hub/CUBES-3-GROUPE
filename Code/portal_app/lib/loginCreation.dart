@@ -19,6 +19,12 @@ class LoginCreationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text(
           'Les Voyageurs Gourmands',
           style: TextStyle(
@@ -127,60 +133,6 @@ class LoginCreationPage extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(242, 242, 242, 1.0),
-              ),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Image.asset(
-                      'ressources/images/logoSite.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Connexion',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Connexion
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Affichage des données utilisateurs',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Affichage des données utilisateurs
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Déconnexion',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Déconnexion
-              },
-            ),
-          ],
         ),
       ),
       bottomNavigationBar: Container(
