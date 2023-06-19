@@ -13,7 +13,4 @@ class Utilisateur {
     required this.mail,
   });
 
-  // Instance unique de la classe (pur variables globales)
-  //static final SessionUtilisateur instance = SessionUtilisateur._privateConstructor();
-
 }

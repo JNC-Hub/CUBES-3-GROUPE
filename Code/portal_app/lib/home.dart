@@ -22,21 +22,26 @@ class _HomePageState extends State<HomePage> {
 
   Future<bool> connectUser() async {
     var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateurLogin.php';
-    var response = await http.post(
-      Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'mail': emailController.text,
-        'password': passwordController.text,
-      }),
-    );
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'mail': emailController.text,
+          'password': passwordController.text,
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      data = jsonDecode(response.body);
-      print(response.body);
-      return true;
-    } else {
-      print('Échec de la connexion');
+      if (response.statusCode == 200) {
+          data = jsonDecode(response.body);
+          print(response.body);
+          return true;
+      } else {
+        print('Échec de la connexion');
+        return false;
+      }
+    } catch (e) {
+      print('Erreur de la connexion : $e');
       return false;
     }
   }
