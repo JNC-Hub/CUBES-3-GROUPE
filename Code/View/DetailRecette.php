@@ -28,13 +28,35 @@ session_start();
         <div id="StarRating" class="d-flex justify-content-center">
             <?php
             if (isset($roundedNote) && $roundedNote != '') {
-                for ($i = 1; $i <= 5; $i++) {
-                    $starClass = ($i <= $roundedNote) ? 'filled' : 'empty';
+                // Convertir le nombre en format décimal avec une seule décimale
+                $number = number_format($roundedNote, 1);
 
-                    if ($i < $roundedNote + 1 && $i + 0.5 > $roundedNote) {
-                        echo '<span class="star half-filled ' . $starClass . '"><i class="fas fa-star-half-alt"></i></span>';
-                    } else {
-                        echo '<span class="star ' . $starClass . '"><i class="fas fa-star"></i></span>';
+                // Obtenir la partie entière du nombre
+                $intpart = floor($roundedNote);
+
+                // Obtenir la partie décimale
+                $fraction = $number - $intpart;
+
+                // Le classement est sur 5
+                // Déterminer combien d'étoiles doivent être vides
+                $unrated = 5 - ceil($number);
+
+                // Afficher les étoiles pleines
+                if ($intpart <= 5) {
+                    for ($i = 0; $i < $intpart; $i++) {
+                        echo '<span class="star filled"><i class="fas fa-star"></i></span>';
+                    }
+                }
+
+                // Afficher l'étoile à moitié remplie, si nécessaire
+                if ($fraction == 0.5) {
+                    echo '<span class="star half-filled "><i class="fas fa-star-half-alt"></i></span>';
+                }
+
+                // Afficher les étoiles vides, si nécessaire
+                if ($unrated > 0) {
+                    for ($j = 0; $j < $unrated; $j++) {
+                        echo '<span class="star empty empty-yellow"><i class="far fa-star"></i></span>';
                     }
                 }
             }

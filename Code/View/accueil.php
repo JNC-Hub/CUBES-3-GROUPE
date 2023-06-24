@@ -53,20 +53,37 @@
                             <p><?= $nomPays ?></p>
                             <div class="d-flex justify-content-center">
                                 <?php
-                            $averageNote = $note->getNoteRecette($idRecette);
-                            $roundedNote = round($averageNote, 2);
-                            // Afficher les étoiles en fonction de la note
+                                $averageNote = $note->getNoteRecette($idRecette);
+                                $roundedNote = round($averageNote, 2);
+                                // Afficher les étoiles en fonction de la note
 
-                            for ($i = 1; $i <= 5; $i++) {
-                                $starClass = ($i <= $roundedNote) ? 'filled' : 'empty';
+                                if (isset($roundedNote) && $roundedNote != '') {
 
-                                if ($i < $roundedNote + 1 && $i + 0.5 > $roundedNote) {
-                                    echo '<span class="star half-filled ' . $starClass . '"><i class="fas fa-star-half-alt"></i></span>';
-                                } else {
-                                    echo '<span class="star ' . $starClass . '"><i class="fas fa-star"></i></span>';
+                                    $intpart = floor($roundedNote);
+
+                                    // Obtenir la partie décimale
+                                    $fraction = $roundedNote - $intpart;
+
+                                    // Le classement est sur 5
+                                    // Déterminer combien d'étoiles doivent être vides
+                                    $unrated = 5 - ceil($roundedNote);
+
+                                    // Afficher les étoiles pleines
+                                    for ($i = 0; $i < $intpart; $i++) {
+                                        echo '<span class="star filled"><i class="fas fa-star"></i></span>';
+                                    }
+
+                                    // Afficher l'étoile à moitié remplie, si nécessaire
+                                    if ($fraction > 0) {
+                                        echo '<span class="star half-filled"><i class="fas fa-star-half-alt"></i></span>';
+                                    }
+
+                                    // Afficher les étoiles vides, si nécessaire
+                                    for ($j = 0; $j < $unrated; $j++) {
+                                        echo '<span class="star empty empty-yellow"><i class="far fa-star"></i></span>';
+                                    }
                                 }
-                            }
-                            ?>
+                                ?>
 
                             </div>
                         </div>
