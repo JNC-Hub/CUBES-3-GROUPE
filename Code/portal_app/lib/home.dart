@@ -5,27 +5,43 @@ import 'dart:convert';
 import 'affichageUtilisateur.dart';
 import 'utilisateur.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<bool> connectUser(String email, String password) async {
-    var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateurLogin.php';
-    var response = await http.post(
-      Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'mail': email,
-        'password': password,
-      }),
-    );
+  //Pour afficher/masquer password
+  bool isPasswordVisible = false;
 
-    if (response.statusCode == 200) {
-      print(response.body);
-      return true;
-    } else {
-      print('Échec de la connexion');
+  //Pour récupérer les données utilisateur de l'API
+  Map<String, dynamic>? data;
+
+  Future<bool> connectUser() async {
+    var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateurLogin.php';
+    try {
+      var response = await http.post(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'mail': emailController.text,
+          'password': passwordController.text,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+          data = jsonDecode(response.body);
+          print(response.body);
+          return true;
+      } else {
+        print('Échec de la connexion');
+        return false;
+      }
+    } catch (e) {
+      print('Erreur de la connexion : $e');
       return false;
     }
   }
@@ -104,12 +120,22 @@ class HomePage extends StatelessWidget {
                     SizedBox(height: 10),
                     Padding(
                       padding: EdgeInsets.only(left: 20, right: 20),
-                      child: TextField(
+                      child: TextFormField(
                         controller: passwordController,
                         textAlign: TextAlign.center,
-                        obscureText: true,
+                        obscureText: !isPasswordVisible,
                         decoration: InputDecoration(
                           labelText: 'Mot de passe',
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isPasswordVisible = !isPasswordVisible;
+                              });
+                            },
+                            child: Icon(
+                              isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -119,14 +145,28 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
-                  String email = emailController.text;
-                  String password = passwordController.text;
-                  bool loginSuccess = await connectUser(emailController.text, passwordController.text);
+                  bool loginSuccess = await connectUser();
+                  print(loginSuccess);
                   if (loginSuccess) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AffichageUtilisateurPage(),
+                        builder: (context) => AffichageUtilisateurPage(
+                          utilisateur: Utilisateur(
+                            idUtilisateur: data?['idUtilisateur'],
+                            nom: data?['nom'],
+                            prenom: data?['prenom'],
+                            mail: data?['mail'],
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Identifiants invalides'),
+                        duration: Duration(seconds: 2),
+                        backgroundColor: Colors.grey,
                       ),
                     );
                   }
@@ -135,243 +175,6 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(242, 242, 242, 1.0),
-              ),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Image.asset(
-                      'ressources/images/logoSite.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Connexion',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Connexion
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Affichage des données utilisateurs',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Affichage des données utilisateurs
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Déconnexion',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Déconnexion
-              },
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        height: 50,
-        color: Color.fromRGBO(242, 242, 242, 1.0),
-        child: Center(
-          child: Text(
-            '© Droits d\'auteur',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class LoginCreationPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Les Voyageurs Gourmands',
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
-        backgroundColor: Color.fromRGBO(242, 242, 242, 1.0),
-        iconTheme: IconThemeData(
-          color: Colors.black,
-        ),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('ressources/images/logoSite.png'),
-            fit: BoxFit.fitWidth,
-            colorFilter: ColorFilter.mode(
-              Colors.white.withOpacity(0.2),
-              BlendMode.dstATop,
-            ),
-          ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(height: 40),
-              Container(
-                width: 200,
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Création de compte',
-                style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              labelText: 'Nom *',
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              labelText: 'Prénom *',
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              labelText: 'Email *',
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              labelText: 'Mot de passe *',
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              labelText: 'Confirmation du mot de passe *',
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: () {
-                            // Action à effectuer lors de la création de compte
-                          },
-                          child: Text('Création de compte'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(242, 242, 242, 1.0),
-              ),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Image.asset(
-                      'ressources/images/logoSite.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Connexion',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Connexion
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Affichage des données utilisateurs',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Affichage des données utilisateurs
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Déconnexion',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              onTap: () {
-                // Action à effectuer lors du clic sur Déconnexion
-              },
-            ),
-          ],
         ),
       ),
       bottomNavigationBar: Container(

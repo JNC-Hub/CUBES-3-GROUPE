@@ -1,17 +1,16 @@
 class Utilisateur {
 
-  //Propriétés
-  String? nom;
-  String? prenom;
-  String? mail;
-  String? password;
-  String? validationProfil;
+  final int idUtilisateur;
+  final String nom;
+  final String prenom;
+  final String mail;
 
-  //Constructeur
+
   Utilisateur({
-    this.nom, this.prenom, this.mail, this.password, this.validationProfil});
-
-  // Instance unique de la classe (pur variables globales)
-  //static final SessionUtilisateur instance = SessionUtilisateur._privateConstructor();
+    required this.idUtilisateur,
+    required this.nom,
+    required this.prenom,
+    required this.mail,
+  });
 
 }

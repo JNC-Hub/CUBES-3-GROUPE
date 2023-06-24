@@ -1,103 +1,90 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My App',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => AffichageUtilisateurPage(),
-        '/profile': (context) => ProfilePage(
-          name: 'John',
-          firstName: 'Doe',
-          email: 'john.doe@example.com',
-        ),
-      },
-    );
-  }
-}
+import 'utilisateur.dart';
 
 class AffichageUtilisateurPage extends StatelessWidget {
+  final Utilisateur utilisateur;
+
+  AffichageUtilisateurPage({required this.utilisateur});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text(
           'Les Voyageurs Gourmands',
           style: TextStyle(
-            color: Colors.black, // Couleur du texte de la appBar
+            color: Colors.black,
           ),
         ),
         backgroundColor: Color.fromRGBO(242, 242, 242, 1.0),
         iconTheme: IconThemeData(
-          color: Colors.black, // Couleur des icônes du bouton du Drawer
+          color: Colors.black,
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Page de connexion',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('ressources/images/logoSite.png'),
+            fit: BoxFit.fitWidth,
+            colorFilter: ColorFilter.mode(
+              Colors.white.withOpacity(0.2),
+              BlendMode.dstATop,
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/profile');
-              },
-              child: Text('Se connecter'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  final String name;
-  final String firstName;
-  final String email;
-
-  ProfilePage({required this.name, required this.firstName, required this.email});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Mon Profil',
-          style: TextStyle(
-            color: Colors.black, // Couleur du texte de la appBar
           ),
         ),
-        backgroundColor: Color.fromRGBO(242, 242, 242, 1.0),
-        iconTheme: IconThemeData(
-          color: Colors.black, // Couleur des icônes du bouton du Drawer
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 40),
+                Container(
+                  width: 200,
+                ),
+                SizedBox(height: 20),
+                Container(
+                  padding: EdgeInsets.only(bottom: 100), // Ajout du padding de 100 pixels en bas
+                  child: Column(
+                    children: [
+                      Text(
+                        'Bienvenue ${utilisateur.prenom} ${utilisateur.nom} !',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Votre email est : ${utilisateur.mail}',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // Return to the home page and remove all navigation history
+                    Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+                  },
+                  child: Text('Se déconnecter'),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Nom: $name',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              'Prénom: $firstName',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              'Email: $email',
-              style: TextStyle(fontSize: 18),
-            ),
-          ],
+      bottomNavigationBar: Container(
+        height: 50,
+        color: Color.fromRGBO(242, 242, 242, 1.0),
+        child: Center(
+          child: Text(
+            '© Droits d\'auteur',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
