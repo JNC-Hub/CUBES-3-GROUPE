@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   Map<String, dynamic>? data;
 
   Future<bool> connectUser() async {
+    // var url = 'http://localhost/Code/apiFlutter/getUtilisateurLogin.php';
     var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateurLogin.php';
     try {
       var response = await http.post(
@@ -130,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                             onTap: () {
                               setState(() {
                                 isPasswordVisible = !isPasswordVisible;
-                              });
+                                });
                             },
                             child: Icon(
                               isPasswordVisible ? Icons.visibility : Icons.visibility_off,
