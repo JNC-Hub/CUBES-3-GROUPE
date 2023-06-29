@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Autorisation pour accéder à la bibliothèque de photos</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Autorisation pour ajouter des photos à la bibliothèque de photos</string>
 </dict>
 </plist>

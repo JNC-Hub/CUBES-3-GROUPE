@@ -1,8 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 require_once '../Model/Utilisateur.php';
@@ -15,18 +13,28 @@ $utilisateur->prenom = htmlspecialchars(trim($data->prenom));
 $utilisateur->mail = htmlspecialchars(trim($data->mail));
 
 $password = htmlspecialchars(trim($data->password));
-$passwordConfirm = htmlspecialchars(trim($data->passwordConfirm));
 $utilisateur->password = password_hash($password, PASSWORD_DEFAULT);
 
-if ($utilisateur->isMailValid() && ($password === $passwordConfirm)) {
+if ($utilisateur->isMailValid()) {
     $utilisateur->addUtilisateur();
     $utilisateur->addRoleUtilisateur();
     $newUtilisateur = Utilisateur::getUtilisateurLogin($utilisateur->mail);
+
     if ($newUtilisateur) {
-        echo "Utilisateur ajouté avec succès.";
+        error_log(print_r($newUtilisateur, TRUE));
+        $utilisateur_arr = array(
+            "idUtilisateur" => $newUtilisateur['idUtilisateur'],
+            "nom" => $newUtilisateur['nom'],
+            "prenom" => $newUtilisateur['prenom'],
+            "mail" => $newUtilisateur['mail'],
+        );
+        http_response_code(200);
+        echo json_encode($utilisateur_arr, JSON_UNESCAPED_UNICODE);
     } else {
-        echo "La création de l'utilisateur a échoué.";
+        http_response_code(404);
+        echo json_encode(array('message' => 'La création de l\'utilisateur a échoué.'));
     }
 } else {
-    echo "La création de l'utilisateur a échoué.";
+    http_response_code(404);
+    echo json_encode(array('message' => 'Le mail existe déjà!'));
 }

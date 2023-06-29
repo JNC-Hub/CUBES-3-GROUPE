@@ -1,23 +1,18 @@
 <?php
-
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 require_once '../Model/Utilisateur.php';
 
 $request_body = file_get_contents('php://input');
 $data = json_decode($request_body, true);
-
 $utilisateurLogin = Utilisateur::getUtilisateurLogin(htmlspecialchars(trim($data['mail'])));
 
 $mail = htmlspecialchars(trim($data['mail']));
 $password = htmlspecialchars(trim($data['password']));
 
 $hashpassword = $utilisateurLogin['password'];
-
 if ($utilisateurLogin && password_verify($password, $hashpassword)) {
     $utilisateur_arr = array(
         "idUtilisateur" => $utilisateurLogin['idUtilisateur'],

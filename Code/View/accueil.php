@@ -54,10 +54,11 @@
                             <div class="d-flex justify-content-center">
                                 <?php
                                 $averageNote = $note->getNoteRecette($idRecette);
-                                $roundedNote = round($averageNote, 2);
+
                                 // Afficher les étoiles en fonction de la note
 
-                                if (isset($roundedNote) && $roundedNote != '') {
+                                if (isset($averageNote) && $averageNote != '') {
+                                    $roundedNote = round($averageNote, 2);
 
                                     $intpart = floor($roundedNote);
 
@@ -65,7 +66,7 @@
                                     $fraction = $roundedNote - $intpart;
 
                                     // Le classement est sur 5
-                                    // Déterminer combien d'étoiles doivent être vides
+                                    // Déterminer combien d'étoiles doivent être vides,ceil arrondit la note vers le haut au nombre entier supérieur le plus proch
                                     $unrated = 5 - ceil($roundedNote);
 
                                     // Afficher les étoiles pleines
