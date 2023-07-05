@@ -6,7 +6,6 @@ require_once '../Model/Note.php';
 
 if (isset($_GET['idRecette'])) {
 
-    //$idRecette = 3;
     $idRecette = $_GET['idRecette'];
 
     $recette = new Recette();
