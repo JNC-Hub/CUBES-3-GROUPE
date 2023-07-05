@@ -12,9 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     require_once("../Model/Recette.php");
     require_once("../Model/Contenir.php");
     require_once("../Model/Etape.php");
+    require_once("../Model/Note.php");
     $recette = new Recette();
     $contenir = new Contenir();
     $etape = new Etape();
+    $note = new Note();
     if ($donnees->mode == 'validate') {
         $recette->validateRecipe(intval($donnees->idRecette));
     }
@@ -24,6 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($donnees->mode == 'delete') {
         $etape->deleteRecipe(intval($donnees->idRecette));
         $contenir->deleteRelation(intval($donnees->idRecette));
+        $rating = $note->getNoteRecette($donnees->idRecette);
+        if ($rating != null) {
+            $note->deleteNote($donnees->idRecette);
+        }
         $recette->deleteRecipe(intval($donnees->idRecette));
     }
 }
