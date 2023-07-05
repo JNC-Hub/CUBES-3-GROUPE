@@ -8,7 +8,7 @@ class DbConnection extends PDO
     // Informations de connexion
     private const DBHOST = 'localhost';
     private const DBUSER = 'root';
-    private const DBPASS = '';
+    private const DBPASS = 'Takatoon%13';
     private const DBNAME = 'Cubes3Recettes';
 
     private function __construct()
