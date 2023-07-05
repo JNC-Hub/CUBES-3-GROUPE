@@ -45,7 +45,7 @@
                     <div class="col-md-4" id="infoImage">
                         <h4 class="custom-title "><?= ucfirst($titreRecette) ?></h4>
                         <p><strong>Pays: </strong><?= ucfirst($nomPays) ?></p>
-                        <div class="d-flex justify-content-center">
+                        <div class="justify-center">
                             <?php
                             $averageNote = $note->getNoteRecette($idRecette);
 
