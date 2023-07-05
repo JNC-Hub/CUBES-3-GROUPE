@@ -33,7 +33,6 @@ if (isset($_SESSION['user'])) {
             session_start();
             $_SESSION['user'] = $utilisateurLogin;
             $_SESSION['user_id'] = $utilisateurLogin['idUtilisateur'];
-            var_dump($_SESSION['user_id']);
             $_SESSION['user_idRole'] = $utilisateurLogin['idRole'];
             //Création cookie pour déconnexion automatique au bout 30mn d'inactivité
             setcookie('last_activity', session_id(), time() + 1800, '/', '', false, true);
