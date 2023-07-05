@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<bool> connectUser() async {
     // var url = 'http://localhost/Code/apiFlutter/getUtilisateurLogin.php';
-    var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/getUtilisateurLogin.php';
+    var url = 'https://www.lesvoyageursgourmands.online/apiFlutter/getUtilisateurLogin.php';
     try {
       var response = await http.post(
         Uri.parse(url),
