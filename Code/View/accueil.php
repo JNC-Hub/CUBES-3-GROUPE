@@ -18,8 +18,8 @@
     <div class="row" id="decoration">
         <div class="col-lg-7">
             <div id="presentation">
-                <p>Bienvenue sur le site des <b class="titreVoyageur">Voyageurs Gourmands</b></p>
-                <p>votre guide de r&eacute;f&eacute;rence pour
+                <p>Bienvenue sur le site des <b class="titreVoyageur">Voyageurs Gourmands.</b></p>
+                <p>Votre guide de r&eacute;f&eacute;rence pour
                     explorer le monde des desserts et des p&acirc;tisseries !</p>
                 <p>Passionn&eacute;s par la d&eacute;couverte de nouvelles saveurs, recettes et cultures culinaires,
                     notre
