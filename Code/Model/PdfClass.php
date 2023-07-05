@@ -16,7 +16,7 @@ class PDF extends FPDF
     public function Header()
     {
         // Logo
-        $this->Image('../Images/LogoSite.png', 5, -5, 100);
+        $this->Image('../Images/logoSite.png', 5, -5, 100);
 
         // Line break
         $this->Ln(50);

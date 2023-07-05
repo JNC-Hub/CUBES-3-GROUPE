@@ -8,7 +8,7 @@ require_once "Connection.php";
 
 class UniteMesure
 {
-    private $table = "uniteMesure";
+    private $table = "unitemesure";
     private int $idUniteMesure;
 
     private string $libUniteMesure;
