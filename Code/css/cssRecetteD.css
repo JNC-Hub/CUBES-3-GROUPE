@@ -1,148 +1,52 @@
-#RecetteTitle{
-   
-    margin: 2%;
-}
-#titleh2{
-    margin: 2%;
-    margin-left: 17%;
-}
-#StarRating{
-    position: relative;
-    padding-left: 88%;
-    margin: 1%;
+#StarRating {
+    padding-top: 15px;
 }
 
-#Continent{
-    position: relative;
-    text-align: right;
-    padding-left: 30%;
-    margin-right: 3%;
+h2 {
+    padding-top: 40px;
+
 }
 
-#Pays{
-    position: relative;
-    text-align: right;
-    margin-right: 3%;
-}
-#blocktext1 {
-    position: relative;
-    margin-right: 20%;
-    margin-left: 2%;
-    padding: 0.5%;
-    border-radius: 3%;
-    border-style: ridge;
-    margin-top: 1%;
-    margin-bottom: 3%;
-    background-color: rgb(242, 242, 242);
+#pays {
+    margin-bottom: 5%;
 }
 
-#title1 {
-    position: relative;
-    margin: 2%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    
-}
-
-#blocktext2 {
-    position: relative;
-    text-align: left justify;
-    width: 60%;
-    margin-right: 5%;
-    margin-left: 2%;
-    padding: 0.5%;
-    border-radius: 3%;
-    border-style: ridge;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    background-color: rgb(242, 242, 242);
-}
-
-#title2 {
-    position: relative;
-    margin-top: 1%;
-    margin-bottom: 2%;
-    margin-left: 2%;
-}
-
-#blocktext3 {
-    position: relative;
-    text-align: left justify;
-    width: 60%;
-    padding: 0.5%;
-    border-radius: 3%;
-    border-style: ridge;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    background-color: rgb(242, 242, 242);
-}
-
-#title3 {
-    position: relative;
-    margin-top: 1%;
-    margin-bottom: 1%;
-}
-
-#blocktext4 {
-    position: relative;
-    padding: 0.5%;
-    text-align: left justify;
-    width: 60%;
-    border-radius: 3%;
-    border-style: ridge;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    background-color: rgb(242, 242, 242);
-}
-
-#title4 {
-    position: relative;
-    margin-top: 1%;
-    margin-bottom: 1%;
+#lib {
+    font-size: 30px;
 }
 
 #img1 {
-    position: relative;
-    width: 30%;
-    border-style: double;
-    margin: 1%;
-    margin-left: 2%;
-    margin-left: 67%;
-    
+    width: 70%
 }
 
-#img2 {
-    position: relative;
-    width: 50px;
-    border-style: groove;
+.gray-box {
+    background-color: #e9e9e9;
+    padding: 10px;
+    /* Espacement intérieur */
+    border-radius: 5px;
+    margin-top: 15px;
+    border-style: ridge;
+    margin-bottom: 5%;
+    padding: 15px;
+    margin-right: 10%;
 }
 
-#ListI {
-    position: relative;
-    border-style: groove;
-    width: 25%;
-    margin-left: 17%;
-    text-align: center;
-    border-radius: 3%;
-    background-color: rgb(242, 242, 242);
-}
-
-#title5 {
-    position: relative;
-    margin: 2%;
-    margin-left: 17%;
+.gray-box1 {
+    background-color: #e9e9e9;
+    padding: 10px;
+    /* Espacement intérieur */
+    border-radius: 5px;
+    margin-top: 15px;
+    border-style: ridge;
+    margin-bottom: 5%;
+    padding: 15px;
 }
 
 footer {
-    margin-top: 10%;
-
+    margin-top: 5%;
 }
 
-#text1 {
-    text-align: center;
-
-}
-#linkpdf{
+#linkpdf {
     position: relative;
     margin: 1%;
     margin-left: 10%;
@@ -169,15 +73,6 @@ footer {
     color: #fff;
 }
 
-/* .modal-body .icons a:nth-child(2) {
-    color: #46C1F6;
-    border-color: #b6e7fc;
-}
-
-.modal-body .icons a:nth-child(2):hover {
-    background-color: #46C1F6;
-    color: #fff;
-} */
 .modal-body .icons a:nth-child(2) {
     color: #e1306c;
     border-color: #f5bccf;
