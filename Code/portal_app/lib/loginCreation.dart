@@ -268,10 +268,6 @@ class _LoginCreationPageState extends State<LoginCreationPage> {
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                               labelText: 'Nom *',
-                              suffixIcon: Text(
-                                '*',
-                                style: TextStyle(color: Colors.red),
-                              ),
                             ),
                           ),
                         ),
