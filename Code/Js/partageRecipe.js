@@ -76,10 +76,10 @@ buttonSubmitMail.addEventListener("click", () => {
             sendPDFAndEmailToAPI(pdfData, adressMail);
         })
         .then(() => {
-            window.alert("l'envoie de l'email est terminé avec succés");
+            window.alert("l'envoi de l'email est terminé avec succés");
             window.href = window.href;
         }, () => {
-            window.alert("l'envoie de l'email a échoué");
+            window.alert("l'envoi de l'email a échoué");
         })
 });
 

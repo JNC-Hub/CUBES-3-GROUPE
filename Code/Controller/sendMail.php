@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $mail->Subject = "Recette pâtissière";
         $subjectEncoded = mb_encode_mimeheader($mail->Subject, 'UTF-8', 'Q');
         $mail->Subject = $subjectEncoded;
-        $content = "Ci joint vous trouverez la recette que vous voulez partager su site les voyageurs gourmands";
+        $content = "Ci joint vous trouverez la recette que vous voulez partager depuis le site les voyageurs gourmands";
         $mail->MsgHTML($content);
 
         if (!$mail->Send()) {
