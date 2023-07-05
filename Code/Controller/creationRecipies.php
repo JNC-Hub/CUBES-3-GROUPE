@@ -68,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $etapeInstance->idRecette = $idRecette;
         $etapeInstance->insertEtape();
     }
-    $note->deleteNote($idRecette);
 
     if (isset($_FILES['img_book']) && $_FILES['img_book']['error'] === UPLOAD_ERR_OK) {
         error_log(("test"));
