@@ -3,12 +3,8 @@
 }
 
 h2 {
-    padding-top: 40px;
+    padding-top: 25px;
 
-}
-
-#pays {
-    margin-bottom: 5%;
 }
 
 #lib {
@@ -16,7 +12,7 @@ h2 {
 }
 
 #img1 {
-    width: 70%
+    width: 70%;
 }
 
 .gray-box {
@@ -26,7 +22,7 @@ h2 {
     border-radius: 5px;
     margin-top: 15px;
     border-style: ridge;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
     padding: 15px;
     margin-right: 10%;
 }
