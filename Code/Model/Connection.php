@@ -1,9 +1,5 @@
 <?php
 
-/*namespace Cubes3Recettes\Db;
-use PDO;
-use PDOException;*/
-
 class DbConnection extends PDO
 {
     // Instance unique de la classe
