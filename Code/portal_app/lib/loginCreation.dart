@@ -155,7 +155,7 @@ class _LoginCreationPageState extends State<LoginCreationPage> {
 
     // communication avec api avec un envoi des valeurs si le form is valide
     // var url = 'http://localhost/Code/apiFlutter/createLogin.php';
-    var url = 'http://localhost/cubes-3-groupe/Code/apiFlutter/createLogin.php';
+    var url = 'https://www.lesvoyageursgourmands.online/apiFlutter/createLogin.php';
     // les donnes à envoyer
     var requestBody = {
       'nom': nomController.text,
