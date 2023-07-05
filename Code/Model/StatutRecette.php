@@ -36,7 +36,7 @@ class StatutRecette
     {
         $db = DbConnection::getInstance();
 
-        $query = "SELECT libStatut FROM statutRecette WHERE idStatut = :idStatut";
+        $query = "SELECT libStatut FROM statutrecette WHERE idStatut = :idStatut";
         $stmt = $db->prepare($query);
         $stmt->bindValue(":idStatut", $idStatut);
         $stmt->execute();
