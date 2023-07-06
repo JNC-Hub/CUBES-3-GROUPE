@@ -49,7 +49,9 @@ buttonSubmitMail.addEventListener("click", () => {
     const sendPDFAndEmailToAPI = async (pdfData, adressMail) => {
         try {
             const formData = new FormData();
-            formData.append('pdf', new Blob([pdfData]), 'pdf.pdf');
+            let titreRecette = document.getElementById('titreRecette').innerText;
+
+            formData.append('pdf', new Blob([pdfData]), titreRecette + '.pdf');
             formData.append('address', adressMail);
 
             const response = await fetch('../Controller/sendMail.php', {
