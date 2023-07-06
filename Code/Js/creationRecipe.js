@@ -17,14 +17,15 @@ $(document).ready(function () {
         if (data.element.attributes['data-label'] && (idContinent === '' ||
             data.element.attributes['data-label'].value === '' ||
             idContinent === data.element.attributes['data-label'].value)) {
-            return defaultMatcher(params, data);
+                return defaultMatcher(params, data);
         } else {
             return null;
         }
     }
 
     $("#select_pays").select2({
-        matcher: matchCustom
+        matcher: matchCustom,
+
     });
     // afficher les pays qui correspondent au continent choisi 
     $('#select_contient').change(function () {
@@ -40,7 +41,9 @@ $(document).ready(function () {
             select_pays.select2({
                 placeholder: "Veuillez choisir le pays de votre recette",
                 allowClear: true,
-                minimumInputLength: 2
+                minimumInputLength: 2,
+                matcher: matchCustom,
+
             });
         }
     });
